@@ -1,0 +1,68 @@
+# NOTE: not yet run — see FUTURE.md "Docker Day" for activation checklist.
+# Local dev currently runs Postgres (Homebrew) and n8n (npx) natively.
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: anchor_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-anchor}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-anchor}
+      POSTGRES_DB: ${POSTGRES_DB:-anchor}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-anchor} -d ${POSTGRES_DB:-anchor}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: anchor_n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=${N8N_HOST:-localhost}
+      - N8N_PORT=${N8N_PORT:-5678}
+      - N8N_PROTOCOL=http
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-America/Los_Angeles}
+      # n8n's own workflow-state DB — shares the postgres instance with Anchor's
+      # application schema (separate concerns, same container for simplicity).
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB:-anchor}
+      - DB_POSTGRESDB_USER=${POSTGRES_USER:-anchor}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD:-anchor}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/workflows:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  llm-wrapper:
+    build:
+      context: ./llm
+      dockerfile: Dockerfile
+    container_name: anchor_llm_wrapper
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-qwen2.5:7b}
+      - CACHE_LLM_CALLS=${CACHE_LLM_CALLS:-true}
+      - CACHE_DIR=/data/cache
+    volumes:
+      - ./data/cache:/data/cache
+
+volumes:
+  postgres_data:
+  n8n_data:
