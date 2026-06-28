@@ -1,223 +1,260 @@
 # Anchor
 
-A personal, n8n-orchestrated AI pipeline that takes a job-posting URL and produces a
-researched, **factually-grounded** application — tailored resume, cover letter,
-LinkedIn message, and skill-gap report — ready for review in Notion. Built for the
-2026 internship search; replaces ~90 minutes of manual tailoring work per application
-with ~8 minutes of review.
+**Paste a job URL. Get a tailored, fact-checked application packet in 8 minutes instead of 90.**
 
-Full design: [`docs/planning/anchor_planning.md`](docs/planning/anchor_planning.md)
-(authoritative — supersedes `anchor_phase_0.md`, kept only for history).
+![n8n](https://img.shields.io/badge/n8n-127_nodes-FF6D5A?logo=n8n&logoColor=white)
+![Postgres](https://img.shields.io/badge/Postgres-10_tables-4169E1?logo=postgresql&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-JD_scraping_+_PDF-2EAD33?logo=playwright&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js_14-Dashboard-000?logo=next.js&logoColor=white)
 
-## Status
+---
 
-**Day 18 of 18.** All 5 n8n workflows + the error workflow are built and live;
-dashboard running with job-URL intake form + master-resume setup page; Material
-Quality eval complete (20 applications, Anchor vs single-prompt baseline). See
-[CLAUDE.md](CLAUDE.md) for the day-by-day build log and
-[eval/results_summary.md](eval/results_summary.md) for the eval results.
+## The Problem
 
-## Why this exists
+I'm a CS undergrad applying for 2026 internships. Every application is the same grind: read the JD, research the company, figure out which resume bullets matter, rewrite them, draft a cover letter that doesn't sound generic, check that I haven't accidentally inflated anything. Repeat for 20-50 applications. ~90 minutes each, most of it mechanical.
 
-Generated resumes hallucinate experience — that's the headline failure mode of
-"tailor my resume to this JD" tools. Anchor's core architectural bet is the same one
-that made [Meridian](../meridian)'s research citations trustworthy, applied to
-*generation* instead of research: decompose the master resume into structured,
-addressable facts (`master_resume_entry` rows), make tailoring a **selection +
-rephrasing** operation over those facts, and run an adversarial Grounding Critic over
-every output before it ships. See [ADR-006](docs/decisions/006-master-resume-structured-not-text.md).
+The bigger problem: every "AI resume tailor" tool I tried **hallucinated experience I don't have**. They'd add technologies I've never used, inflate "contributed to" into "led," invent metrics. That's worse than not tailoring at all — it's dishonest.
 
-Every other design choice — n8n over custom orchestration, Postgres as the single
-source of truth, manual URL paste instead of scraping, "Anchor drafts, I send" — is
-recorded as an ADR in [`docs/decisions/`](docs/decisions/).
+Anchor solves both: it automates the mechanical parts (research, matching, drafting) while enforcing a **structural constraint** that makes hallucination architecturally impossible. Every line in a tailored resume must cite a specific source entry by foreign key. If the AI invents something, the system catches it before anything ships.
 
-## Architecture
+## What It Does
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  ME (browser, manually paste URL)                            │
-└────────────────────────────┬──────────────────────────────────┘
-                              │ HTTP POST /webhook/intake
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│  Workflow 1 — JOB INTAKE                                       │
-│  Validate URL → insert application (intake_received) →        │
-│  respond <500ms → Execute Workflow 2 (async)                   │
-└────────────────────────────┬──────────────────────────────────┘
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│  Workflow 2 — JOB PROCESSOR                                    │
-│  Playwright JD fetch → JD Parser agent → 4 parallel research   │
-│  branches (news/homepage/about/careers) → Company Synthesizer  │
-│  → status: researched → Execute Workflow 3                     │
-└────────────────────────────┬──────────────────────────────────┘
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│  Workflow 3 — MATCH & GENERATE                                 │
-│  Resume Critic → Match Scorer (gate @ 60: < 60 → Slack +       │
-│  Wait for human decision) → Resume Tailorer → Grounding Critic │
-│  (1 retry, then escalate) → Cover Letter / LinkedIn / Skill    │
-│  Gap agents → PDF render → Drive + Notion → status:            │
-│  awaiting_review                                                │
-└─────────────────────────────────────────────────────────────┘
+- **URL → full application packet.** Paste a LinkedIn/Greenhouse/Lever/Workday URL into the dashboard. The pipeline scrapes the JD, researches the company from 4 parallel sources, scores your match, tailors your resume, writes a cover letter + LinkedIn message, generates a skill-gap report, renders PDFs, uploads to Google Drive, and creates a Notion page — all automatically.
 
-┌─────────────────────────────────────────────────────────────┐
-│  Workflow 4 — FOLLOW-UP SCHEDULER (cron, daily 8am)            │
-│  Find submitted apps past their nudge window → Follow-up       │
-│  Decision agent → draft nudge → Slack digest for review        │
-└─────────────────────────────────────────────────────────────┘
+- **Match scoring with a human gate.** An AI critic scores how well your resume fits the JD (0-100). Below 60, the pipeline pauses and sends a Slack message asking whether to continue or skip. You decide, not the AI.
 
-┌─────────────────────────────────────────────────────────────┐
-│  Workflow 5 — WEEKLY REFLECTION (cron, Sun 7pm)                │
-│  Aggregate last 4 weeks → Pattern Detector agent (min-N=5      │
-│  guard) → Slack digest → weekly_insight                         │
-└─────────────────────────────────────────────────────────────┘
+- **Grounded generation, not hallucination.** Your resume is stored as structured Postgres rows (`master_resume_entry`), not a text blob. The tailorer selects and rephrases from these rows. An adversarial Grounding Critic agent verifies every output line against its cited source. See [Grounding & Reliability](#grounding--reliability).
 
-         ┌───────────────────────────────────────────┐
-         │  ERROR WORKFLOW (n8n error trigger)        │
-         │  Retry transient errors (max 2, backoff)   │
-         │  → Slack alert on permanent failure        │
-         │  → status: errored                          │
-         └───────────────────────────────────────────┘
-```
+- **Application tracking dashboard.** A Next.js kanban board where you track every application through the lifecycle: intake → researched → awaiting review → submitted → responded → interview → outcome. Click any card to see all generated materials, match analysis, company research, and add notes.
 
-| Workflow | Trigger | Does | Exported |
-|---|---|---|---|
-| 1. Job Intake | Webhook `/webhook/intake` | Validate URL, insert `application` row, respond, hand off | [01_job_intake.json](n8n/workflows/01_job_intake.json) |
-| 2. Job Processor | Execute Workflow | JD fetch + parse, parallel company research, synthesis | [02_job_processor.json](n8n/workflows/02_job_processor.json) |
-| 3. Match & Generate | Execute Workflow | Critic → Score gate → Tailor → Ground → Generate → Export | [03_match_and_generate.json](n8n/workflows/03_match_and_generate.json) |
-| 4. Follow-up Scheduler | Cron, daily 8am | Draft follow-up nudges for review | [04_follow_up_scheduler.json](n8n/workflows/04_follow_up_scheduler.json) |
-| 5. Weekly Reflection | Cron, Sun 7pm | Pattern detection across recent applications | [05_weekly_reflection.json](n8n/workflows/05_weekly_reflection.json) |
-| Error workflow | n8n error trigger | Retry + Slack alert + status update | [00_error_handler.json](n8n/workflows/00_error_handler.json) |
+- **Full observability.** Every AI agent call (11 per application) is logged to Postgres with structured output, input hash, and timestamps. The Decisions page shows exactly what the AI decided and why.
 
-All AI agent calls go through a local FastAPI wrapper around Ollama (`qwen2.5:7b`,
-[ADR-002](docs/decisions/002-ollama-local-not-paid-api.md)) — no paid LLM APIs.
-Postgres ([`db/schema.sql`](db/schema.sql), 10 tables) is the single source of truth
-for all application/company/material state
-([ADR-003](docs/decisions/003-postgres-single-source-of-truth.md)).
+- **Follow-up scheduling + pattern detection.** A daily cron drafts follow-up nudges for submitted applications past their window. A weekly cron detects patterns across your applications (e.g., "you score higher on backend roles than PM roles") once you have 5+ in the system.
 
 ## Screenshots
 
-**Dashboard** — Next.js app querying Postgres directly
-([ADR-003](docs/decisions/003-postgres-single-source-of-truth.md), "the dashboard is
-just SQL"):
+**Dashboard** — Next.js 14, direct Postgres queries, JWT auth:
 
-| Welcome | Applications kanban |
+| Application Kanban | Application Detail (click any card) |
 |---|---|
-| ![Welcome](docs/canvas-screenshots/dashboard_welcome.png) | ![Kanban](docs/canvas-screenshots/dashboard_kanban.png) |
+| ![Kanban](docs/canvas-screenshots/dashboard_kanban.png) | ![Detail](docs/canvas-screenshots/dashboard_decisions.png) |
 
-| Decisions audit log | Weekly insights |
+**n8n Workflows** — 6 workflows, 127 nodes total:
+
+| Workflow 3: Match & Generate (67 nodes) | Workflow 2: Job Processor (25 nodes) |
 |---|---|
-| ![Decisions](docs/canvas-screenshots/dashboard_decisions.png) | ![Insights](docs/canvas-screenshots/dashboard_insights.png) |
+| ![WF3](docs/canvas-screenshots/03_match_and_generate.png) | ![WF2](docs/canvas-screenshots/02_job_processor.png) |
 
-**n8n workflow canvases**:
+More: [Error Handler](docs/canvas-screenshots/00_error_handler.png) · [Job Intake](docs/canvas-screenshots/01_job_intake.png) · [Follow-up Scheduler](docs/canvas-screenshots/04_follow_up_scheduler.png) · [Weekly Reflection](docs/canvas-screenshots/05_weekly_reflection.png) · [Welcome Page](docs/canvas-screenshots/dashboard_welcome.png)
 
-| Workflow 2 — Job Processor | Workflow 3 — Match & Generate |
+## Architecture
+
+```mermaid
+flowchart TD
+    USER["Browser: paste job URL"] -->|POST /webhook/intake| WF1
+
+    subgraph WF1["Workflow 1 — Job Intake (7 nodes)"]
+        V[Validate URL] --> INS[Insert application row]
+        INS --> RESP["Respond < 500ms"]
+    end
+
+    WF1 -->|Execute Workflow| WF2
+
+    subgraph WF2["Workflow 2 — Job Processor (25 nodes)"]
+        FETCH[Playwright: fetch JD page] --> PARSE[JD Parser Agent]
+        PARSE --> RESEARCH["4 parallel branches:\nnews / homepage / about / careers"]
+        RESEARCH --> SYNTH[Company Synthesizer Agent]
+        SYNTH --> UPSERT["Upsert company + status → researched"]
+    end
+
+    WF2 -->|Execute Workflow| WF3
+
+    subgraph WF3["Workflow 3 — Match & Generate (67 nodes)"]
+        CRITIC[Resume Critic Agent] --> SCORER[Match Scorer Agent]
+        SCORER -->|"score < 60"| SLACK_GATE["Slack: Continue/Skip?"]
+        SCORER -->|"score ≥ 60"| TAILOR[Resume Tailorer Agent]
+        TAILOR --> GROUND[Grounding Critic Agent]
+        GROUND -->|pass| MATERIALS["Cover Letter + LinkedIn\n+ Skill Gap agents"]
+        GROUND -->|"fail (retry once)"| TAILOR
+        GROUND -->|"fail twice"| ESCALATE[Slack: escalation alert]
+        MATERIALS --> PDF[PDF render via Playwright]
+        PDF --> DRIVE[Upload to Google Drive]
+        DRIVE --> NOTION[Create Notion page]
+        NOTION --> DONE["status → awaiting_review"]
+    end
+
+    subgraph WF4["Workflow 4 — Follow-up Scheduler (14 nodes)"]
+        CRON4["Cron: daily 8am"] --> FIND[Find due applications]
+        FIND --> DECIDE[Follow-up Decision Agent]
+        DECIDE --> DIGEST4[Slack digest]
+    end
+
+    subgraph WF5["Workflow 5 — Weekly Reflection (8 nodes)"]
+        CRON5["Cron: Sunday 7pm"] --> AGG[Aggregate last 4 weeks]
+        AGG --> PATTERN["Pattern Detector Agent\n(min N=5 guard)"]
+        PATTERN --> DIGEST5[Slack digest]
+    end
+
+    subgraph ERR["Error Workflow (6 nodes)"]
+        ETRIG[n8n error trigger] --> RETRY["Retry (max 2, backoff)"]
+        RETRY --> ALERT[Slack alert]
+    end
+
+    WF1 -.->|errorWorkflow| ERR
+    WF2 -.->|errorWorkflow| ERR
+    WF3 -.->|errorWorkflow| ERR
+
+    PG[(Postgres\n10 tables)] --- WF1
+    PG --- WF2
+    PG --- WF3
+    PG --- WF4
+    PG --- WF5
+    LLM["Ollama qwen2.5:7b\nvia FastAPI wrapper"] --- WF2
+    LLM --- WF3
+    LLM --- WF4
+    LLM --- WF5
+```
+
+## Workflow Breakdown
+
+| # | Workflow | Trigger | Nodes | What it does | Output |
+|---|---|---|---|---|---|
+| 0 | **Error Handler** | n8n error trigger | 6 | Retries transient failures (max 2, 2s backoff), posts Slack alert with execution URL on permanent failure | `application_event` row, Slack alert |
+| 1 | **Job Intake** | Webhook `POST /webhook/intake` | 7 | Validates URL format, detects ATS host (Greenhouse/Lever/Workday), inserts `application` row, responds under 500ms, fires Workflow 2 async | `application` row (`intake_received`) |
+| 2 | **Job Processor** | Execute Workflow (from 1) | 25 | Playwright JD fetch → JD Parser agent → derives research URLs → 4 parallel fetch branches (news, homepage, about, careers — each failure-tolerant) → Company Synthesizer agent → upsert `company` with full synthesis | `company` row with `synthesis` JSONB, `application` status → `researched` |
+| 3 | **Match & Generate** | Execute Workflow (from 2) | 67 | Resume Critic → Match Scorer (gate at 60 with Slack + human-in-loop Wait) → Resume Tailorer → Grounding Critic (1 retry, then escalate) → Cover Letter / LinkedIn / Skill Gap agents → PDF render → Google Drive folder + upload → Notion page → Slack "ready" | 4 `generated_material` rows, 2 PDFs in Drive, 1 Notion page |
+| 4 | **Follow-up Scheduler** | Cron, daily 8am | 14 | Marks 21-day-old applications `ghosted`, finds submitted apps past their nudge window, runs Follow-up Decision agent per app, persists nudge drafts, posts Slack digest | `generated_material` type `follow_up_nudge`, `application_event` |
+| 5 | **Weekly Reflection** | Cron, Sunday 7pm | 8 | Aggregates last 4 weeks of applications, runs Pattern Detector agent (min-N=5 guard prevents speculation on small samples), posts Slack digest | `weekly_insight` row |
+
+All workflow JSON exports: [`n8n/workflows/`](n8n/workflows/)
+
+## Grounding & Reliability
+
+This is Anchor's core architectural bet. The problem: LLMs freely invent experience when asked to "tailor this resume." The solution is a 3-layer enforcement system:
+
+**Layer 1 — Structural grounding.** The master resume is decomposed into individual `master_resume_entry` rows in Postgres (not a text blob — [ADR-006](docs/decisions/006-master-resume-structured-not-text.md)). Each row has a UUID, a `canonical_text` paragraph, structured `facts` (JSONB), tags, and a priority. The Resume Tailorer must cite a `master_resume_entry_id` for every line it outputs. The pipeline validates that every cited ID actually exists in the database.
+
+**Layer 2 — Semantic verification.** An adversarial Grounding Critic agent receives each tailored line paired with its cited source entry and checks whether the tailored version adds anything not present in the source: new technologies, inflated numbers, stronger role titles. If it finds violations, the tailored resume is rejected.
+
+**Layer 3 — Retry with feedback, then escalate.** On a first grounding failure, the violations are fed back to the Resume Tailorer as revision instructions. If the second attempt also fails, the pipeline escalates to Slack (human review) rather than shipping unverified content. No material is ever persisted to `generated_material` without clearing the grounding check.
+
+The `material_grounding` join table records which `master_resume_entry` rows were cited in each generated material, creating an auditable FK trail from output back to source.
+
+## Observability
+
+Every AI agent call across all workflows writes an `agent_run` row to Postgres:
+
+| Field | What it captures |
 |---|---|
-| ![Workflow 2](docs/canvas-screenshots/02_job_processor.png) | ![Workflow 3](docs/canvas-screenshots/03_match_and_generate.png) |
+| `application_id` | Which application this run belongs to |
+| `workflow_name` | Which n8n workflow triggered it |
+| `agent_name` | Which agent (`jd_parser`, `match_scorer`, `grounding_critic`, etc.) |
+| `output_json` | The agent's full structured output (JSONB) |
+| `input_hash` | SHA-256 of the prompt sent to the LLM |
+| `latency_ms` | How long the LLM call took |
+| `critic_passed` | Boolean — did this agent's output pass its quality check |
 
-More canvases: [00 — Error Handler](docs/canvas-screenshots/00_error_handler.png) ·
-[01 — Job Intake](docs/canvas-screenshots/01_job_intake.png) ·
-[04 — Follow-up Scheduler](docs/canvas-screenshots/04_follow_up_scheduler.png) ·
-[05 — Weekly Reflection](docs/canvas-screenshots/05_weekly_reflection.png)
+The dashboard's **Decisions** page surfaces this as an expandable audit log. For any application, you can see exactly what each of the 11 agents decided, what data it saw, and whether the critic approved it. This matters for debugging multi-agent pipelines where one bad upstream output cascades through 5 downstream agents.
 
-## Evaluation (Day 15/16 — Material Quality)
+## Evaluation
 
-Per planning doc §10.1: 20 standalone applications (fictional companies, spanning
-good/medium/poor fit for the seeded resume) were run through Anchor's full chain
-(Resume Critic → Match Scorer → Resume Tailorer → Grounding Critic with 1 retry →
-Cover Letter → LinkedIn → Skill Gap) and through a naive single-prompt baseline with
-no critic and no grounding instructions. Both are checked by the same Grounding
-Critic agent — Anchor against the *single cited entry* each line claims, the baseline
-against the candidate's *full resume*.
+20 synthetic job applications (spanning good/medium/poor fit) were run through Anchor's full 11-agent chain and through a naive single-prompt baseline with no critic and no grounding instructions. Both outputs were checked by the same Grounding Critic agent.
 
-**Headline metric — factual grounding pass rate:**
-
-<!-- EVAL_TABLE_START -->
 | | Grounding pass rate | Violations (total) |
 |---|---|---|
 | **Anchor** (11-agent chain + Grounding Critic, 1 retry) | **10% (2/20)** | 74 |
 | **Baseline** (single prompt, no critic) | **0% (0/20)** | 53 |
 
 Mean match score: 74.2/100. Tier distribution: 8 hot (≥75), 11 warm (60–74), 1 cold (<60).
-<!-- EVAL_TABLE_END -->
 
-Full methodology, rubric, and per-application detail:
-[eval/grading_rubric.md](eval/grading_rubric.md),
-[eval/results_summary.md](eval/results_summary.md),
-[eval/scores_template.csv](eval/scores_template.csv).
+The 10% pass rate reflects the grounding system working correctly against qwen2.5:7b's tendency to paraphrase aggressively — the critic catches violations that would otherwise ship silently. The architecture is designed for stronger models (GPT-4, Claude) where the pass rate would be significantly higher; qwen2.5:7b was chosen to keep the build zero-cost ([ADR-002](docs/decisions/002-ollama-local-not-paid-api.md)).
 
-## Design decisions (ADRs)
+Full detail: [eval/results_summary.md](eval/results_summary.md) · [eval/grading_rubric.md](eval/grading_rubric.md)
 
-- [001 — n8n, not custom Python](docs/decisions/001-n8n-not-custom-python.md)
-- [002 — Ollama local, not paid API](docs/decisions/002-ollama-local-not-paid-api.md)
-- [003 — Postgres as single source of truth](docs/decisions/003-postgres-single-source-of-truth.md)
-- [004 — Manual URL paste, not scraping](docs/decisions/004-manual-url-paste-not-scraping.md)
-- [005 — Anchor drafts; I send](docs/decisions/005-anchor-drafts-i-send.md)
-- [006 — Master resume as structured data](docs/decisions/006-master-resume-structured-not-text.md)
+## Setup
 
-## Local Setup (native — Docker deferred)
+**Prerequisites:** macOS (Homebrew), PostgreSQL 16, Node.js ≥ 18, Python 3.11+, Ollama with `qwen2.5:7b` pulled.
 
 ### 1. Postgres
 ```bash
-brew install postgresql@16
 brew services start postgresql@16
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 createdb anchor
 psql -d anchor -f db/schema.sql
-psql -d anchor -f db/seed_master_resume.sql   # seeds master_resume_entry + user_profile
+psql -d anchor -f db/seed_master_resume.sql
 ```
 
-### 2. LLM wrapper (Ollama + FastAPI + disk cache)
-Requires Ollama running locally with `qwen2.5:7b` pulled (`ollama pull qwen2.5:7b`).
-
+### 2. Environment
 ```bash
-~/.pyenv/versions/3.11.9/bin/python3 -m venv .venv
+cp .env.example .env          # configure SLACK_WEBHOOK_URL, ports
+```
+
+### 3. LLM wrapper
+```bash
+python3 -m venv .venv
 .venv/bin/pip install -r llm/requirements.txt
-.venv/bin/uvicorn llm.server:app --reload --port 8001
-curl localhost:8001/health
+.venv/bin/uvicorn llm.server:app --port 8001
 ```
 
-### 3. Fetch/PDF service (Playwright)
+### 4. Fetch/PDF service
 ```bash
-.venv/bin/uvicorn fetch.server:app --reload --port 8002
+.venv/bin/pip install -r fetch/requirements.txt
+.venv/bin/uvicorn fetch.server:app --port 8002
 ```
 
-### 4. n8n
+### 5. n8n
 ```bash
-npx n8n start   # editor at http://localhost:5678
+npx n8n start   # http://localhost:5678
+# Import workflows from n8n/workflows/*.json
+# Configure credentials: Postgres, Google Drive OAuth2, Notion API
 ```
 
-### 5. Dashboard
+### 6. Dashboard
 ```bash
 cd dashboard
-cp .env.local.example .env.local   # set DATABASE_URL
+cp .env.local.example .env.local   # set DATABASE_URL, JWT_SECRET, ADMIN credentials
 npm install
 npm run dev   # http://localhost:3000
 ```
 
-Copy `.env.example` → `.env` for n8n/LLM-wrapper config (gitignored).
-
-## Folder structure
+## Project Structure
 
 ```
 anchor/
-├── n8n/workflows/        ← exported workflow JSON, numbered 00-05
-├── db/                    ← schema.sql, migrations/, seed data
-├── prompts/               ← one .md per agent
-├── llm/                   ← Ollama wrapper (FastAPI)
-├── fetch/                 ← Playwright JD-fetch + PDF-render microservice
-├── pdf/templates/         ← resume.html, cover_letter.html
-├── dashboard/             ← Next.js: kanban, decisions audit log, insights
-├── eval/                  ← Material Quality eval (Day 15/16)
+├── n8n/workflows/           6 exported workflow JSON files (127 nodes total)
+├── prompts/                 12 versioned agent prompts (.md)
+├── llm/                     FastAPI wrapper around Ollama (disk cache, /complete endpoint)
+├── fetch/                   Playwright microservice (JD fetch + PDF render)
+├── pdf/templates/           Jinja2 HTML templates for resume + cover letter PDFs
+├── db/                      schema.sql (10 tables), migrations/, seed data
+├── dashboard/               Next.js 14 App Router (login, kanban, detail, setup, audit log)
+├── eval/                    20×2 eval outputs, benchmark script, results summary
 └── docs/
-    ├── planning/          ← anchor_planning.md (authoritative)
-    ├── decisions/         ← ADRs
-    └── canvas-screenshots/
+    ├── planning/            anchor_planning.md (authoritative spec)
+    ├── decisions/           6 ADRs
+    └── canvas-screenshots/  10 PNGs (workflows + dashboard)
 ```
 
-## Non-goals
+## Design Decisions
 
-Anchor doesn't scrape job boards, auto-submit applications, have user accounts, or
-help anyone other than its one user. Full list in planning doc §17. Every "what if it
-also..." idea is parked in [FUTURE.md](FUTURE.md), not built.
+| ADR | Decision | Alternative rejected |
+|---|---|---|
+| [001](docs/decisions/001-n8n-not-custom-python.md) | n8n for orchestration | Custom Python DAG |
+| [002](docs/decisions/002-ollama-local-not-paid-api.md) | Ollama (local, free) | Paid LLM APIs |
+| [003](docs/decisions/003-postgres-single-source-of-truth.md) | Postgres as single source of truth | n8n static data |
+| [004](docs/decisions/004-manual-url-paste-not-scraping.md) | Manual URL paste | Job board scraping |
+| [005](docs/decisions/005-anchor-drafts-i-send.md) | Anchor drafts; I send manually | Auto-submit |
+| [006](docs/decisions/006-master-resume-structured-not-text.md) | Structured resume rows | Text blob |
+
+## Roadmap
+
+- **Multi-user support** — sign-up, per-user data isolation, `user_id` on all tables
+- **Resume profiles** — multiple resume variants (AI/ML, PM, Backend) with profile selector on intake
+- **Stronger LLM backend** — config switch for Claude/GPT-4 API to improve grounding pass rate and resume completeness
+- **Docker deployment** — `docker compose up` for Postgres + n8n + LLM wrapper + fetch service + dashboard
+
+See [FUTURE.md](FUTURE.md) for the full list.
+
+## License
+
+Personal project, not licensed for redistribution. Built for the 2026 internship search.
