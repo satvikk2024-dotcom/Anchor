@@ -1,0 +1,2116 @@
+{
+  "name": "03 - Match and Generate",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000001",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "SELECT a.id AS application_id, a.role_title, a.status AS app_status,\n       c.name AS company_name, c.synthesis AS company_synthesis\nFROM application a\nLEFT JOIN company c ON a.company_id = c.id\nWHERE a.id = $1::uuid",
+        "options": {
+          "queryReplacement": "={{ $json.id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        220,
+        -300
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000002",
+      "name": "Load Application",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "SELECT coalesce(\n  (SELECT output_json FROM agent_run\n   WHERE application_id = $1::uuid AND agent_name = 'jd_parser'\n   ORDER BY created_at DESC LIMIT 1),\n  '{}'::jsonb\n) AS jd",
+        "options": {
+          "queryReplacement": "={{ $json.id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        220,
+        -100
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000003",
+      "name": "Load JD Parse",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "SELECT coalesce(json_agg(t), '[]'::json) AS resume_entries\nFROM (\n  SELECT id, category, canonical_text, tags\n  FROM master_resume_entry\n  ORDER BY priority DESC, category\n) t",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        220,
+        100
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000004",
+      "name": "Load Master Resume",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "SELECT long_term_goals, target_role_types\nFROM user_profile\nLIMIT 1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        220,
+        300
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000005",
+      "name": "Load User Profile",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 4,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        440,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000006",
+      "name": "Merge Inputs"
+    },
+    {
+      "parameters": {
+        "jsCode": "const merged = $json;\nconst jd = merged.jd || {};\nconst entries = merged.resume_entries || [];\n\nconst entryLines = entries.length\n  ? entries.map((e) => `- [${e.category}] ${e.canonical_text} (tags: ${(e.tags || []).join(', ')})`).join('\\n')\n  : '(no resume entries on file)';\n\nconst profileLines = [\n  `Long-term goals: ${merged.long_term_goals || '(none)'}`,\n  `Target role types: ${(merged.target_role_types || []).join(', ')}`,\n].join('\\n');\n\nconst jdLines = [\n  `Role: ${jd.role_title || merged.role_title || 'unknown'} (team: ${jd.team_or_org || 'unspecified'})`,\n  `Company: ${jd.company_name || merged.company_name || 'unknown'}`,\n  `Must-haves: ${(jd.must_haves || []).join(', ')}`,\n  `Nice-to-haves: ${(jd.nice_to_haves || []).join(', ')}`,\n  `Responsibilities: ${(jd.responsibilities || []).join(', ')}`,\n  `Tech stack: ${(jd.tech_stack || []).join(', ')}`,\n  `Culture signals: ${(jd.culture_signals || []).join(', ')}`,\n  `Location type: ${jd.location_type || 'unknown'}`,\n].join('\\n');\n\nconst synthesis = merged.company_synthesis || {};\nconst synthesisLines = [\n  `What they do: ${synthesis.what_they_do || '(unavailable)'}`,\n  `Recent developments: ${(synthesis.recent_developments || []).join(', ')}`,\n  `Tech signals: ${(synthesis.tech_signals || []).join(', ')}`,\n  `Company type: ${synthesis.company_type || 'unknown'}`,\n  `Culture signals: ${(synthesis.culture_signals || []).join(', ')}`,\n  `Likely role context: ${synthesis.likely_role_context || '(unavailable)'}`,\n].join('\\n');\n\nconst critic_prompt = [\n  \"## Candidate's master resume entries\",\n  entryLines,\n  \"## Candidate's profile\",\n  profileLines,\n  '## Job description',\n  jdLines,\n  '## Company research synthesis',\n  synthesisLines,\n].join('\\n\\n').slice(0, 12000);\n\nreturn [{\n  json: {\n    application_id: merged.application_id,\n    role_title: jd.role_title || merged.role_title,\n    company_name: jd.company_name || merged.company_name,\n    jd,\n    resume_entries: entries,\n    long_term_goals: merged.long_term_goals,\n    target_role_types: merged.target_role_types,\n    critic_prompt,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000007",
+      "name": "Prepare Critic Input"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/complete",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ prompt: $json.critic_prompt, system_prompt_name: \"resume_critic\", json_mode: true }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000008",
+      "name": "Resume Critic Agent",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const critic = JSON.parse($input.item.json.text);\nconst prior = $('Prepare Critic Input').item.json;\nreturn [{\n  json: {\n    ...prior,\n    critic,\n    critic_json: JSON.stringify(critic),\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000009",
+      "name": "Parse Critic Output"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO agent_run (application_id, workflow_name, agent_name, output_json)\nVALUES ($1::uuid, 'match_and_generate', 'resume_critic', $2::jsonb)\nRETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.application_id }},{{ $json.critic_json }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1320,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000010",
+      "name": "Persist Resume Critic",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const prior = $('Parse Critic Output').item.json;\nconst { critic, jd, role_title, company_name, long_term_goals, target_role_types } = prior;\n\nconst profileLines = [\n  `Long-term goals: ${long_term_goals || '(none)'}`,\n  `Target role types: ${(target_role_types || []).join(', ')}`,\n].join('\\n');\n\nconst bullets = (items) => (items && items.length) ? items.map((i) => `- ${i}`).join('\\n') : '(none)';\n\nconst criticLines = [\n  'Strengths for this role:',\n  bullets(critic.strengths_for_this_role),\n  'Weaknesses to address:',\n  bullets(critic.weaknesses_to_address),\n  'Gaps unfixable in this application:',\n  bullets(critic.gaps_unfixable_in_this_application),\n  `Suggested angle: ${critic.suggested_angle}`,\n].join('\\n');\n\nconst jdLines = [\n  `Role: ${jd.role_title || role_title || 'unknown'} (team: ${jd.team_or_org || 'unspecified'})`,\n  `Company: ${jd.company_name || company_name || 'unknown'}`,\n  `Must-haves: ${(jd.must_haves || []).join(', ')}`,\n  `Nice-to-haves: ${(jd.nice_to_haves || []).join(', ')}`,\n  `Responsibilities: ${(jd.responsibilities || []).join(', ')}`,\n  `Tech stack: ${(jd.tech_stack || []).join(', ')}`,\n  `Culture signals: ${(jd.culture_signals || []).join(', ')}`,\n  `Location type: ${jd.location_type || 'unknown'}`,\n].join('\\n');\n\nconst scorer_prompt = [\n  '## Resume Critic output',\n  criticLines,\n  '## Job description',\n  jdLines,\n  \"## Candidate's profile\",\n  profileLines,\n].join('\\n\\n').slice(0, 12000);\n\nreturn [{ json: { ...prior, scorer_prompt } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000011",
+      "name": "Prepare Scorer Input"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/complete",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ prompt: $json.scorer_prompt, system_prompt_name: \"match_scorer\", json_mode: true }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000012",
+      "name": "Match Scorer Agent",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const scorer = JSON.parse($input.item.json.text);\nconst prior = $('Prepare Scorer Input').item.json;\nreturn [{\n  json: {\n    ...prior,\n    scorer,\n    scorer_json: JSON.stringify(scorer),\n    score: scorer.score,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1980,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000013",
+      "name": "Parse Scorer Output"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO agent_run (application_id, workflow_name, agent_name, output_json)\nVALUES ($1::uuid, 'match_and_generate', 'match_scorer', $2::jsonb)\nRETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.application_id }},{{ $json.scorer_json }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2200,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000014",
+      "name": "Persist Match Scorer",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "UPDATE application\nSET match_score = $1::int\nWHERE id = $2::uuid\nRETURNING id, match_score, status",
+        "options": {
+          "queryReplacement": "={{ $('Parse Scorer Output').item.json.score }},{{ $('Parse Scorer Output').item.json.application_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2420,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000015",
+      "name": "Update Match Score",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "score-gte-60",
+              "leftValue": "={{ $('Parse Scorer Output').item.json.score }}",
+              "rightValue": 60,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2640,
+        0
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000016",
+      "name": "IF Score >= 60"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "UPDATE application\nSET status = 'low_match_waiting'\nWHERE id = $1::uuid\nRETURNING id, status",
+        "options": {
+          "queryReplacement": "={{ $('Parse Scorer Output').item.json.application_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2860,
+        220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000017",
+      "name": "Mark Low Match",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const prior = $('Parse Scorer Output').item.json;\nconst scorer = prior.scorer;\nconst resumeUrl = $execution.resumeUrl;\n\nconst gapLines = (scorer.top_gaps && scorer.top_gaps.length)\n  ? scorer.top_gaps.map((g) => `- ${g.gap} (${g.severity})`).join('\\n')\n  : '(none)';\n\nconst lines = [\n  `*Low match: ${scorer.score}/100 (${scorer.tier})* for *${prior.role_title}* @ *${prior.company_name}*`,\n  '',\n  scorer.reasoning,\n  '',\n  '*Top gaps:*',\n  gapLines,\n];\n\nif (scorer.red_flags && scorer.red_flags.length) {\n  lines.push('', '*Red flags:*', scorer.red_flags.map((r) => `- ${r}`).join('\\n'));\n}\n\nlines.push('', `<${resumeUrl}?action=continue|Continue anyway>  |  <${resumeUrl}?action=skip|Skip this one>`);\n\nreturn [{ json: { slack_text: lines.join('\\n') } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3080,
+        220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000018",
+      "name": "Prepare Slack Message"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/notify-slack",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: $json.slack_text }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3300,
+        220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000019",
+      "name": "Post Low-Match Slack",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "httpMethod": "GET",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3520,
+        220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000020",
+      "name": "Wait for Decision",
+      "webhookId": "anchor-low-match-decision"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "action-continue",
+              "leftValue": "={{ $json.query.action }}",
+              "rightValue": "continue",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3740,
+        220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000021",
+      "name": "IF Continue or Skip"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "UPDATE application\nSET status = 'withdrawn'\nWHERE id = $1::uuid\nRETURNING id, status",
+        "options": {
+          "queryReplacement": "={{ $('Parse Scorer Output').item.json.application_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        3960,
+        380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000022",
+      "name": "Mark Withdrawn",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let priorGrounding = null;\ntry {\n  priorGrounding = $('Parse Grounding Output').item.json;\n} catch (e) {\n  priorGrounding = null;\n}\n\nconst prior = priorGrounding || $('Parse Scorer Output').item.json;\nconst { critic, jd, resume_entries, application_id, role_title, company_name, scorer } = prior;\n\nconst entryLines = (resume_entries && resume_entries.length)\n  ? resume_entries.map((e) => `- id=${e.id} [${e.category}] ${e.canonical_text} (tags: ${(e.tags || []).join(', ')})`).join('\\n')\n  : '(no resume entries on file)';\n\nconst jdLines = [\n  `Role: ${jd.role_title || role_title || 'unknown'} (team: ${jd.team_or_org || 'unspecified'})`,\n  `Company: ${jd.company_name || company_name || 'unknown'}`,\n  `Must-haves: ${(jd.must_haves || []).join(', ')}`,\n  `Nice-to-haves: ${(jd.nice_to_haves || []).join(', ')}`,\n  `Responsibilities: ${(jd.responsibilities || []).join(', ')}`,\n  `Tech stack: ${(jd.tech_stack || []).join(', ')}`,\n].join('\\n');\n\nlet tailorer_prompt = [\n  \"## Candidate's master resume entries (each has an id you must reference)\",\n  entryLines,\n  '## Job description',\n  jdLines,\n  `## Suggested angle\\n${critic.suggested_angle}`,\n].join('\\n\\n');\n\nconst retryCount = priorGrounding ? (priorGrounding.retry_count || 0) + 1 : 0;\n\nif (priorGrounding && priorGrounding.grounding) {\n  const violations = priorGrounding.grounding.violations || [];\n  tailorer_prompt += '\\n\\n## Revision feedback (previous attempt failed grounding check)\\n' +\n    'Fix these grounding violations \u2014 every claim must trace to the cited master_resume_entry_id with no invented details:\\n' +\n    violations.map((v) => `- ${v}`).join('\\n');\n}\n\nreturn [{\n  json: {\n    application_id,\n    role_title: jd.role_title || role_title,\n    company_name: jd.company_name || company_name,\n    critic,\n    jd,\n    resume_entries,\n    scorer,\n    tailorer_prompt: tailorer_prompt.slice(0, 12000),\n    retry_count: retryCount,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2860,
+        -220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000023",
+      "name": "Prepare Tailorer Input"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/complete",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ prompt: $json.tailorer_prompt, system_prompt_name: \"resume_tailorer\", json_mode: true }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3080,
+        -220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000024",
+      "name": "Resume Tailorer Agent",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const resp = $input.item.json;\nconst tailored = JSON.parse(resp.text);\nconst prior = $('Prepare Tailorer Input').item.json;\nreturn [{\n  json: {\n    ...prior,\n    tailored,\n    tailored_json: JSON.stringify(tailored),\n    model_used: resp.model,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3300,
+        -220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000025",
+      "name": "Parse Tailored Resume"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prior = $json;\nconst { tailored, resume_entries } = prior;\n\nconst entriesById = {};\nfor (const e of (resume_entries || [])) entriesById[e.id] = e;\n\nconst blocks = [];\nlet n = 0;\nfor (const section of (tailored.sections || [])) {\n  for (const line of (section.lines || [])) {\n    n += 1;\n    const entry = entriesById[line.master_resume_entry_id];\n    const sourceText = entry ? entry.canonical_text : '(no entry with this id was provided)';\n    blocks.push(\n      `Line ${n} [${section.category}] (from ${line.master_resume_entry_id})\\n` +\n      `Tailored: \"${line.text}\"\\n` +\n      `Source (${line.master_resume_entry_id}): \"${sourceText}\"`\n    );\n  }\n}\n\nconst grounding_prompt = [\n  '## Lines to check\\nEach numbered item pairs one tailored-resume line with the exact source entry it claims to be drawn from. Check each line only against its own paired source.',\n  ...blocks,\n  `## Summary to check\\nTailored summary: \"${tailored.summary}\"\\nCheck the summary against the union of all source entries above \u2014 it should not introduce facts beyond what they support.`,\n].join('\\n\\n').slice(0, 12000);\n\nreturn [{ json: { ...prior, grounding_prompt } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3520,
+        -220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000026",
+      "name": "Prepare Grounding Check"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/complete",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ prompt: $json.grounding_prompt, system_prompt_name: \"grounding_critic\", json_mode: true }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3740,
+        -220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000027",
+      "name": "Grounding Critic Agent",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const grounding = JSON.parse($input.item.json.text);\nconst prior = $('Prepare Grounding Check').item.json;\nreturn [{ json: { ...prior, grounding } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3960,
+        -220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000028",
+      "name": "Parse Grounding Output"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "grounding-passes",
+              "leftValue": "={{ $json.grounding.passes }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4180,
+        -220
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000029",
+      "name": "IF Grounding Passes"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO generated_material (application_id, type, content_json, model_used)\nVALUES ($1::uuid, 'tailored_resume', $2::jsonb, $3)\nRETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.application_id }},{{ $json.tailored_json }},{{ $json.model_used }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        4400,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000030",
+      "name": "Persist Tailored Resume",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "retry-lt-1",
+              "leftValue": "={{ $json.retry_count }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4400,
+        -60
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000031",
+      "name": "IF Retry Available"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prior = $json;\nconst grounding = prior.grounding;\nconst violationLines = (grounding.violations && grounding.violations.length)\n  ? grounding.violations.map((v) => `- ${v}`).join('\\n')\n  : '(none listed)';\n\nconst text = [\n  `*Grounding check failed twice for ${prior.role_title} @ ${prior.company_name}.*`,\n  'The tailored resume still has unsupported claims after one retry:',\n  violationLines,\n  '',\n  'No tailored resume was saved for this application \u2014 review the master resume entries and tailorer prompt manually.',\n].join('\\n');\n\nreturn [{ json: { slack_text: text } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4620,
+        80
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000032",
+      "name": "Prepare Escalation Slack"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/notify-slack",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: $json.slack_text }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4840,
+        80
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000033",
+      "name": "Post Escalation Slack",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const materialId = $json.id;\nconst prior = $('Parse Tailored Resume').item.json;\nconst tailored = prior.tailored;\n\nconst rows = [];\nfor (const section of (tailored.sections || [])) {\n  for (const line of (section.lines || [])) {\n    rows.push({\n      json: {\n        material_id: materialId,\n        master_entry_id: line.master_resume_entry_id,\n        usage_note: line.text,\n      },\n    });\n  }\n}\nreturn rows;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4620,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000034",
+      "name": "Prepare Grounding Rows"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO material_grounding (material_id, master_entry_id, usage_note)\nVALUES ($1::uuid, $2::uuid, $3)\nRETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.material_id }},{{ $json.master_entry_id }},{{ $json.usage_note }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        4840,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000035",
+      "name": "Insert Grounding Rows",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const prior = $('Parse Tailored Resume').item.json;\nconst materialId = $('Persist Tailored Resume').item.json.id;\nreturn [{\n  json: {\n    application_id: prior.application_id,\n    role_title: prior.role_title,\n    company_name: prior.company_name,\n    material_id: materialId,\n    scorer: prior.scorer,\n    tailored: prior.tailored,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5060,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000036",
+      "name": "Finalize Material"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prior = $json;\nconst tailorerInput = $('Prepare Tailorer Input').item.json;\nconst merged = $('Merge Inputs').item.json;\nconst { critic, jd, resume_entries } = tailorerInput;\nconst synthesis = merged.company_synthesis || {};\n\nconst entryLines = (resume_entries && resume_entries.length)\n  ? resume_entries.map((e) => `- id=${e.id} [${e.category}] ${e.canonical_text} (tags: ${(e.tags || []).join(', ')})`).join('\\n')\n  : '(no resume entries on file)';\n\nconst jdLines = [\n  `Role: ${jd.role_title || prior.role_title || 'unknown'} (team: ${jd.team_or_org || 'unspecified'})`,\n  `Company: ${jd.company_name || prior.company_name || 'unknown'}`,\n  `Must-haves: ${(jd.must_haves || []).join(', ')}`,\n  `Nice-to-haves: ${(jd.nice_to_haves || []).join(', ')}`,\n  `Responsibilities: ${(jd.responsibilities || []).join(', ')}`,\n  `Tech stack: ${(jd.tech_stack || []).join(', ')}`,\n  `Culture signals: ${(jd.culture_signals || []).join(', ')}`,\n  `Location type: ${jd.location_type || 'unknown'}`,\n].join('\\n');\n\nconst synthesisLines = [\n  `What they do: ${synthesis.what_they_do || '(unavailable)'}`,\n  `Recent developments: ${(synthesis.recent_developments || []).join(', ')}`,\n  `Tech signals: ${(synthesis.tech_signals || []).join(', ')}`,\n  `Company type: ${synthesis.company_type || 'unknown'}`,\n  `Culture signals: ${(synthesis.culture_signals || []).join(', ')}`,\n  `Likely role context: ${synthesis.likely_role_context || '(unavailable)'}`,\n].join('\\n');\n\nconst profileLines = [\n  `Long-term goals: ${merged.long_term_goals || '(none)'}`,\n  `Target role types: ${(merged.target_role_types || []).join(', ')}`,\n].join('\\n');\n\nconst cover_letter_prompt = [\n  \"## Candidate's master resume entries (each has an id you must reference)\",\n  entryLines,\n  '## Job description',\n  jdLines,\n  '## Company research synthesis',\n  synthesisLines,\n  `## Suggested angle\\n${critic.suggested_angle}`,\n  \"## Candidate's profile\",\n  profileLines,\n].join('\\n\\n').slice(0, 12000);\n\nreturn [{\n  json: {\n    application_id: prior.application_id,\n    role_title: prior.role_title,\n    company_name: prior.company_name,\n    material_id: prior.material_id,\n    scorer: prior.scorer,\n    tailored: prior.tailored,\n    jd,\n    resume_entries,\n    company_synthesis: synthesis,\n    critic,\n    cover_letter_prompt,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5280,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000040",
+      "name": "Prepare Cover Letter Input"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/complete",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ prompt: $json.cover_letter_prompt, system_prompt_name: \"cover_letter\", json_mode: true }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        5500,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000041",
+      "name": "Cover Letter Agent",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const coverLetter = JSON.parse($input.item.json.text);\nconst prior = $('Prepare Cover Letter Input').item.json;\n\n// qwen2.5:7b reliably ignores the prompt instruction not to inline grounding\n// citations (e.g. \"(id=<uuid>)\", \"(from <uuid>)\") into cover letter prose, so\n// strip them here as a backstop.\nconst CITATION_RE = /\\s*[\\(\\[]\\s*(?:ids?\\s*[:=]\\s*[\\w-]+|from\\s+[\\w]+-[\\w-]+)(?:\\s*,\\s*(?:ids?\\s*[:=]\\s*)?[\\w-]+)*\\s*[\\)\\]]/gi;\ncoverLetter.paragraphs = (coverLetter.paragraphs || []).map((p) =>\n  p.replace(CITATION_RE, '').replace(/\\s{2,}/g, ' ').replace(/\\s+([.,;:])/g, '$1').trim()\n);\n\nreturn [{\n  json: {\n    ...prior,\n    cover_letter: coverLetter,\n    cover_letter_json: JSON.stringify(coverLetter),\n    cover_letter_model_used: $input.item.json.model,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5720,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000042",
+      "name": "Parse Cover Letter Output"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO generated_material (application_id, type, content_json, model_used)\nVALUES ($1::uuid, 'cover_letter', $2::jsonb, $3)\nRETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.application_id }},{{ $json.cover_letter_json }},{{ $json.cover_letter_model_used }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        5940,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000043",
+      "name": "Persist Cover Letter",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const prior = $('Parse Cover Letter Output').item.json;\nconst coverLetter = prior.cover_letter;\nconst materialId = $json.id;\nconst ids = coverLetter.master_resume_entry_ids || [];\n\nreturn ids.map((entryId) => ({\n  json: {\n    material_id: materialId,\n    master_entry_id: entryId,\n    usage_note: `Referenced in cover letter (${coverLetter.company_detail_referenced || ''})`.trim(),\n  },\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5940,
+        -180
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000044",
+      "name": "Prepare Cover Letter Grounding Rows"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO material_grounding (material_id, master_entry_id, usage_note)\nVALUES ($1::uuid, $2::uuid, $3)\nRETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.material_id }},{{ $json.master_entry_id }},{{ $json.usage_note }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        6160,
+        -180
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000045",
+      "name": "Insert Cover Letter Grounding Rows",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const prior = $('Parse Cover Letter Output').item.json;\nconst { jd, company_synthesis, critic } = prior;\nconst synthesis = company_synthesis || {};\n\nconst jdLines = [\n  `Role: ${jd.role_title || prior.role_title || 'unknown'} (team: ${jd.team_or_org || 'unspecified'})`,\n  `Company: ${jd.company_name || prior.company_name || 'unknown'}`,\n  `Must-haves: ${(jd.must_haves || []).join(', ')}`,\n  `Nice-to-haves: ${(jd.nice_to_haves || []).join(', ')}`,\n  `Responsibilities: ${(jd.responsibilities || []).join(', ')}`,\n  `Tech stack: ${(jd.tech_stack || []).join(', ')}`,\n  `Culture signals: ${(jd.culture_signals || []).join(', ')}`,\n  `Location type: ${jd.location_type || 'unknown'}`,\n].join('\\n');\n\nconst synthesisLines = [\n  `What they do: ${synthesis.what_they_do || '(unavailable)'}`,\n  `Recent developments: ${(synthesis.recent_developments || []).join(', ')}`,\n  `Tech signals: ${(synthesis.tech_signals || []).join(', ')}`,\n  `Company type: ${synthesis.company_type || 'unknown'}`,\n  `Culture signals: ${(synthesis.culture_signals || []).join(', ')}`,\n  `Likely role context: ${synthesis.likely_role_context || '(unavailable)'}`,\n].join('\\n');\n\nconst linkedin_prompt = [\n  '## Job description',\n  jdLines,\n  '## Company research synthesis',\n  synthesisLines,\n  `## Suggested angle\\n${critic.suggested_angle}`,\n].join('\\n\\n').slice(0, 12000);\n\nreturn [{ json: { ...prior, linkedin_prompt } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6380,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000046",
+      "name": "Prepare LinkedIn Input"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/complete",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ prompt: $json.linkedin_prompt, system_prompt_name: \"linkedin_drafter\", json_mode: true }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        6600,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000047",
+      "name": "LinkedIn Drafter Agent",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const linkedin = JSON.parse($input.item.json.text);\nconst prior = $('Prepare LinkedIn Input').item.json;\nreturn [{\n  json: {\n    ...prior,\n    linkedin,\n    linkedin_json: JSON.stringify(linkedin),\n    linkedin_model_used: $input.item.json.model,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6820,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000048",
+      "name": "Parse LinkedIn Output"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO generated_material (application_id, type, content_json, model_used)\nVALUES ($1::uuid, 'linkedin_message', $2::jsonb, $3)\nRETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.application_id }},{{ $json.linkedin_json }},{{ $json.linkedin_model_used }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        7040,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000049",
+      "name": "Persist LinkedIn Message",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const prior = $('Parse LinkedIn Output').item.json;\nconst merged = $('Merge Inputs').item.json;\nconst { jd, critic } = prior;\n\nconst bullets = (items) => (items && items.length) ? items.map((i) => `- ${i}`).join('\\n') : '(none)';\n\nconst criticLines = [\n  'Strengths for this role:',\n  bullets(critic.strengths_for_this_role),\n  'Weaknesses to address:',\n  bullets(critic.weaknesses_to_address),\n  'Gaps unfixable in this application:',\n  bullets(critic.gaps_unfixable_in_this_application),\n  `Suggested angle: ${critic.suggested_angle}`,\n].join('\\n');\n\nconst profileLines = [\n  `Long-term goals: ${merged.long_term_goals || '(none)'}`,\n  `Target role types: ${(merged.target_role_types || []).join(', ')}`,\n].join('\\n');\n\nconst skill_gap_prompt = [\n  '## Job description must-haves and nice-to-haves',\n  `Must-haves: ${(jd.must_haves || []).join(', ')}`,\n  `Nice-to-haves: ${(jd.nice_to_haves || []).join(', ')}`,\n  '## Resume Critic output',\n  criticLines,\n  \"## Candidate's profile\",\n  profileLines,\n].join('\\n\\n').slice(0, 12000);\n\nreturn [{ json: { ...prior, skill_gap_prompt } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7260,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000050",
+      "name": "Prepare Skill Gap Input"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/complete",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ prompt: $json.skill_gap_prompt, system_prompt_name: \"skill_gap_analyzer\", json_mode: true }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        7480,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000051",
+      "name": "Skill Gap Analyzer Agent",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const skillGap = JSON.parse($input.item.json.text);\nconst prior = $('Prepare Skill Gap Input').item.json;\nreturn [{\n  json: {\n    ...prior,\n    skill_gap: skillGap,\n    skill_gap_json: JSON.stringify(skillGap),\n    skill_gap_model_used: $input.item.json.model,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7700,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000052",
+      "name": "Parse Skill Gap Output"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO generated_material (application_id, type, content_json, model_used)\nVALUES ($1::uuid, 'skill_gap_report', $2::jsonb, $3)\nRETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.application_id }},{{ $json.skill_gap_json }},{{ $json.skill_gap_model_used }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        7920,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000053",
+      "name": "Persist Skill Gap Report",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "SELECT url FROM application WHERE id = $1::uuid",
+        "options": {
+          "queryReplacement": "={{ $('Finalize Material').item.json.application_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        8140,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000054",
+      "name": "Load JD URL",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const finalize = $('Finalize Material').item.json;\nconst company = finalize.company_name || 'company';\nconst role = finalize.role_title || 'role';\nconst today = new Date().toISOString().slice(0, 10);\n\nconst sanitize = (s) => String(s).trim().replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_+|_+$/g, '');\n\nreturn [{\n  json: {\n    drive_folder_name: `${sanitize(company)}_${sanitize(role)}_${today}`,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        8360,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000055",
+      "name": "Prepare Drive Folder Name"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "folder",
+        "operation": "create",
+        "name": "={{ $json.drive_folder_name }}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1b1UHjbDJ1TP03X0dX7p4lybN46FzB5Ug",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        8580,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000056",
+      "name": "Create Drive Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "x3GJ9UUhHPaiq0Jc",
+          "name": "Anchor - Google Drive"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const tailored = $('Finalize Material').item.json.tailored;\nconst folderId = $json.id;\n\nreturn [{\n  json: {\n    drive_folder_id: folderId,\n    drive_folder_url: `https://drive.google.com/drive/folders/${folderId}`,\n    render_resume_body: {\n      template: 'resume',\n      data: { summary: tailored.summary, sections: tailored.sections },\n    },\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        8800,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000057",
+      "name": "Prepare Resume PDF Data"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8002/render-pdf",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.render_resume_body) }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "data"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        9020,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000058",
+      "name": "Render Resume PDF",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "operation": "upload",
+        "inputDataFieldName": "data",
+        "name": "Resume.pdf",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $('Prepare Resume PDF Data').item.json.drive_folder_id }}",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        9240,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000059",
+      "name": "Upload Resume PDF",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "x3GJ9UUhHPaiq0Jc",
+          "name": "Anchor - Google Drive"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const coverLetter = $('Parse Cover Letter Output').item.json;\nconst today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });\n\nreturn [{\n  json: {\n    drive_folder_id: $('Prepare Resume PDF Data').item.json.drive_folder_id,\n    resume_drive_url: $json.webViewLink,\n    render_cover_letter_body: {\n      template: 'cover_letter',\n      data: {\n        company_name: coverLetter.company_name,\n        role_title: coverLetter.role_title,\n        date: today,\n        paragraphs: coverLetter.cover_letter.paragraphs,\n      },\n    },\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        9460,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000060",
+      "name": "Prepare Cover Letter PDF Data"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8002/render-pdf",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.render_cover_letter_body) }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "data"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        9680,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000061",
+      "name": "Render Cover Letter PDF",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "operation": "upload",
+        "inputDataFieldName": "data",
+        "name": "Cover Letter.pdf",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $('Prepare Cover Letter PDF Data').item.json.drive_folder_id }}",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        9900,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000062",
+      "name": "Upload Cover Letter PDF",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "x3GJ9UUhHPaiq0Jc",
+          "name": "Anchor - Google Drive"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    resume_material_id: $('Finalize Material').item.json.material_id,\n    resume_drive_url: $('Prepare Cover Letter PDF Data').item.json.resume_drive_url,\n    cover_letter_material_id: $('Persist Cover Letter').item.json.id,\n    cover_letter_drive_url: $json.webViewLink,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10120,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000063",
+      "name": "Prepare PDF URL Updates"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "UPDATE generated_material SET pdf_drive_url = $1 WHERE id = $2::uuid RETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.resume_drive_url }},{{ $json.resume_material_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        10340,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000064",
+      "name": "Update Resume PDF URL",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "UPDATE generated_material SET pdf_drive_url = $1 WHERE id = $2::uuid RETURNING id",
+        "options": {
+          "queryReplacement": "={{ $('Prepare PDF URL Updates').item.json.cover_letter_drive_url }},{{ $('Prepare PDF URL Updates').item.json.cover_letter_material_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        10560,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000065",
+      "name": "Update Cover Letter PDF URL",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const finalize = $('Finalize Material').item.json;\nconst scorer = finalize.scorer || {};\nconst skillGap = $('Parse Skill Gap Output').item.json.skill_gap || {};\nconst linkedin = $('Parse LinkedIn Output').item.json.linkedin || {};\nconst jdUrl = $('Load JD URL').item.json.url;\nconst pdfUrls = $('Prepare PDF URL Updates').item.json;\n\nconst richText = (s) => [{ type: 'text', text: { content: String(s ?? '').slice(0, 2000) } }];\n\nconst properties = {\n  Name: { title: richText(`${finalize.company_name} \u2014 ${finalize.role_title}`) },\n  Company: { rich_text: richText(finalize.company_name) },\n  'Role Title': { rich_text: richText(finalize.role_title) },\n  'Application ID': { rich_text: richText(finalize.application_id) },\n  Status: { select: { name: 'awaiting_review' } },\n  'Match Score': { number: scorer.score ?? null },\n  'Match Tier': { select: { name: scorer.tier || 'unknown' } },\n  'Skill Gap Verdict': { select: { name: skillGap.verdict || 'unknown' } },\n  'JD URL': { url: jdUrl || null },\n  'Resume PDF': { url: pdfUrls.resume_drive_url || null },\n  'Cover Letter PDF': { url: pdfUrls.cover_letter_drive_url || null },\n  'LinkedIn Message': { rich_text: richText(linkedin.message) },\n  Created: { date: { start: new Date().toISOString().slice(0, 10) } },\n};\n\nreturn [{\n  json: {\n    notion_body: {\n      parent: { database_id: '3806af3e78ea805fb6b8d1ca4c58188b' },\n      properties,\n    },\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10780,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000066",
+      "name": "Prepare Notion Page"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Notion-Version",
+              "value": "2022-06-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.notion_body) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        11000,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000067",
+      "name": "Create Notion Page",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "credentials": {
+        "notionApi": {
+          "id": "PbAYQxa42COsOqaD",
+          "name": "Anchor - Notion"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "UPDATE application\nSET status = 'awaiting_review'\nWHERE id = $1::uuid\nRETURNING id, status",
+        "options": {
+          "queryReplacement": "={{ $('Finalize Material').item.json.application_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        11220,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000037",
+      "name": "Mark Awaiting Review",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const prior = $('Finalize Material').item.json;\nconst extra = $('Parse Skill Gap Output').item.json;\nconst scorer = prior.scorer || {};\nconst skillGap = extra.skill_gap || {};\nconst driveFolderUrl = $('Prepare Resume PDF Data').item.json.drive_folder_url;\nconst notionUrl = $('Create Notion Page').item.json.url;\n\nconst text = [\n  `*Tailored resume ready for review:* ${prior.role_title} @ ${prior.company_name}`,\n  `Match score: ${scorer.score}/100 (${scorer.tier})`,\n  `Summary: ${prior.tailored.summary}`,\n  '',\n  'Cover letter, LinkedIn message, and skill-gap report generated.',\n  `Skill gap verdict: ${skillGap.verdict || 'unknown'}`,\n  '',\n  `Drive folder: ${driveFolderUrl}`,\n  `Notion page: ${notionUrl}`,\n  '',\n  'Status set to awaiting_review \u2014 review the materials and submit manually.',\n].join('\\n');\n\nreturn [{ json: { slack_text: text } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        11440,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000038",
+      "name": "Prepare Ready Slack"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/notify-slack",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: $json.slack_text }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        11660,
+        -380
+      ],
+      "id": "aaaaaaaa-0000-4000-8000-000000000039",
+      "name": "Post Ready Slack",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Load Application",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Load JD Parse",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Load Master Resume",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Load User Profile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Application": {
+      "main": [
+        [
+          {
+            "node": "Merge Inputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load JD Parse": {
+      "main": [
+        [
+          {
+            "node": "Merge Inputs",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Load Master Resume": {
+      "main": [
+        [
+          {
+            "node": "Merge Inputs",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Load User Profile": {
+      "main": [
+        [
+          {
+            "node": "Merge Inputs",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Merge Inputs": {
+      "main": [
+        [
+          {
+            "node": "Prepare Critic Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Critic Input": {
+      "main": [
+        [
+          {
+            "node": "Resume Critic Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume Critic Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Critic Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Critic Output": {
+      "main": [
+        [
+          {
+            "node": "Persist Resume Critic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Persist Resume Critic": {
+      "main": [
+        [
+          {
+            "node": "Prepare Scorer Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Scorer Input": {
+      "main": [
+        [
+          {
+            "node": "Match Scorer Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Match Scorer Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Scorer Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Scorer Output": {
+      "main": [
+        [
+          {
+            "node": "Persist Match Scorer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Persist Match Scorer": {
+      "main": [
+        [
+          {
+            "node": "Update Match Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Match Score": {
+      "main": [
+        [
+          {
+            "node": "IF Score >= 60",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Score >= 60": {
+      "main": [
+        [
+          {
+            "node": "Prepare Tailorer Input",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Low Match",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Low Match": {
+      "main": [
+        [
+          {
+            "node": "Prepare Slack Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Slack Message": {
+      "main": [
+        [
+          {
+            "node": "Post Low-Match Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post Low-Match Slack": {
+      "main": [
+        [
+          {
+            "node": "Wait for Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Decision": {
+      "main": [
+        [
+          {
+            "node": "IF Continue or Skip",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Continue or Skip": {
+      "main": [
+        [
+          {
+            "node": "Prepare Tailorer Input",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Withdrawn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Tailorer Input": {
+      "main": [
+        [
+          {
+            "node": "Resume Tailorer Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume Tailorer Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Tailored Resume",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Tailored Resume": {
+      "main": [
+        [
+          {
+            "node": "Prepare Grounding Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Grounding Check": {
+      "main": [
+        [
+          {
+            "node": "Grounding Critic Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grounding Critic Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Grounding Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Grounding Output": {
+      "main": [
+        [
+          {
+            "node": "IF Grounding Passes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Grounding Passes": {
+      "main": [
+        [
+          {
+            "node": "Persist Tailored Resume",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF Retry Available",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Retry Available": {
+      "main": [
+        [
+          {
+            "node": "Prepare Tailorer Input",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Escalation Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Escalation Slack": {
+      "main": [
+        [
+          {
+            "node": "Post Escalation Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Persist Tailored Resume": {
+      "main": [
+        [
+          {
+            "node": "Prepare Grounding Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Grounding Rows": {
+      "main": [
+        [
+          {
+            "node": "Insert Grounding Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Grounding Rows": {
+      "main": [
+        [
+          {
+            "node": "Finalize Material",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finalize Material": {
+      "main": [
+        [
+          {
+            "node": "Prepare Cover Letter Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Cover Letter Input": {
+      "main": [
+        [
+          {
+            "node": "Cover Letter Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cover Letter Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Cover Letter Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Cover Letter Output": {
+      "main": [
+        [
+          {
+            "node": "Persist Cover Letter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Persist Cover Letter": {
+      "main": [
+        [
+          {
+            "node": "Prepare Cover Letter Grounding Rows",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare LinkedIn Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Cover Letter Grounding Rows": {
+      "main": [
+        [
+          {
+            "node": "Insert Cover Letter Grounding Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare LinkedIn Input": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn Drafter Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LinkedIn Drafter Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse LinkedIn Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse LinkedIn Output": {
+      "main": [
+        [
+          {
+            "node": "Persist LinkedIn Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Persist LinkedIn Message": {
+      "main": [
+        [
+          {
+            "node": "Prepare Skill Gap Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Skill Gap Input": {
+      "main": [
+        [
+          {
+            "node": "Skill Gap Analyzer Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Skill Gap Analyzer Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Skill Gap Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Skill Gap Output": {
+      "main": [
+        [
+          {
+            "node": "Persist Skill Gap Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Persist Skill Gap Report": {
+      "main": [
+        [
+          {
+            "node": "Load JD URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Awaiting Review": {
+      "main": [
+        [
+          {
+            "node": "Prepare Ready Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Ready Slack": {
+      "main": [
+        [
+          {
+            "node": "Post Ready Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load JD URL": {
+      "main": [
+        [
+          {
+            "node": "Prepare Drive Folder Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Drive Folder Name": {
+      "main": [
+        [
+          {
+            "node": "Create Drive Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Drive Folder": {
+      "main": [
+        [
+          {
+            "node": "Prepare Resume PDF Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Resume PDF Data": {
+      "main": [
+        [
+          {
+            "node": "Render Resume PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Render Resume PDF": {
+      "main": [
+        [
+          {
+            "node": "Upload Resume PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Resume PDF": {
+      "main": [
+        [
+          {
+            "node": "Prepare Cover Letter PDF Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Cover Letter PDF Data": {
+      "main": [
+        [
+          {
+            "node": "Render Cover Letter PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Render Cover Letter PDF": {
+      "main": [
+        [
+          {
+            "node": "Upload Cover Letter PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Cover Letter PDF": {
+      "main": [
+        [
+          {
+            "node": "Prepare PDF URL Updates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare PDF URL Updates": {
+      "main": [
+        [
+          {
+            "node": "Update Resume PDF URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Resume PDF URL": {
+      "main": [
+        [
+          {
+            "node": "Update Cover Letter PDF URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Cover Letter PDF URL": {
+      "main": [
+        [
+          {
+            "node": "Prepare Notion Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Notion Page": {
+      "main": [
+        [
+          {
+            "node": "Create Notion Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Notion Page": {
+      "main": [
+        [
+          {
+            "node": "Mark Awaiting Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "hULM9d6nFUMdite1"
+  },
+  "active": false,
+  "id": "x189x3S4YZQTVctl",
+  "meta": null
+}

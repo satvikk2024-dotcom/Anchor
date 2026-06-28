@@ -1,0 +1,127 @@
+{
+  "id": "02_pm_intern_startup",
+  "company_name": "Tindergrove Labs",
+  "role_title": "Product Management Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience translating user needs into concrete requirements (KuKClean internship)",
+      "Solid communication skills evident in project descriptions",
+      "Familiarity with Figma from KuKClean internship"
+    ],
+    "weaknesses_to_address": [
+      "Limited experience with technical specs or API docs",
+      "No direct team management or event coordination experience"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "Current focus on research projects (Meridian, Anchor) rather than user feedback and requirements gathering",
+      "Lack of specific product management experience or familiarity with Notion, Figma, Linear tools used by the company"
+    ],
+    "suggested_angle": "Highlight your ability to translate user needs into concrete requirements through previous design internships while showcasing strong communication skills and a preference for verifiable correctness in complex systems."
+  },
+  "scorer": {
+    "score": 73,
+    "tier": "warm",
+    "reasoning": "Candidate covers the must-have of translating user needs into concrete requirements and has strong communication skills, but lacks direct experience with technical specs or Figma. Also, current focus on research projects may detract from user feedback and requirements gathering.",
+    "top_strengths": [
+      "Experience translating user needs into concrete requirements",
+      "Solid communication skills"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Limited experience with technical specs or API docs",
+        "severity": "significant"
+      },
+      {
+        "gap": "Lack of specific product management experience or familiarity with Figma and Linear tools used by the company",
+        "severity": "minor"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "With a background in translating user needs into concrete requirements through internships at KuKClean and a strong commitment to verifiable correctness, I am well-equipped to contribute effectively as a Product Management Intern.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-product",
+            "text": "Set up multiple product listings on the e-commerce storefront \u2014 writing product copy, optimising descriptions, and photographing the catalog to support go-to-market launch."
+          },
+          {
+            "master_resume_entry_id": "sk-edu-rvce",
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RVCE with relevant coursework including Data Structures and Design and Analysis of Algorithms."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-proj-meridian-sys",
+            "text": "Designed and shipped Meridian, a 4-agent orchestration system that produces cited due-diligence memos on NSE/BSE companies in ~75 seconds."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from sk-exp-kukcl-product) claims 'Set up multiple product listings on the e-commerce storefront' \u2014 no mention of setting up more than 20+ product listings in this line's Source.",
+      "Line 3 (from sk-proj-meridian-sys) claims 'Designed and shipped Meridian, a 4-agent orchestration system that produces cited due-diligence memos on NSE/BSE companies' \u2014 the Source specifies 'financial, market, leadership, sentiment' as agents, not just four in general."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Product Management Intern position at Tindergrove Labs. Their recent launch of v2 with social accountability features aligns well with my background in user feedback synthesis and requirements documentation from my role as a Design Intern at KuKClean, where I produced over 30 design files and set up product listings on the e-commerce storefront.",
+      "My project Meridian, an AI-driven orchestration system for financial due-diligence memos, required translating complex data into actionable insights. This experience has honed my ability to gather and synthesize user feedback accurately, which I believe will be invaluable in your team\u2019s cross-functional syncs. Furthermore, my work with the Grounding Critic ensures that every claim is verifiably correct, aligning perfectly with Tindergrove Labs\u2019 culture of high ownership.",
+      "I am eager to contribute to your early-stage, scrappy environment and directly support the 2-person founding team in translating user needs into concrete requirements. I look forward to bringing my background in technical systems like FastAPI, Figma, and Notion to enhance product management at Tindergrove Labs."
+    ],
+    "master_resume_entry_ids": [
+      "sk-exp-kukcl-design",
+      "sk-proj-meridian-sys",
+      "sk-exp-kukcl-product"
+    ],
+    "company_detail_referenced": "their recent launch of v2 with social accountability features"
+  },
+  "cover_letter_word_count": 171,
+  "linkedin": {
+    "message": "Hi \u2014 I'm applying for the Product Management Intern role and am excited about the social accountability features in v2 of Tindergrove Labs' app. My experience translating user needs into concrete requirements aligns well with your team's focus on high ownership and detailed specs.",
+    "company_detail_referenced": "social accountability features in v2 of Tindergrove Labs' app"
+  },
+  "linkedin_char_count": 281,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Experience translating user needs into concrete requirements (course project or extracurricular)",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Highlight your experience from the KuKClean internship in the cover letter and resume. Emphasize how you effectively translated user needs during your research projects like Meridian."
+      },
+      {
+        "requirement": "Currently pursuing an undergraduate degree (any technical field)",
+        "category": "must_have",
+        "severity": "minor",
+        "how_to_close": "Mention in the cover letter that you are currently a Computer Science sophomore and provide details about your ongoing education and projects."
+      },
+      {
+        "requirement": "Experience running or coordinating a team or event",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Research opportunities for organizing events or leading small teams on campus and include any relevant experience in your application materials. Mention this as part of the suggested angle."
+      },
+      {
+        "requirement": "Familiarity with Figma or similar design tools",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "If possible, familiarize yourself with Figma through online tutorials. Include this in your cover letter and highlight any related skills you have developed."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 193.6
+}

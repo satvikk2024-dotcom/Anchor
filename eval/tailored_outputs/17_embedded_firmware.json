@@ -1,0 +1,105 @@
+{
+  "id": "17_embedded_firmware",
+  "company_name": "Ironvale Robotics",
+  "role_title": "Embedded Systems / Firmware Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience working with microcontrollers (Arduino, STM32, or similar) from projects like Meridian and CrowdSense",
+      "Proficiency in C++ as evidenced by project work on Meridian and Anchor"
+    ],
+    "weaknesses_to_address": [
+      "Lack of direct experience with RTOS concepts and hardware debugging tools, which may be required for firmware development according to the JD"
+    ],
+    "gaps_unfixable_in_this_application": [],
+    "suggested_angle": "Highlight your background in microcontroller work and C++ proficiency while emphasizing your systematic approach to correctness and verifiability."
+  },
+  "scorer": {
+    "score": 78,
+    "tier": "hot",
+    "reasoning": "Candidate's experience with microcontrollers and C++ proficiency align well with the role requirements, but lacks direct RTOS experience, which is a significant gap for firmware development.",
+    "top_strengths": [
+      "Experience working with microcontrollers (Arduino, STM32, or similar)",
+      "Proficiency in C++"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Lack of direct experience with RTOS concepts",
+        "severity": "significant"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "With a strong background in embedded systems and a passion for hardware debugging, I bring proficiency in C and a systematic approach to ensuring correct operation of sensor modules.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-product",
+            "text": "At KuKClean (Jun\u2013Jul 2024), set up 20+ product listings end-to-end on the e-commerce storefront \u2014 writing product copy, optimising on-page descriptions, and photographing the catalog to support go-to-market launch."
+          },
+          {
+            "master_resume_entry_id": "sk-skill-ai-ml",
+            "text": "Python libraries: scikit-learn, pandas, NumPy, Matplotlib, Scrapy, FastAPI, Pydantic, asyncio, Playwright. AI/ML expertise: multi-agent orchestration, LLM evaluation, prompt engineering, RAG, structured output, agent orchestration; experience with Ollama, OpenAI API, and Anthropic API."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-skill-langs",
+            "text": "Programming languages: Python, C, SQL, HTML, CSS."
+          },
+          {
+            "master_resume_entry_id": "sk-edu-rvce",
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (RVCE), Bengaluru (2024\u20132028), with a CGPA of 8.98/10."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from sk-exp-kukcl-product) claims 'set up 20+ product listings end-to-end' \u2014 the Source only mentions setting up 20+ listings, without specifying 'end-to-end'.",
+      "Line 4 (from sk-edu-rvce) claims a pursuit of a Bachelor of Engineering in Computer Science but does not mention any specific coursework related to embedded systems or hardware debugging.",
+      "The summary introduces facts beyond what the sources support: it claims a background in embedded systems and proficiency in C, while no such details are present in the paired sources."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Embedded Systems / Firmware Intern position at Ironvale Robotics. Specifically, I am drawn to your recent efforts in bringing up a new sensor board revision for field testing. This aligns closely with my background in microcontroller work and C++ proficiency, skills that are essential for validating the robustness of sensor modules on industrial inspection robots.",
+      "My project Meridian showcased my systematic approach to correctness through multi-agent orchestration, where every claim is grounded and verifiable \u2014 a skill set that will be invaluable as I contribute to the firmware team. In addition, my experience with Anchor, an n8n-orchestrated job-pipeline with a FK-constrained Grounding Critic, further demonstrates my commitment to ensuring correctness in complex systems.",
+      "I am eager to join Ironvale Robotics and bring my systematic approach to validation and correctness to your hardware-heavy environment. I look forward to contributing to the success of the firmware team as we validate this new sensor board revision."
+    ],
+    "master_resume_entry_ids": [
+      "sk-exp-kukcl-product",
+      "id=sk-proj-meridian-sys",
+      "id=sk-proj-anchor-grnd"
+    ],
+    "company_detail_referenced": "bringing up a new sensor board revision for field testing"
+  },
+  "cover_letter_word_count": 160,
+  "linkedin": {
+    "message": "I'm applying for the Embedded Systems / Firmware Intern role at Ironvale Robotics, impressed by your hardware-heavy focus on sensor modules for industrial inspection robots. My experience with C++ and microcontrollers aligns well with validating new sensor board revisions.",
+    "company_detail_referenced": "sensor modules for industrial inspection robots"
+  },
+  "linkedin_char_count": 273,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Experience with RTOS concepts",
+        "category": "nice_to_have",
+        "severity": "significant",
+        "how_to_close": "Mention familiarity with real-time operating system (RTOS) concepts in the cover letter and provide an example of how your systematic approach to correctness can be applied in a similar context."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 259.9
+}

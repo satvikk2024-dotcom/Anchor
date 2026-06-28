@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover Letter</title>
+<style>
+  @page { size: Letter; margin: 1in; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 11pt;
+    color: #1a1a1a;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .sender { margin-bottom: 24px; }
+  .sender .name { font-weight: bold; font-size: 12pt; }
+  .date { margin-bottom: 24px; }
+  .recipient { margin-bottom: 18px; }
+  p { margin: 0 0 12px 0; }
+  .signoff { margin-top: 18px; }
+</style>
+</head>
+<body>
+  <div class="sender">
+    <div class="name">{{ candidate_name | default('[Your Name]') }}</div>
+    <div>{{ candidate_email | default('[your.email@example.com]') }}</div>
+  </div>
+
+  <div class="date">{{ date }}</div>
+
+  <div class="recipient">
+    {{ company_name }} Hiring Team<br>
+    Re: {{ role_title }}
+  </div>
+
+  <p>Dear Hiring Team,</p>
+
+  {% for paragraph in paragraphs %}
+  <p>{{ paragraph }}</p>
+  {% endfor %}
+
+  <div class="signoff">
+    Sincerely,<br>
+    {{ candidate_name | default('[Your Name]') }}
+  </div>
+</body>
+</html>

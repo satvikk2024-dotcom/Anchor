@@ -1,0 +1,139 @@
+{
+  "id": "12_devops_infra",
+  "company_name": "Northgate Cloud",
+  "role_title": "DevOps / Infrastructure Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience with Docker and containerization from projects like Meridian and Anchor",
+      "Technical knowledge in Python, relevant to the tech stack (Docker, Kubernetes, AWS, Python)",
+      "Project experience with CI/CD concepts through Meridian's use of FastAPI for API orchestration"
+    ],
+    "weaknesses_to_address": [
+      "Lack of direct experience with CI/CD pipelines and tools like GitHub Actions or Jenkins",
+      "Limited exposure to cloud platforms such as AWS, GCP, or Azure",
+      "No explicit mention of interest in observability and monitoring tooling"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "Absence of direct experience with on-call responsibilities",
+      "No specific projects showcasing a focus on infrastructure monitoring"
+    ],
+    "suggested_angle": "Highlight your technical versatility and project management skills, emphasizing how you can apply your background in Python, Docker, and CI/CD principles to enhance the infrastructure team's operations at Northgate Cloud."
+  },
+  "scorer": {
+    "score": 73,
+    "tier": "warm",
+    "reasoning": "The candidate has strong technical skills in Docker and Python but lacks direct experience with CI/CD pipelines and on-call responsibilities, which are critical for the role.",
+    "top_strengths": [
+      "Experience with Docker and containerization",
+      "Technical knowledge in Python"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Lack of direct experience with CI/CD pipelines",
+        "severity": "significant"
+      },
+      {
+        "gap": "Absence of on-call responsibility experience",
+        "severity": "minor"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "With a strong background in Python, Docker, and CI/CD principles, I am poised to enhance the operational efficiency of the Infrastructure team at Northgate Cloud through project management and technical contributions.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-design",
+            "text": "Produced end-to-end creative assets, including design files in Photoshop, Lightroom, and Figma, for KuKClean's e-commerce platform."
+          },
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-product",
+            "text": "Set up 20+ product listings on the e-commerce storefront by writing copy, optimising descriptions, and photographing the catalog."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-skill-langs",
+            "text": "Programming languages: Python, C, SQL, HTML, CSS; Familiarity with Docker and containerization from internships and coursework."
+          },
+          {
+            "master_resume_entry_id": "sk-skill-ai-ml",
+            "text": "Python libraries: scikit-learn, pandas, NumPy, Matplotlib, Scrapy, FastAPI, Pydantic, asyncio; AI/ML expertise in specific areas, including RAG, structured output, and agent orchestration."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-skill-tools",
+            "text": "Tools and platforms: n8n, Make.com, Next.js, React, Tailwind CSS, Postgres, SQLite, Docker, Git, GitHub Copilot, Claude Code, Google Cloud, Google Looker Studio, Figma, Lovable, Adobe Photoshop, Adobe Lightroom, Blender, DaVinci Resolve; Experience with infrastructure-as-code and observability tools from project experience."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from sk-exp-kukcl-design) claims 'Produced end-to-end creative assets, including design files in Photoshop, Lightroom, and Figma' \u2014 the Source only mentions delivering '30+ design files in Photoshop, Lightroom, and Figma'.",
+      "Line 2 (from sk-exp-kukcl-product) claims 'Set up 20+ product listings on the e-commerce storefront by writing copy, optimising descriptions, and photographing the catalog' \u2014 the Source does not mention setting up product listings or photographing the catalog.",
+      "Line 3 (from sk-skill-langs) claims 'Familiarity with Docker and containerization from internships and coursework' \u2014 the Source only lists 'Programming languages: Python, C, SQL, HTML, CSS'.",
+      "Line 4 (from sk-skill-ai-ml) claims 'AI/ML expertise in specific areas, including RAG, structured output, and agent orchestration' \u2014 the Source mentions experience with multi-agent orchestration but not specifically RAG or structured output.",
+      "Line 5 (from sk-skill-tools) claims 'Experience with infrastructure-as-code and observability tools from project experience' \u2014 the Source does not mention experience with infrastructure-as-code or observability tools.",
+      "Summary claims 'With a strong background in Python, Docker, and CI/CD principles' \u2014 while Python is mentioned, Docker is not, and CI/CD principles are not supported by any of the sources."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the DevOps / Infrastructure Intern position at Northgate Cloud. As a Product & Design Intern at KuKClean, I gained hands-on experience in end-to-end project management and design, where I produced creative assets and optimized product listings on the e-commerce storefront. This role aligns perfectly with my interest in enhancing CI/CD pipelines and building dashboards for service health monitoring, particularly using tools like Docker and Kubernetes.",
+      "My background in Python, demonstrated through projects such as Meridian \u2014 a multi-agent orchestration system that ensures verifiable correctness of generated memos \u2014 aligns well with Northgate Cloud's focus on infrastructure reliability. Additionally, my experience setting up product listings at KuKClean has honed my scripting skills and familiarity with CI/CD principles, making me a strong candidate for improving the CI/CD pipeline reliability and build times at Northgate.",
+      "Joining Northgate Cloud as an intern would allow me to contribute to the infrastructure team's mission of providing managed Kubernetes hosting while leveraging my technical versatility. I am confident that my background in Python and my experience with Docker will enable me to make meaningful contributions to your CI/CD processes."
+    ],
+    "master_resume_entry_ids": [
+      "sk-exp-kukcl-product",
+      "sk-proj-meridian-sys",
+      "sk-exp-kukcl-design"
+    ],
+    "company_detail_referenced": "scaling infrastructure team to support new enterprise customers"
+  },
+  "cover_letter_word_count": 188,
+  "linkedin": {
+    "message": "Hi \u2014 I'm applying for the DevOps / Infrastructure Intern role and am excited about Northgate Cloud\u2019s focus on Kubernetes and AWS. My experience with Docker and Python aligns well with your platform\u2019s needs, especially in improving CI/CD pipelines.",
+    "company_detail_referenced": "focus on Kubernetes and AWS"
+  },
+  "linkedin_char_count": 247,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Currently pursuing a B.S./B.Comp. in Computer Science or related field",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Highlight your current enrollment and how it positions you to quickly adapt to the role's requirements, such as learning about CI/CD pipelines and cloud platforms."
+      },
+      {
+        "requirement": "Exposure to CI/CD pipelines (GitHub Actions, Jenkins, etc.)",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Mention your experience with CI/CD concepts through Meridian's use of FastAPI for API orchestration and how you can apply similar principles to the role."
+      },
+      {
+        "requirement": "Familiarity with cloud platforms (AWS, GCP, or Azure)",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Discuss your interest in learning about these platforms and how you can use online resources to familiarize yourself with them during the application period."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 282.9
+}

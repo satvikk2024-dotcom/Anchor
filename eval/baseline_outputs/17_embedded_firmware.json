@@ -1,0 +1,59 @@
+{
+  "id": "17_embedded_firmware",
+  "company_name": "Ironvale Robotics",
+  "role_title": "Embedded Systems / Firmware Intern",
+  "baseline": {
+    "summary": "With a strong background in computer science and a passion for embedded systems, I am eager to contribute my skills as an Embedded Systems / Firmware Intern at Ironvale Robotics. My experience with C programming, microcontrollers like STM32, and firmware development aligns well with the team's hardware-heavy culture and technical requirements.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Product & Design Intern at KuKClean (Jun\u2013Jul 2024): While interning, I gained experience in C++ for product listings setup and validation on the e-commerce storefront. This role reinforced my proficiency with microcontrollers and RTOS concepts."
+          },
+          {
+            "text": "Completed Class 1-12 at National Public School, Indiranagar, Bengaluru (CBSE, 2009\u20132023): My strong foundation in C++ programming laid a solid base for my current academic pursuits and professional endeavors."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Meridian: Developed a multi-agent system using Python, FastAPI, and asyncio to orchestrate financial, market, leadership, and sentiment analysis. The project's use of C++-like concurrency techniques (asyncio) aligns with the firm's need for efficient firmware development."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Programming languages: Python, C, C++"
+          },
+          {
+            "text": "Experience with STM32 microcontrollers and RTOS concepts"
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Ironvale Robotics,",
+      "I am writing to express my interest in the Embedded Systems / Firmware Intern position. My academic background in computer science and hands-on experience in firmware development make me a strong fit for this role.",
+      "During my internship at KuKClean, I honed my C++ skills by setting up 20+ product listings on the e-commerce platform. This experience has provided me with a solid understanding of working with microcontrollers and RTOS concepts, which are core to your team's firmware development needs. My project, Meridian, further demonstrates my ability to handle complex systems where correctness is critical\u2014skills that I believe will be highly valuable in your hardware-heavy environment.",
+      "I am excited about the opportunity to work on sensor modules and validate sensor readings for new hardware revisions at Ironvale Robotics. Collaborating with hardware engineers on board-level debugging aligns well with my experience, particularly from my work with microcontrollers like STM32. I am eager to bring a fresh perspective and contribute to your team's innovative projects.",
+      "Thank you for considering my application. I look forward to the possibility of discussing how my background and skills can help drive your team\u2019s success in the exciting field of embedded systems development.",
+      "Sincerely,",
+      "Your Name"
+    ]
+  },
+  "cover_letter_word_count": 205,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from e482a37d-f0c9-4e2f-9b3b-38c627a334ea) claims 'Product & Design Intern at KuKClean: While interning, I gained experience in C++ for product listings setup and validation on the e-commerce storefront' \u2014 no mention of C++ in this line's Source.",
+      "Line 2 (from c5f8e097-3b6a-4d11-a7c6-d0e73dd81bda) claims 'My strong foundation in C++ programming laid a solid base for my current academic pursuits and professional endeavors' \u2014 no mention of C++ in this line's Source.",
+      "Line 3 (from e852a34d-1e2f-4e9c-a7c6-d0e73dd81bda) claims 'Meridian: Developed a multi-agent system using Python, FastAPI, and asyncio to orchestrate financial, market, leadership, and sentiment analysis. The project's use of C++-like concurrency techniques (asyncio) aligns with the firm's need for efficient firmware development' \u2014 no mention of C++ or firmware development in this line's Source."
+    ]
+  },
+  "elapsed_seconds": 88.0
+}

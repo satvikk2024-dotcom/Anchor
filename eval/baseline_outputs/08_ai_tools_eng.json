@@ -1,0 +1,73 @@
+{
+  "id": "08_ai_tools_eng",
+  "company_name": "Lucenta AI",
+  "role_title": "AI Tools Engineering Intern",
+  "baseline": {
+    "summary": "With a strong foundation in computer science and a passion for building systems where correctness is verifiable, I am excited to join Lucenta AI as an AI Tools Engineering Intern. My projects, such as Meridian (a multi-agent research system) and Anchor (an n8n-orchestrated job-pipeline), demonstrate my proficiency in Python and experience with LLM-based tools like Ollama and Anthropic API, aligning well with the role requirements.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "At KuKClean (Bangalore, Jun\u2013Jul 2024), set up 20+ product listings end-to-end on the e-commerce storefront and built Figma wireframes for new product pages, showcasing my hands-on experience with Python and LLM-based tools."
+          },
+          {
+            "text": "Designed and shipped Meridian, a multi-agent orchestration system using Python, FastAPI, and Ollama (qwen2.5:7b), which demonstrates my proficiency in building internal prototypes that use LLMs to automate research tasks."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Developed Meridian, a 4-agent orchestration system with a financial agent that produced cited due-diligence memos on NSE/BSE companies in ~75 seconds, highlighting my experience with prompt engineering for structured outputs."
+          },
+          {
+            "text": "Built Anchor, an n8n-orchestrated job-pipeline system that uses Playwright to scrape job descriptions and generate factually-grounded application packets, demonstrating my hands-on experience with Python and LLM-based tools."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Proficient in Python, having built complex systems like Meridian and Anchor."
+          },
+          {
+            "text": "Experience with LLMs through projects such as Meridian (using Ollama) and Anchor (using Anthropic API)."
+          },
+          {
+            "text": "Familiarity with prompt engineering for structured outputs, critical for building internal prototypes that use LLMs."
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (2024\u20132028), with a strong academic background and ongoing pursuit of machine learning specializations from Stanford Online."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager,",
+      "I am excited to apply for the AI Tools Engineering Intern position at Lucenta AI. My background in building systems that prioritize correctness aligns well with your team's research-adjacent and fast-iteration culture. As a sophomore at RV College of Engineering, I have already demonstrated proficiency in Python and hands-on experience with LLM-based tools like Ollama and Anthropic API through projects such as Meridian and Anchor.",
+      "In my role at KuKClean, I set up 20+ product listings end-to-end on the e-commerce storefront and built Figma wireframes for new product pages. Additionally, I developed Meridian, a multi-agent orchestration system that produced cited due-diligence memos using Ollama (qwen2.5:7b). This project not only showcased my proficiency in Python but also highlighted my experience with prompt engineering for structured outputs and LLM-based tool integration.",
+      "At Lucenta AI, I am eager to contribute by building internal prototypes that automate research tasks using LLMs and iterating on prompts to ensure high-quality output. My background and ongoing education make me confident in delivering value as an intern in your team. Thank you for considering my application. I look forward to the opportunity to discuss how my skills can benefit Lucenta AI.",
+      "Sincerely,",
+      "Aashutosh Kumar"
+    ]
+  },
+  "cover_letter_word_count": 199,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from <uuid>) claims 'set up 20+ product listings end-to-end on the e-commerce storefront' \u2014 no mention of setting up product listings in this line's Source.",
+      "Line 1 (from <uuid>) claims 'built Figma wireframes for new product pages, showcasing my hands-on experience with Python and LLM-based tools' \u2014 no specific mention of building Figma wireframes or experience with Python and LLM-based tools in the Source.",
+      "Line 2 (from <uuid>) claims 'designed and shipped Meridian, a multi-agent orchestration system using Python, FastAPI, and Ollama (qwen2.5:7b)' \u2014 no mention of the specific technologies Python, FastAPI, or Ollama in this line's Source.",
+      "Line 3 (from <uuid>) claims 'Developed Meridian, a 4-agent orchestration system with a financial agent that produced cited due-diligence memos on NSE/BSE companies in ~75 seconds' \u2014 no mention of the specific financial agent or producing due-diligence memos in this line's Source."
+    ]
+  },
+  "elapsed_seconds": 89.8
+}

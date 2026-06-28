@@ -1,0 +1,131 @@
+{
+  "id": "05_qa_testing",
+  "company_name": "Ferrowell Systems",
+  "role_title": "Software Testing Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience writing test cases or bug reports (web application project)",
+      "Familiarity with at least one programming language (Python)"
+    ],
+    "weaknesses_to_address": [
+      "Lack of experience in automated testing frameworks",
+      "No explicit mention of documentational skills for non-technical audiences"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "Limited exposure to Java, the primary tech stack at Ferrowell Systems"
+    ],
+    "suggested_angle": "Highlighting your strong foundational programming skills and test case writing experience while emphasizing adaptability to learn new tools quickly."
+  },
+  "scorer": {
+    "score": 73,
+    "tier": "warm",
+    "reasoning": "The candidate has strong foundational programming skills and experience writing test cases or bug reports but lacks experience with Java, the primary tech stack at Ferrowell Systems.",
+    "top_strengths": [
+      "Experience writing test cases or bug reports",
+      "Familiarity with Python"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Limited exposure to Java",
+        "severity": "significant"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "A computer science student with a strong foundation in programming, particularly in Python, C++, and Java, looking to apply my testing skills in a hands-on role at Ferrowell Systems.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-exp-1",
+            "text": "As Chief Group Leader for a university college's Freshers' Orientation Programme (Sep 2024 - Aug 2025), headed a team of orientation leaders to plan and run a large-scale welcome programme for incoming students \u2014 managing logistics, coordinating schedules, and keeping the experience engaging and inclusive throughout."
+          },
+          {
+            "master_resume_entry_id": "demo-exp-3",
+            "text": "As a Logistics Member of a university college committee (2024-present), contributes to the planning and smooth execution of college-level events, working closely with committees to coordinate operations and support a vibrant campus community."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-skill-1",
+            "text": "Programming languages: Python, C, C++, and Java."
+          },
+          {
+            "master_resume_entry_id": "demo-skill-3",
+            "text": "Comfortable with MySQL for relational database work, plus everyday development and design tooling including VS Code and Canva."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-proj-3",
+            "text": "Drove functional testing and systematic bug reporting for the flat-comparison web app, ensuring application behaviour matched specifications and improving overall release quality."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": true,
+    "violations": []
+  },
+  "grounding_retried": false,
+  "escalated": false,
+  "cover_letter": {
+    "paragraphs": [
+      "I am thrilled to apply for the Software Testing Intern position at Ferrowell Systems. The upcoming UI overhaul over the next two quarters aligns perfectly with my interest in contributing to high-impact projects. As part of a university software engineering course, I led functional testing and systematic bug reporting for a web application, ensuring that it met its specifications thoroughly.",
+      "My experience with AI-driven development workflows, such as using Claude AI for prompt engineering, has equipped me with the flexibility to adapt quickly to new tools and technologies. This skill set will be invaluable in leveraging Selenium and Jira at Ferrowell Systems to write clear, reproducible bug reports that support efficient team collaboration. Additionally, my role as Chief Group Leader in organizing orientation programmes honed my ability to manage logistics and coordinate teams effectively\u2014traits that I am eager to bring to the QA team.",
+      "With a strong foundation in programming languages like Python and Java, and a commitment to attention to detail, I am confident in my ability to contribute meaningfully to the upcoming UI release. Thank you for considering my application; I look forward to the opportunity to join Ferrowell Systems and support the smooth execution of this critical project."
+    ],
+    "master_resume_entry_ids": [
+      "demo-proj-3",
+      "id=demo-skill-1",
+      "id=demo-exp-2"
+    ],
+    "company_detail_referenced": "upcoming UI overhaul over the next two quarters"
+  },
+  "cover_letter_word_count": 201,
+  "linkedin": {
+    "message": "I'm applying for the Software Testing Intern role and am excited by Ferrowell Systems' process-oriented approach. My background in test cases and Python aligns well with your Java and Selenium needs.",
+    "company_detail_referenced": "process-oriented approach"
+  },
+  "linkedin_char_count": 199,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Familiarity with at least one programming language (Python)",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Could be closed with a focused weekend project in Java before applying, emphasizing the transferable skills between Python and Java."
+      },
+      {
+        "requirement": "Experience writing test cases or bug reports (course project acceptable)",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Mention familiarity with writing test cases in your cover letter, framing it as experience relevant to the role."
+      },
+      {
+        "requirement": "Exposure to automated testing frameworks",
+        "category": "nice_to_have",
+        "severity": "significant",
+        "how_to_close": "Create a small project that demonstrates exposure to an automated testing framework like PyTest or JUnit before applying, highlighting adaptability and willingness to learn quickly."
+      },
+      {
+        "requirement": "Experience documenting software behavior for non-technical audiences",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Provide an example of a well-written technical document or bug report in your portfolio, emphasizing the ability to explain complex concepts clearly."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 132.5
+}

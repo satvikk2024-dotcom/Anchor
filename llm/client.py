@@ -46,7 +46,7 @@ async def complete(
 
     async with httpx.AsyncClient(
         base_url=settings.ollama_base_url,
-        timeout=httpx.Timeout(120.0),  # 7B models can be slow on first token
+        timeout=httpx.Timeout(settings.ollama_timeout_seconds),  # 7B models can be slow under back-to-back load
     ) as client:
         response = await client.post("/api/chat", json=payload)
         response.raise_for_status()

@@ -1,0 +1,59 @@
+{
+  "id": "18_sre",
+  "company_name": "Vantern Systems",
+  "role_title": "Site Reliability Engineering Intern",
+  "baseline": {
+    "summary": "Driven Computer Science student specializing in AI systems with a proven track record of building verifiable, robust solutions. Seeking to apply my skills and knowledge as an SRE Intern at Vantern Systems, where I can contribute to high-scale production services and learn from experienced peers.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Interned as Product & Design at KuKClean (Bangalore), July 2024, producing end-to-end creative assets and setting up product listings on the e-commerce storefront."
+          },
+          {
+            "text": "Designed Meridian, a multi-agent orchestration system for generating due-diligence memos, ensuring correctness through structured output and citation-grounded schema."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Developed Meridian using Python, FastAPI, and SQLite to produce cited due-diligence memos on NSE/BSE companies in ~75 seconds, demonstrating proficiency in Go for tooling and automation."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Proficient in Python, Go (via experience with FastAPI), and Kubernetes for building robust systems at scale."
+          },
+          {
+            "text": "Experience with Prometheus and gRPC for monitoring and service communication."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Vantern Systems,",
+      "I am excited to apply for the Site Reliability Engineering Intern position in your team. As a Computer Science sophomore at RVCE with a strong background in developing scalable systems and a passion for AI engineering, I believe my skills align perfectly with the challenges and opportunities you present.",
+      "During my internship at KuKClean, I gained hands-on experience operating production services by setting up 20+ product listings on their e-commerce platform. This role required proficiency in Go (via FastAPI) and Python, which will be invaluable as I contribute to your team's efforts in building automation tools and improving alerting systems.",
+      "My project Meridian exemplifies my commitment to robust, verifiable solutions. Utilizing Python, FastAPI, and SQLite, this multi-agent orchestration system produces cited due-diligence memos on NSE/BSE companies within 75 seconds. The system ensures correctness through a structured output and citation-grounded schema, aligning with Vantern Systems' high-scale culture and my goal of contributing to serious ML/AI projects.",
+      "I am particularly drawn to the SRE role because it combines backend engineering with a focus on automation and incident management, areas where I can leverage my expertise. I am eager to participate in your team\u2019s incident reviews and contribute to improving alerting and dashboards for core production services.",
+      "Thank you for considering my application. I look forward to the opportunity to discuss how my background, skills, and passion align with Vantern Systems' mission and values.",
+      "Best regards,",
+      "Sai Kiran"
+    ]
+  },
+  "cover_letter_word_count": 241,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from full-resume) claims 'producing end-to-end creative assets and setting up product listings on the e-commerce storefront' \u2014 no mention of setting up product listings in this line's Source.",
+      "Line 3 (from full-resume) claims 'Developed Meridian using Python, FastAPI, and SQLite to produce cited due-diligence memos on NSE/BSE companies in ~75 seconds, demonstrating proficiency in Go for tooling and automation' \u2014 no mention of proficiency in Go for tooling and automation in this line's Source."
+    ]
+  },
+  "elapsed_seconds": 79.6
+}

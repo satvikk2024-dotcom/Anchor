@@ -1,0 +1,74 @@
+{
+  "id": "16_quant_trading",
+  "company_name": "Castellan Capital",
+  "role_title": "Quantitative Trading Intern",
+  "baseline": {
+    "summary": "Passionate Computer Science student with a strong foundation in mathematical and computational principles. Seeking a Quantitative Trading Internship at Castellan Capital to leverage my background in probability, statistics, linear algebra, and Python programming proficiency for robust systematic trading signal research and backtesting.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Product & Design Intern at KuKClean (Bangalore, Jun\u2013Jul 2024) \u2014 Utilized Python and Figma to produce creative assets and set up product listings on the e-commerce platform."
+          },
+          {
+            "text": "Quantitative Trading Intern at Castellan Capital (targeting Summer 2026) \u2014 Aspired role to develop systematic trading signals using Python, C++, NumPy, and internal backtesting frameworks. High-performance research environment is ideal for my expertise in probability, statistics, linear algebra, and machine learning."
+          },
+          {
+            "text": "Meridian Project \u2014 Designed a multi-agent system in Python with FastAPI, pulling data from yfinance, Wikipedia, Reddit, and Google News to generate due-diligence memos on NSE/BSE companies. Ensured correctness through a schema that links claims to evidence rows."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "CrowdSense \u2014 Developed a real-time crowd-monitoring platform using CSRNet and YOLOv8 for density estimation, switching between models based on scene density. Implemented zone-wise risk detection with OpenCV optical flow for privacy-preserving movement analysis."
+          },
+          {
+            "text": "Anchor Project \u2014 Built an n8n-orchestrated job-pipeline system to create researched application packets from job postings, incorporating a Grounding Critic to ensure factual accuracy and full observability logging."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Programming proficiency in Python (NumPy, FastAPI, asyncio) and familiarity with C++ for quantitative research. Strong background in probability, statistics, linear algebra, and machine learning."
+          },
+          {
+            "text": "Experience with time-series analysis and backtesting frameworks. Proficiency in data structures, algorithms, and web development using React, Next.js, and Figma."
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (2024\u20132028), with a focus on machine learning and data science."
+          },
+          {
+            "text": "Completed Data Science for Engineers from IIT Madras (2026) and pursuing Machine Learning Specialization from Stanford Online + DeepLearning.AI."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Castellan Capital,",
+      "I am excited to apply for the Quantitative Trading Internship in your Systematic Trading team. As a Computer Science student with a strong foundation in probability, statistics, and linear algebra, I am eager to leverage my skills in Python programming and systematic trading research within an environment that values high-performance and rigorous quantitative analysis.",
+      "My experience as a Product & Design Intern at KuKClean and the development of Meridian \u2014 a multi-agent system for generating due-diligence memos \u2014 have honed my ability to work on complex, data-driven projects with precise requirements. This aligns well with your need for robust systematic trading signal research and backtesting tools.",
+      "I am particularly drawn to Castellan Capital\u2019s culture, which emphasizes high-performance, research-driven work. My background in probability, statistics, and machine learning, combined with my hands-on experience with Python and C++, positions me to contribute effectively to your team. I look forward to the opportunity to present my research findings and collaborate on strategies that could drive real-world impact.",
+      "Thank you for considering my application. I am excited about the prospect of joining Castellan Capital and contributing to your team's goals."
+    ]
+  },
+  "cover_letter_word_count": 192,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from full-resume) claims 'utilized Python and Figma' \u2014 no mention of Figma in this line's Source.",
+      "Line 2 (from full-resume) claims 'high-performance research environment is ideal for my expertise' \u2014 no such claim or detail present in the paired Source.",
+      "Line 3 (from full-resume) claims 'designed a multi-agent system with FastAPI' \u2014 only FastAPI stack mentioned, not multi-agent system. Also, 'ensured correctness through a schema that links claims to evidence rows' is stronger and broader than what's supported by the paired Source."
+    ]
+  },
+  "elapsed_seconds": 91.0
+}

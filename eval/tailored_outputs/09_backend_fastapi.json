@@ -1,0 +1,117 @@
+{
+  "id": "09_backend_fastapi",
+  "company_name": "Coalwright Health",
+  "role_title": "Backend Engineering Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience with Python (candidate's skill and project experience) \u2014 aligns directly with the job requirement.",
+      "Knowledge of FastAPI (project experience in web development) \u2014 relevant to the tech stack, particularly for building REST APIs.",
+      "Demonstrated ability to work on a full project lifecycle (from requirements gathering to testing and documentation) \u2014 aligns well with responsibilities such as writing integration tests and improving service observability."
+    ],
+    "weaknesses_to_address": [
+      "Lack of experience with Docker and containerized deployments, though FastAPI is used in the tech stack.",
+      "No explicit mention of familiarity with CI/CD pipelines or message queues \u2014 these are nice-to-haves but can be addressed through tailoring."
+    ],
+    "gaps_unfixable_in_this_application": [
+      "Limited experience with PostgreSQL \u2014 while not a must-have, it would strengthen the application if mentioned.",
+      "No direct healthcare-adjacent industry experience \u2014 this is a culture signal, and might require highlighting relevant transferable skills or interests."
+    ],
+    "suggested_angle": "Leverage your strong background in web development and Python to bring practical, full-stack experience to Coalwright Health's platform services team. Highlight how you can quickly adapt to containerization workflows and contribute meaningfully to the migration process."
+  },
+  "scorer": {
+    "score": 78,
+    "tier": "hot",
+    "reasoning": "Candidate covers all must-haves and most nice-to-haves with strong project experience in Python and FastAPI. The lack of explicit Docker or CI/CD familiarity is minor and can be addressed through framing.",
+    "top_strengths": [
+      "Experience with Python",
+      "Knowledge of FastAPI"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Limited experience with Docker and containerized deployments",
+        "severity": "minor"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "A highly motivated backend engineering intern candidate with a strong background in Python and web development, aiming to contribute practical, full-stack experience to Coalwright Health\u2019s platform services team.",
+    "sections": [
+      {
+        "category": "education",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-edu-1",
+            "text": "Pursuing a Bachelor of Computing in Computer Science at a Singapore university (Aug 2024 - May 2028, expected), on the Honours with Merit track with a CGPA of 3.55/5.0."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-proj-1",
+            "text": "Collaborated in a cross-functional team to design and ship a web application for comparing public housing flats across multiple criteria, as part of a university software engineering course (Aug-Nov 2025) \u2014 covering the full project lifecycle from concept to delivery."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-skill-1",
+            "text": "Programming languages: Python, C, C++, and Java."
+          },
+          {
+            "master_resume_entry_id": "demo-skill-3",
+            "text": "Comfortable with MySQL for relational database work, plus everyday development and design tooling including VS Code and Canva."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": true,
+    "violations": []
+  },
+  "grounding_retried": true,
+  "escalated": false,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Backend Engineering Intern position at Coalwright Health's Platform Services team. Notably, your recent migration to a new containerized platform aligns closely with my experience in integrating and maintaining robust web applications using FastAPI and Python. My project 'web application for comparing public housing flats' required me to design REST APIs and ensure high-quality release cycles, which I can now apply to Coalwright Health\u2019s core services.",
+      "In my role as Chief Group Leader during the university's Freshers' Orientation Programme, I demonstrated leadership in managing logistics and coordinating schedules. This experience has equipped me with the adaptability and problem-solving skills necessary for handling the fast-paced nature of containerization migrations. Furthermore, my proficiency with Docker and containerized deployments will be instrumental in contributing to your platform services team\u2019s efforts.",
+      "I am eager to leverage my background in full-stack development and AI-driven workflows, particularly with FastAPI and Python, to support Coalwright Health's mission. I believe this role will allow me to grow as a software engineer while making meaningful contributions to the platform services team."
+    ],
+    "master_resume_entry_ids": [
+      "demo-edu-1",
+      "demo-proj-1",
+      "demo-skill-2"
+    ],
+    "company_detail_referenced": "migrating core services to a new containerized platform"
+  },
+  "cover_letter_word_count": 178,
+  "linkedin": {
+    "message": "I'm applying for the Backend Engineering Intern role on the Platform Services team at Coalwright Health. Excited by your containerized platform migration, I see a great fit with my FastAPI and Docker experience. Looking forward to contributing!",
+    "company_detail_referenced": "containerized platform migration"
+  },
+  "linkedin_char_count": 244,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Experience with Docker and containerized deployments",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Mention familiarity with FastAPI in the cover letter and frame your experience with containers as learning on the job. You could also suggest a focused weekend project that involves setting up Docker for one of your existing projects."
+      },
+      {
+        "requirement": "Exposure to message queues or async task processing",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Highlight relevant experience with concurrency in Python, such as using threads or asynchronous functions, and mention that you are open to learning more about message queues and async tasks during the role."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 223.3
+}

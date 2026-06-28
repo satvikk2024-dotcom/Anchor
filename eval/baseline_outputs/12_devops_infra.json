@@ -1,0 +1,68 @@
+{
+  "id": "12_devops_infra",
+  "company_name": "Northgate Cloud",
+  "role_title": "DevOps / Infrastructure Intern",
+  "baseline": {
+    "summary": "Adept Computer Science student with a strong background in backend systems, AI/ML, and DevOps. Seeking to leverage my skills at Northgate Cloud as an Infrastructure Intern, where I can contribute to CI/CD pipeline improvements and infrastructure-as-code scripts.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Experienced in designing and implementing multi-agent systems such as Meridian, which leverages Python and FastAPI for financial data analysis. This experience aligns well with Northgate Cloud's focus on DevOps and backend infrastructure."
+          },
+          {
+            "text": "Developed robust CI/CD practices by creating end-to-end product listings for KuKClean\u2019s e-commerce platform, demonstrating proficiency in managing and optimizing workflows."
+          },
+          {
+            "text": "Proficient in using Docker and containerization techniques, as seen through my project experience with Meridian. I am eager to further develop these skills at Northgate Cloud."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Built Meridian, a 4-agent orchestration system using Python and FastAPI, ensuring reproducible results through SHA-256 disk caching. This experience in multi-agent systems and CI/CD practices is directly relevant to Northgate Cloud\u2019s needs."
+          },
+          {
+            "text": "Created Figma wireframes for new product pages at KuKClean, showcasing my ability to write clean, efficient code that supports complex workflows. My project work demonstrates a strong understanding of DevOps principles."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Experienced with Docker and containerization techniques, essential for managing infrastructure at Northgate Cloud."
+          },
+          {
+            "text": "Proficient in Python and other scripting languages, enabling me to efficiently write and maintain infrastructure-as-code scripts."
+          },
+          {
+            "text": "Knowledgeable in CI/CD pipeline management, having set up automated processes for product listings at KuKClean."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Northgate Cloud,",
+      "I am excited to apply for the DevOps / Infrastructure Intern position within your team. As a Computer Science sophomore with a strong academic record and practical experience in both backend systems and AI/ML projects, I am well-prepared to contribute meaningfully to your organization\u2019s mission of driving innovation through robust infrastructure solutions.",
+      "My work on Meridian, a multi-agent system that utilizes Python and FastAPI for financial data analysis, has honed my skills in building scalable, efficient applications. This experience not only aligns with the technical stack you have at Northgate Cloud but also underscores my ability to manage complex systems and workflows\u2014skills I am eager to bring to your team.",
+      "During my internship at KuKClean, I was responsible for setting up CI/CD pipelines that optimized product listings and improved overall service health monitoring. These experiences have equipped me with a deep understanding of DevOps principles and the importance of reliability and efficiency in infrastructure management. I am particularly drawn to Northgate Cloud\u2019s culture of fast-paced development and on-call rotations, as these align closely with my desire for challenging, impactful work.",
+      "I look forward to the opportunity to bring my background in AI/ML and backend systems to Northgate Cloud, where I can continue to grow and contribute. Thank you for considering my application. I am excited about the possibility of joining your team and contributing to your ongoing success.",
+      "Sincerely,",
+      "Nishant Shrivastava"
+    ]
+  },
+  "cover_letter_word_count": 237,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from 7d4b2d8c-9fda-47a6-b3ea-1c7a17e5f0e3) claims 'Experienced in designing and implementing multi-agent systems such as Meridian, which leverages Python and FastAPI for financial data analysis. This experience aligns well with Northgate Cloud's focus on DevOps and backend infrastructure.' \u2014 no mention of FastAPI or financial data analysis in this line's Source.",
+      "Line 2 (from 7d4b2d8c-9fda-47a6-b3ea-1c7a17e5f0e3) claims 'Developed robust CI/CD practices by creating end-to-end product listings for KuKClean\u2019s e-commerce platform, demonstrating proficiency in managing and optimizing workflows.' \u2014 no mention of robust CI/CD practices or optimizing workflows in this line's Source.",
+      "Line 3 (from 7d4b2d8c-9fda-47a6-b3ea-1c7a17e5f0e3) claims 'Proficient in using Docker and containerization techniques, as seen through my project experience with Meridian. I am eager to further develop these skills at Northgate Cloud.' \u2014 no mention of Docker or containerization techniques in this line's Source."
+    ]
+  },
+  "elapsed_seconds": 96.5
+}

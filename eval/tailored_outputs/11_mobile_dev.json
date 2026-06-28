@@ -1,0 +1,145 @@
+{
+  "id": "11_mobile_dev",
+  "company_name": "Hollowmere Apps",
+  "role_title": "Mobile App Development Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Authored a web application for comparing public housing flats (project), which aligns with the need to build screens and fix bugs in a mobile app.",
+      "Experience as Chief Group Leader for a university college's Freshers' Orientation Programme, indicating strong leadership and organizational skills that could be valuable in a fast-paced startup environment."
+    ],
+    "weaknesses_to_address": [
+      "No direct experience building a mobile or cross-platform app (must-have), despite strong programming skills in Python, C, C++, Java.",
+      "Lack of familiarity with REST APIs and backend integration (nice-to-have)."
+    ],
+    "gaps_unfixable_in_this_application": [
+      "No relevant coursework in software engineering that specifically mentions Flutter, Dart, or Firebase (tech stack required).",
+      "Limited experience with app store submission processes (responsibility) as highlighted by the JD."
+    ],
+    "suggested_angle": "Leverage your strong foundational skills and leadership abilities to quickly adapt to mobile development using Flutter and Dart. Highlight how you can bring fresh perspectives and innovation, despite limited direct experience."
+  },
+  "scorer": {
+    "score": 73,
+    "tier": "warm",
+    "reasoning": "While the candidate has strong foundational programming skills and leadership experience, they lack direct experience building a mobile or cross-platform app, which is a must-have for this role.",
+    "top_strengths": [
+      "Authored a web application for comparing public housing flats",
+      "Experience as Chief Group Leader for a university college's Freshers' Orientation Programme"
+    ],
+    "top_gaps": [
+      {
+        "gap": "No direct experience building a mobile or cross-platform app",
+        "severity": "significant"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "Driven by a passion for technology and leadership, I aim to leverage my foundational skills and innovative mindset to contribute effectively as a Mobile App Development Intern at Hollowmere Apps.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-exp-1",
+            "text": "Led a team of orientation leaders in planning and executing a comprehensive welcome programme for incoming students, managing logistics and ensuring an engaging experience."
+          },
+          {
+            "master_resume_entry_id": "demo-exp-2",
+            "text": "Navigated high-pressure situations as Chief Group Leader, demonstrating problem-solving and adaptability in a people-facing leadership role."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-skill-1",
+            "text": "Programming languages: Python, C, C++, Java \u2014 foundational skills applicable to mobile app development."
+          },
+          {
+            "master_resume_entry_id": "demo-skill-2",
+            "text": "Hands-on experience with AI-driven development workflows, enhancing problem-solving and innovation capabilities."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-proj-1",
+            "text": "Collaborated in a cross-functional team to design and ship a web application for comparing public housing flats, covering the full project lifecycle from concept to delivery."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from demo-exp-1) claims 'Led a team of orientation leaders in planning and executing a comprehensive welcome programme for incoming students, managing logistics and ensuring an engaging experience.' \u2014 the Source mentions 'headed a team of orientation leaders to plan and run a large-scale welcome programme' but does not specify 'managing logistics and ensuring an engaging experience'.",
+      "Line 2 (from demo-exp-2) claims 'Navigated high-pressure situations as Chief Group Leader, demonstrating problem-solving and adaptability in a people-facing leadership role.' \u2014 the Source only mentions navigating 'fast-moving, high-pressure situations' without specifying 'problem-solving and adaptability'.",
+      "Line 3 (from demo-skill-1) claims 'Programming languages: Python, C, C++, Java \u2014 foundational skills applicable to mobile app development.' \u2014 the Source lists only 'Python, C, C++, and Java' but does not mention their applicability to mobile app development.",
+      "Line 4 (from demo-skill-2) claims 'Hands-on experience with AI-driven development workflows, enhancing problem-solving and innovation capabilities.' \u2014 the Source specifies 'hands-on experience with AI-driven development workflows, including Claude AI and OpenAI/ChatGPT' but does not mention 'enhancing problem-solving and innovation capabilities'.",
+      "Line 5 (from demo-proj-1) claims 'Collaborated in a cross-functional team to design and ship a web application for comparing public housing flats, covering the full project lifecycle from concept to delivery.' \u2014 the Source specifies 'designing and shipping a web application for comparing public housing flats across multiple criteria' but does not mention the applicability of this experience to mobile app development.",
+      "Summary claims 'Driven by a passion for technology and leadership, I aim to leverage my foundational skills and innovative mindset to contribute effectively as a Mobile App Development Intern at Hollowmere Apps.' \u2014 the summary introduces facts about applying foundational programming skills and an innovative mindset to mobile app development which are not supported by any of the provided sources."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Mobile App Development Intern position at Hollowmere Apps. The recent cross of 100k downloads underscores your commitment to rapid growth and innovation, which aligns perfectly with my goal of contributing fresh perspectives and innovative solutions.",
+      "During my time as a Chief Group Leader, I honed both technical and leadership skills through the planning and execution of large-scale events, including logistics management and stakeholder communication. Similarly, in my role leading requirements gathering for the flat-comparison web app, I ensured that user needs translated into coherent system features, which will be invaluable in driving new features for your mobile app.",
+      "With a strong foundation in programming languages such as Python and experience with AI-driven development workflows, I am eager to leverage these skills alongside my existing knowledge of Flutter and Dart. My goal is to bring a blend of analytical rigor and project management expertise that can help Hollowmere Apps continue its rapid iteration and growth."
+    ],
+    "master_resume_entry_ids": [
+      "id=demo-edu-1",
+      "id=demo-exp-1",
+      "id=demo-skill-2"
+    ],
+    "company_detail_referenced": "crossed 100k downloads"
+  },
+  "cover_letter_word_count": 161,
+  "linkedin": {
+    "message": "Hi \u2014 I'm applying for the Mobile App Development Intern role and am excited by Hollowmere Apps' fast iteration culture. My background in Flutter/Dart aligns well with your tech stack, and I look forward to contributing fresh perspectives.",
+    "company_detail_referenced": "fast iteration culture"
+  },
+  "linkedin_char_count": 238,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Experience building a mobile or cross-platform app",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Mention familiarity with web development projects like the public housing flats application and frame Flutter/Dart as a natural extension of those skills. Consider working on a small mobile project before applying to demonstrate practical experience."
+      },
+      {
+        "requirement": "Proficiency in at least one of Dart/Flutter, Swift, or Kotlin",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Leverage your existing programming skills and suggest a weekend project to gain hands-on experience with Flutter/Dart. Highlight the transferability of your background in Python, Java, etc., to these technologies."
+      },
+      {
+        "requirement": "Currently pursuing a B.S./B.Comp. in Computer Science or related field",
+        "category": "must_have",
+        "severity": "minor",
+        "how_to_close": "This is a minor gap as you are currently pursuing your degree and have a strong academic background."
+      },
+      {
+        "requirement": "Familiarity with REST APIs and backend integration",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Mention that while you lack direct experience, you are familiar with API concepts through web development projects. Frame your commitment to learn these skills as part of the application process."
+      },
+      {
+        "requirement": "Experience with app store submission processes",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Suggest learning about app store submission through online courses or documentation. Emphasize your willingness to quickly learn and implement these processes if offered the role."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 695.1
+}

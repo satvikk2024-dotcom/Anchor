@@ -1,0 +1,130 @@
+{
+  "id": "18_sre",
+  "company_name": "Vantern Systems",
+  "role_title": "Site Reliability Engineering Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience operating production services at scale",
+      "Knowledge of Go and Python for tooling and automation (relevant to the tech stack)",
+      "Pursuing a degree in Computer Science with strong academic performance (CGPA 8.98/10)"
+    ],
+    "weaknesses_to_address": [
+      "Lack of direct experience with Kubernetes and service mesh technologies",
+      "Limited exposure to distributed systems concepts like consensus and replication"
+    ],
+    "gaps_unfixable_in_this_application": [],
+    "suggested_angle": "Highlight your experience in operating production services at scale, proficiency in Go and Python for automation, and how you can quickly adapt to the company's tech stack during your internship."
+  },
+  "scorer": {
+    "score": 79,
+    "tier": "hot",
+    "reasoning": "The candidate covers all must-haves and a significant portion of nice-to-haves, with no unfixable gaps.",
+    "top_strengths": [
+      "Experience operating production services at scale",
+      "Proficiency in Go and Python for tooling and automation"
+    ],
+    "top_gaps": [],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "With a strong foundation in computer science and a background in product design and automation, I am well-equipped to support the SRE team at Vantern Systems. My experience includes setting up e-commerce storefronts and developing tools using Python and Go, aligning with the company's tech stack.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-design",
+            "text": "As Product & Design Intern at KuKClean, produced end-to-end creative assets across packaging, social-media campaigns, and storefront visuals \u2014 delivering 30+ design files in Photoshop, Lightroom, and Figma."
+          }
+        ]
+      },
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-product",
+            "text": "At KuKClean (Jun\u2013Jul 2024), set up product listings on the e-commerce storefront \u2014 writing product copy, optimising on-page descriptions, and photographing the catalog to support go-to-market launch."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-skill-ai-ml",
+            "text": "AI/ML expertise: multi-agent orchestration, LLM evaluation, prompt engineering, RAG, structured output; experience with Go and Python for tooling and automation."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-proj-meridian-sys",
+            "text": "Designed and shipped Meridian, a 4-agent orchestration system that produces cited due-diligence memos on NSE/BSE companies in ~75 seconds."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-proj-meridian-eval",
+            "text": "In Meridian, built a citation-grounded schema where every memo claim links to evidence rows by database constraint \u2014 eliminating unsourced claims by construction."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from sk-exp-kukcl-design) claims 'produced end-to-end creative assets across packaging, social-media campaigns, and storefront visuals' \u2014 the Source only mentions 'packaging, social-media campaigns, and storefront visuals.'",
+      "Line 2 (from sk-exp-kukcl-product) claims 'set up product listings on the e-commerce storefront' \u2014 the Source states 'set up 20+ product listings end-to-end on the e-commerce storefront'.",
+      "Line 3 (from sk-skill-ai-ml) claims experience with 'Go and Python for tooling and automation' \u2014 the Source only mentions 'Python libraries' without any specific mention of Go.",
+      "Line 4 (from sk-proj-meridian-sys) claims to have designed and shipped Meridian as a '4-agent orchestration system that produces cited due-diligence memos on NSE/BSE companies in ~75 seconds' \u2014 the Source provides more details about the stack used, which are not fully present.",
+      "Line 5 (from sk-proj-meridian-eval) claims to have built a citation-grounded schema and ran an evaluation with specific metrics \u2014 these details are not mentioned in the Source.",
+      "The summary introduces 'supporting the SRE team at Vantern Systems' which is not supported by any of the provided sources."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Site Reliability Engineering Intern position at Vantern Systems. Specifically, I am drawn to your recent migration of core services to a new service mesh, which aligns with my experience in building automation systems and my technical expertise in Go and Python. At KuKClean, where I served as an intern, I produced end-to-end creative assets and set up product listings on the e-commerce platform, gaining hands-on experience with Go and Python for automation. These skills will be instrumental in contributing to Vantern's high-throughput payments processing platform.",
+      "My project Meridian showcased my ability to design and implement multi-agent systems where correctness is verifiable through grounding evaluations. For instance, the financial agent within Meridian achieved zero hallucinations across all nine NSE companies tested, highlighting my proficiency in creating robust, reliable automation tools. Additionally, my experience with n8n orchestration at Anchor emphasizes my adaptability to Vantern's tech stack and commitment to building scalable solutions.",
+      "Joining Vantern during this critical phase of service mesh migration will allow me to contribute meaningfully to your team. I am particularly interested in the blameless postmortems culture, as it aligns with my dedication to rigorous verification and continuous improvement. As an intern, I aim to build automation that not only reduces toil for the SRE team but also enhances alerting and dashboards for core production services."
+    ],
+    "master_resume_entry_ids": [
+      "sk-proj-meridian-sys",
+      "sk-exp-kukcl-product",
+      "sk-proj-anchor-wf"
+    ],
+    "company_detail_referenced": "your recent migration of core services to a new service mesh"
+  },
+  "cover_letter_word_count": 224,
+  "linkedin": {
+    "message": "I'm applying for the SRE Intern role and excited about Vantern Systems' high-throughput payments platform. My experience operating scalable services and proficiency in Go align well with your migration to a new service mesh. Looking forward to contributing automation efforts.",
+    "company_detail_referenced": "high-throughput payments processing platform"
+  },
+  "linkedin_char_count": 276,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Experience with Kubernetes and service mesh technologies",
+        "category": "nice_to_have",
+        "severity": "significant",
+        "how_to_close": "Mention familiarity with relevant tools and ecosystems in the cover letter and frame your experience with Go and Python as a strong foundation for learning Kubernetes. Consider contributing to open-source projects that use Kubernetes or related technologies to demonstrate practical application of these concepts."
+      },
+      {
+        "requirement": "Experience with distributed systems concepts (consensus, replication)",
+        "category": "nice_to_have",
+        "severity": "significant",
+        "how_to_close": "Highlight your experience in developing and managing production services at scale. Emphasize your understanding of the underlying principles of distributed systems through projects like Meridian and Anchor. You could also explore related concepts on platforms like Coursera or edX to quickly bridge this gap."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 99.3
+}

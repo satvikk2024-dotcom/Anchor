@@ -1,0 +1,195 @@
+{
+  "name": "01 - Job Intake",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -460,
+        0
+      ],
+      "id": "0dc03c9e-bd2a-4ed1-a544-633f21112fd4",
+      "name": "Webhook - Job Intake",
+      "webhookId": "b45da08c-76ff-448e-9030-c0f0bea4ece3"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "const url = (($json.body && $json.body.url) || '').trim();\n\nconst urlPattern = /^https?:\\/\\/[^\\s/$.?#][^\\s]*$/i;\nconst isValid = urlPattern.test(url);\n\nconst knownAtsHosts = [\n  'greenhouse.io',\n  'lever.co',\n  'myworkdayjobs.com',\n  'ashbyhq.com',\n  'smartrecruiters.com',\n  'icims.com',\n  'jobvite.com',\n  'workable.com',\n  'breezy.hr',\n  'bamboohr.com',\n  'taleo.net',\n  'successfactors.com',\n  'ultipro.com',\n];\n\nlet atsProvider = null;\nif (isValid) {\n  const hostMatch = url.match(/^https?:\\/\\/(?:[^@\\/]+@)?([^\\/:?#]+)/i);\n  const hostname = hostMatch ? hostMatch[1].toLowerCase() : '';\n  atsProvider = knownAtsHosts.find((host) => hostname === host || hostname.endsWith('.' + host)) || null;\n}\n\nreturn {\n  url,\n  is_valid: isValid,\n  ats_provider: atsProvider,\n  error: isValid ? null : 'Invalid URL: must be a well-formed http(s) URL.',\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        0
+      ],
+      "id": "ea2adce6-70ff-45a5-8448-489e2c55a918",
+      "name": "Validate URL"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.is_valid }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        0
+      ],
+      "id": "b5bc36fd-7bd9-4375-8f08-b8e1e3262ba7",
+      "name": "URL Valid?"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO application (url, status) VALUES ($1, 'intake_received') RETURNING id, url, status, created_at",
+        "options": {
+          "queryReplacement": "={{ $json.url }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        200,
+        -120
+      ],
+      "id": "690b28f3-7b0f-447c-bcb7-324be9928541",
+      "name": "Insert Application Row",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { 'application_id': $json.id, 'status': 'processing' } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        420,
+        -120
+      ],
+      "id": "31fa334d-4aae-4713-8d69-3dae60747452",
+      "name": "Respond - Accepted"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { 'error': $json.error } }}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        200,
+        160
+      ],
+      "id": "68d903dc-bb66-4151-bf5e-fc6a3eb33311",
+      "name": "Respond - Invalid URL"
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": "6c1GWSWFB30upbH2",
+        "mode": "once"
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        640,
+        -120
+      ],
+      "id": "0b731cfc-2c9c-4060-b4a6-0d1175f1a1b5",
+      "name": "Execute Workflow - Job Processor"
+    }
+  ],
+  "connections": {
+    "Webhook - Job Intake": {
+      "main": [
+        [
+          {
+            "node": "Validate URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate URL": {
+      "main": [
+        [
+          {
+            "node": "URL Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "URL Valid?": {
+      "main": [
+        [
+          {
+            "node": "Insert Application Row",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond - Invalid URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Application Row": {
+      "main": [
+        [
+          {
+            "node": "Respond - Accepted",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Execute Workflow - Job Processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "hULM9d6nFUMdite1"
+  },
+  "active": true,
+  "id": "BOrblOkoSPAWVSwS",
+  "meta": null
+}

@@ -1,0 +1,133 @@
+{
+  "id": "04_program_coordinator",
+  "company_name": "Civora Education",
+  "role_title": "Technical Program Coordinator Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience planning or coordinating a multi-person event or program (Fresher's Orientation Programme)",
+      "Strong organizational and communication skills (Chief Group Leader, Volunteer experience)"
+    ],
+    "weaknesses_to_address": [
+      "Limited direct software development experience",
+      "Lack of specific tech stack familiarity with Airtable and Google Workspace"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "No formal internship or professional experience in the tech sector"
+    ],
+    "suggested_angle": "Highlighting leadership and organizational skills while emphasizing a passion for education and community impact."
+  },
+  "scorer": {
+    "score": 73,
+    "tier": "warm",
+    "reasoning": "The candidate has strong experience in event planning and organizational skills but lacks formal internship or professional tech sector experience, which is a significant gap for this role.",
+    "top_strengths": [
+      "Experience planning or coordinating a multi-person event or program",
+      "Strong organizational and communication skills"
+    ],
+    "top_gaps": [
+      {
+        "gap": "No formal internship or professional experience in the tech sector",
+        "severity": "significant"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "Passionate about education and community impact, I am eager to contribute to Civora Education\u2019s mission with my strong organizational and communication skills.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-exp-1",
+            "text": "Headed a team of orientation leaders for a university college's Freshers' Orientation Programme, managing logistics, coordinating schedules, and ensuring the experience was engaging and inclusive throughout (Sep 2024 - Aug 2025)."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-proj-1",
+            "text": "Collaborated in a cross-functional team to design and ship a web application for comparing public housing flats across multiple criteria, as part of a university software engineering course (Aug-Nov 2025)."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-skill-3",
+            "text": "Comfortable with MySQL for relational database work and familiar with VS Code, a key development tool."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from demo-exp-1) claims 'Headed a team of orientation leaders' \u2014 this is stronger than 'headed a team of orientation leaders to plan and run a large-scale welcome programme'.",
+      "Line 2 (from demo-proj-1) omits 'covering the full project lifecycle from concept to delivery', which appears in this line's Source.",
+      "Line 3 (from demo-skill-3) claims 'familiar with VS Code, a key development tool' \u2014 no mention of it being a key development tool is present in this line's Source."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Technical Program Coordinator Intern position at Civora Education, particularly in light of your upcoming expansion into a second city. This growth underscores your commitment to broadening access to coding education, a mission that aligns closely with my passion for leveraging technology to empower underrepresented communities.",
+      "My experience as Chief Group Leader for the university's Freshers' Orientation Programme not only honed my organizational and communication skills but also taught me the critical importance of planning and execution in managing large-scale events. I led a team in coordinating logistics, ensuring that our welcome programme was engaging and inclusive from start to finish. Similarly, in supporting the coding bootcamp cohort, I will bring the same level of meticulous attention to detail and effective teamwork.",
+      "Beyond my leadership experience, I am eager to contribute through my technical skills and dedication to AI-driven development. My coursework and projects have equipped me with a solid foundation in software engineering concepts, which I believe can be instrumental in optimizing program logistics and communication using tools like Airtable and Google Workspace. I am confident that my background not only makes me a strong fit for this role but also positions me as an asset to Civora Education's mission-driven and collaborative culture."
+    ],
+    "master_resume_entry_ids": [
+      "demo-exp-1",
+      "demo-edu-1",
+      "demo-skill-3"
+    ],
+    "company_detail_referenced": "expanding to a second city for the upcoming summer cohort"
+  },
+  "cover_letter_word_count": 210,
+  "linkedin": {
+    "message": "I'm applying for the Technical Program Coordinator Intern role and excited to support Civora Education's mission-driven, education-focused programs. My experience coordinating events aligns with your upcoming summer coding bootcamp expansion in a new city.",
+    "company_detail_referenced": "expanding to a second city for the upcoming summer cohort"
+  },
+  "linkedin_char_count": 256,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Experience planning or coordinating a multi-person event or program",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Mention experience with the Fresher's Orientation Programme in the cover letter and frame it as transferable leadership and organizational skills relevant to software development coordination."
+      },
+      {
+        "requirement": "Currently pursuing an undergraduate degree",
+        "category": "must_have",
+        "severity": "minor",
+        "how_to_close": "Emphasize ongoing education and academic achievements, particularly the strong CGPA and plans for Honours with Merit in the cover letter."
+      },
+      {
+        "requirement": "Strong organizational and communication skills",
+        "category": "must_have",
+        "severity": "minor",
+        "how_to_close": "Highlight roles such as Chief Group Leader and volunteer experience in the cover letter to showcase these skills."
+      },
+      {
+        "requirement": "Limited direct software development experience",
+        "category": "nice_to_have",
+        "severity": "significant",
+        "how_to_close": "Mention relevant coursework, projects, and self-taught knowledge of basic concepts like spreadsheets and scheduling tools in the cover letter."
+      },
+      {
+        "requirement": "Experience working with volunteers or student groups",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Mention relevant volunteer work in the cover letter to demonstrate experience working with teams."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 200.8
+}

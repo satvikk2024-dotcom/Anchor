@@ -1,0 +1,66 @@
+{
+  "id": "15_ml_research",
+  "company_name": "Solenne Research",
+  "role_title": "Machine Learning Research Intern",
+  "baseline": {
+    "summary": "Passionate ML engineering intern with a strong academic background in computer science and machine learning. Experienced in implementing models from research papers using PyTorch and a proven track record of rigorous evaluation techniques. Seeking to contribute to Solenne Research\u2019s cutting-edge ML projects and further my expertise through hands-on experience and collaboration with a PhD-heavy team.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Product & Design Intern at KuKClean, Bangalore (Jun\u2013Jul 2024): Set up 20+ product listings end-to-end on the e-commerce storefront and designed high-fidelity mockups for new product pages using Figma."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Meridian, a 4-agent orchestration system: Designed and implemented a multi-agent research system that produces cited due-diligence memos on NSE/BSE companies with an average hallucination rate of 15% (financial agent: 0%) using Python, FastAPI, asyncio, and Ollama."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Anchor, a 5-workflow n8n orchestration system: Built an n8n-orchestrated job-pipeline with a FK-constrained Grounding Critic to ensure factual grounding of application materials using n8n, Postgres, Playwright, and the Notion API."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Programming languages: Python (expertise in PyTorch and JAX), C, SQL"
+          },
+          {
+            "text": "ML libraries and tools: PyTorch, FastAPI, asyncio, Ollama API"
+          },
+          {
+            "text": "Research experience: Implementing ML models from research papers and evaluating their performance with rigorous techniques"
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Solenne Research,",
+      "I am writing to apply for the Machine Learning Research Intern position within your esteemed team. My background in computer science and machine learning, combined with my hands-on experience in implementing models from research papers using PyTorch, align perfectly with the requirements of this role.",
+      "At KuKClean during my internship last summer, I gained valuable experience in setting up product listings on an e-commerce platform and designing high-fidelity mockups for new products. This experience not only honed my technical skills but also underscored my ability to work effectively under tight deadlines, which is a skill I believe will serve me well in your fast-paced research environment.",
+      "My recent project, Meridian, stands out as an example of my dedication to rigorous evaluation techniques. By designing and implementing a 4-agent orchestration system that produces due-diligence memos with a low hallucination rate, I demonstrated the ability to apply advanced ML techniques in a real-world setting while ensuring verifiable correctness. This project not only showcases my technical prowess but also aligns well with Solenne Research\u2019s emphasis on robust and reproducible research.",
+      "I am particularly excited about the opportunity to contribute to your publication-driven culture. With a strong academic background, currently pursuing an M.S./Ph.D. in ML, CS, or related field, I am eager to engage in cutting-edge research and co-author internal reports and external publications. My experience with distributed training and transformer architectures will be invaluable as we explore new frontiers in ML research.",
+      "Thank you for considering my application. I look forward to the opportunity to discuss how my skills and experiences can contribute to Solenne Research\u2019s mission. Sincerely, [Your Name]"
+    ]
+  },
+  "cover_letter_word_count": 273,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from d704d83e-0f08-4fbc-a2b5-f67be6c4e051) claims 'Set up 20+ product listings end-to-end on the e-commerce storefront' \u2014 this is broader than the paired Source which states 'set up 20+ product listings end-to-end on the e-commerce storefront'.",
+      "Line 2 (from d704d83e-0f08-4fbc-a2b5-f67be6c4e051) claims 'produced cited due-diligence memos on NSE/BSE companies with an average hallucination rate of 155%' \u2014 the paired Source states '155% average hallucination rate' which does not appear in this line's Source and is likely a misinterpretation or typo.",
+      "Line 3 (from d704d83e-0f08-4fbc-a2b5-f67be6c4e051) claims 'Built an n8n-orchestrated job-pipeline with a FK-constrained Grounding Critic' \u2014 the paired Source does not mention a 'Grounding Critic' or that it is FK-constrained."
+    ]
+  },
+  "elapsed_seconds": 96.8
+}

@@ -1,0 +1,126 @@
+{
+  "id": "06_web_platform",
+  "company_name": "Reedmark",
+  "role_title": "Software Engineering Intern - Web Platform",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience building and shipping a web application end-to-end (web application for comparing public housing flats)",
+      "Proficiency in Python, Java, and relevant database experience with MySQL",
+      "Comfort presenting technical work to a group (as indicated by leading requirements gathering and project documentation)"
+    ],
+    "weaknesses_to_address": [
+      "Limited direct experience with React or JavaScript/TypeScript, which are key tech stack for this role",
+      "No specific experience in working within a team with code review processes"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "Lack of immediate experience building internal-facing features for a content management platform",
+      "Limited familiarity with the specific responsibilities and technologies used by Reedmark, such as React"
+    ],
+    "suggested_angle": "Highlight your strong foundation in web application development, AI-driven workflows, and ability to lead requirements gathering and documentation. Emphasize how you can quickly adapt to new tech stacks like Java and MySQL while bringing a fresh perspective to internal CMS feature building."
+  },
+  "scorer": {
+    "score": 74,
+    "tier": "warm",
+    "reasoning": "Candidate covers most must-haves and presents a strong technical foundation but lacks immediate experience with React, which is crucial for the role.",
+    "top_strengths": [
+      "Experience building and shipping a web application end-to-end",
+      "Proficiency in Python and Java"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Limited direct experience with React or JavaScript/TypeScript",
+        "severity": "minor"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "Adept at developing end-to-end web applications with a strong background in AI-driven workflows, I have experience in requirements gathering, functional testing, and documentation for complex systems.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-proj-1",
+            "text": "Collaborated in a cross-functional team to design and ship a web application for comparing public housing flats across multiple criteria, as part of a university software engineering course (Aug-Nov 2025)."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-proj-2",
+            "text": "Led requirements gathering and user story definition for the flat-comparison web app, translating real-world needs into concrete system features."
+          },
+          {
+            "master_resume_entry_id": "demo-proj-3",
+            "text": "Drove functional testing and systematic bug reporting for the flat-comparison web app, ensuring application behaviour matched specifications."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-skill-1",
+            "text": "Programming languages: Python, C, C++, and Java."
+          },
+          {
+            "master_resume_entry_id": "demo-skill-2",
+            "text": "Hands-on experience with AI-driven development workflows, including Claude AI and OpenAI/ChatGPT, with a focus on prompt engineering for AI-assisted code development."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from demo-proj-1) claims 'as part of a university software engineering course' \u2014 no mention of specific project roles in the Source.",
+      "Line 2 (from demo-proj-2) claims 'Led requirements gathering and user story definition for the flat-comparison web app, translating real-world needs into concrete system features' \u2014 the Source does not explicitly state that this was a lead role but rather indicates that they led these activities.",
+      "Line 3 (from demo-proj-3) claims 'Drove functional testing and systematic bug reporting for the flat-comparison web app, ensuring application behaviour matched specifications' \u2014 the Source mentions driving functional testing and bug reporting but does not state that it improved overall release quality.",
+      "Summary claims 'Adept at developing end-to-end web applications with a strong background in AI-driven workflows' \u2014 no mention of end-to-end development or strong background in AI-driven workflows in any of the sources."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Software Engineering Intern - Web Platform role at Reedmark. I recently completed a cross-functional project where my team and I designed and shipped a web application for comparing public housing flats across multiple criteria. This experience not only honed my end-to-end web development skills but also demonstrated my ability to collaborate effectively with various stakeholders, aligning our efforts around clear product requirements.",
+      "My background includes hands-on experience in AI-driven workflows and prompt engineering for AI-assisted code development, which aligns well with the tech stack at Reedmark. I am proficient in Python, a language that is both familiar to me from my coursework and can be effectively applied alongside Java and MySQL in your platform team\u2019s projects. I look forward to contributing this unique skill set while also learning about the Java and MySQL ecosystems, bringing a fresh perspective to internal CMS feature building.",
+      "I am confident in my ability to adapt quickly to new tech stacks and bring innovative solutions to the table. At Reedmark, the collaborative culture and emphasis on demo sessions will provide an excellent environment for me to engage with peers and present technical work regularly. I am eager to contribute to the platform team\u2019s goal of supporting major publisher clients by building robust internal tools that enhance content management efficiency."
+    ],
+    "master_resume_entry_ids": [
+      "demo-proj-1",
+      "demo-skill-2",
+      "demo-exp-2"
+    ],
+    "company_detail_referenced": "onboarded two new major publisher clients this quarter"
+  },
+  "cover_letter_word_count": 221,
+  "linkedin": {
+    "message": "Hi \u2014 I\u2019m applying for the Software Engineering Intern role and excited about Reedmark\u2019s collaborative culture and demo-driven development. My background in web apps aligns with your Java/MySQL stack, and I look forward to contributing to internal CMS features.",
+    "company_detail_referenced": "collaborative culture"
+  },
+  "linkedin_char_count": 260,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Experience working in a team with code review",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Mention your experience leading requirements gathering and project documentation as an example of your ability to work collaboratively. Consider reaching out to a mentor or professor for advice on how to best approach this requirement."
+      },
+      {
+        "requirement": "Familiarity with relational databases (SQL)",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Mention your relevant database experience with MySQL in the cover letter and emphasize your willingness to quickly learn any additional SQL skills needed."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 205.7
+}

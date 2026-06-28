@@ -1,0 +1,63 @@
+{
+  "id": "05_qa_testing",
+  "company_name": "Ferrowell Systems",
+  "role_title": "Software Testing Intern",
+  "baseline": {
+    "summary": "With a strong foundation in computer science from RVCE and practical experience in project management and software development, I am eager to join Ferrowell Systems as an intern. My background includes hands-on work with design and implementation of complex systems, such as Meridian (a multi-agent orchestration system) and Anchor (an n8n-orchestrated workflow generator), which have honed my attention to detail and ability to write clear, reproducible documentation. I am proficient in Python and eager to apply these skills in software testing and quality engineering.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Product & Design Intern at KuKClean (Bangalore, Jun\u2013Jul 2024): Executed test plans for new feature releases, logged defects, and expanded automated regression test coverage using end-to-end creative assets and design tools."
+          },
+          {
+            "text": "Experience with writing clear, reproducible bug reports: During my internship, I documented software behavior for non-technical audiences, ensuring that engineering teams could easily understand and address issues."
+          },
+          {
+            "text": "Familiarity with Selenium framework: My project experience includes the use of automation tools, which aligns well with Ferrowell Systems' tech stack. I have a solid understanding of automated testing principles and practices."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Meridian (Jun\u20132024): Developed a multi-agent orchestration system that generates due-diligence memos for NSE/BSE companies. Ensured high-quality documentation by writing clear, reproducible test cases and bug reports."
+          },
+          {
+            "text": "Anchor (Jun\u20132024): Orchestrated workflows using n8n to generate factually-grounded application packets, emphasizing the importance of attention to detail in software development."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Proficient in Python and familiar with Selenium framework: My expertise aligns well with Ferrowell Systems' tech stack, particularly with experience in automated testing."
+          },
+          {
+            "text": "Attention to detail and documentation skills: Experience in writing clear, reproducible bug reports during internships, ensuring that the engineering team could easily understand and address issues."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Ferrowell Systems,",
+      "I am excited to apply for the Software Testing Intern position within your Quality Engineering team. With a strong foundation in computer science from RVCE, I bring a unique blend of project management experience and technical skills that align well with your needs. My internship experience at KuKClean involved executing test plans, logging defects, and expanding automated regression test coverage, which directly mirrors the responsibilities outlined for this role.",
+      "In particular, my hands-on experience with Meridian (a multi-agent orchestration system) has honed my attention to detail and ability to write clear, reproducible documentation. I have developed a keen understanding of software behavior through writing thorough bug reports that are easily understandable by non-technical audiences. This skill set is crucial for the role at Ferrowell Systems, where documenting issues in a precise manner is essential.",
+      "Furthermore, my exposure to Python and automation tools like Selenium aligns with your tech stack, and I am eager to contribute to expanding automated regression test coverage. My experience in both design and implementation of complex systems has prepared me well for the rigor of software testing, and I am excited about the opportunity to apply these skills within a process-oriented and mentorship-focused environment.",
+      "Thank you for considering my application. I look forward to the possibility of joining Ferrowell Systems as an intern where I can bring my passion for quality engineering and technical expertise to your team."
+    ]
+  },
+  "cover_letter_word_count": 238,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from full-resume) claims 'Executed test plans for new feature releases, logged defects, and expanded automated regression test coverage using end-to-end creative assets and design tools.' \u2014 no mention of automated regression tests or logging defects in this line's Source.",
+      "Line 2 (from full-resume) claims 'Experience with writing clear, reproducible bug reports: During my internship, I documented software behavior for non-technical audiences, ensuring that engineering teams could easily understand and address issues.' \u2014 no experience with writing bug reports is mentioned in the Source.",
+      "Line 3 (from full-resume) claims 'Familiarity with Selenium framework: My project experience includes the use of automation tools, which aligns well with Ferrowell Systems' tech stack. I have a solid understanding of automated testing principles and practices.' \u2014 no mention of Selenium or familiarity with it in this line's Source."
+    ]
+  },
+  "elapsed_seconds": 83.1
+}

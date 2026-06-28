@@ -1,0 +1,726 @@
+{
+  "name": "02 - Job Processor",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "993fe759-df1e-46c8-962d-c24fc4bcaf34",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "SELECT id, url, status FROM application WHERE id = $1",
+        "options": {
+          "queryReplacement": "={{ $json.id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        220,
+        0
+      ],
+      "id": "4a16c139-42a6-499b-a51b-214010afd889",
+      "name": "Load Application",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8002/fetch",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ url: $json.url }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        0
+      ],
+      "id": "8e1b7317-eb3a-4b71-ad97-5a502af68db3",
+      "name": "Fetch JD Page",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/complete",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ prompt: $json.text.slice(0, 12000), system_prompt_name: \"jd_parser\", json_mode: true }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "33b1ce90-efd7-4e4a-aafc-733a0bcdd688",
+      "name": "JD Parser Agent",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const jd = JSON.parse($input.item.json.text);\nreturn [{ json: jd }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ],
+      "id": "edbea717-3918-41da-9fc8-41627da3ec6c",
+      "name": "Parse JD"
+    },
+    {
+      "parameters": {
+        "jsCode": "const jd = $json;\nreturn [{\n  json: {\n    ...jd,\n    application_id: $('Load Application').item.json.id,\n    jd_json: JSON.stringify(jd),\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        990,
+        0
+      ],
+      "id": "a1b2c3d4-3030-4a30-8a30-303030303030",
+      "name": "Prepare JD Persist"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO agent_run (application_id, workflow_name, agent_name, output_json)\nVALUES ($1::uuid, 'job_processor', 'jd_parser', $2::jsonb)\nRETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.application_id }},{{ $json.jd_json }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        990,
+        220
+      ],
+      "id": "b2c3d4e5-3131-4b31-8b31-313131313131",
+      "name": "Persist JD Parse",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const companyName = $json.company_name || '';\nconst jdUrl = $('Load Application').item.json.url;\n\nconst slug = companyName.toLowerCase().replace(/[^a-z0-9]/g, '');\nconst homepageUrl = `https://www.${slug}.com`;\nconst aboutUrl = `${homepageUrl}/about`;\n\n// Default careers guess off the homepage; override with the ATS's own\n// board root when the JD URL is from a known ATS \u2014 far more reliable\n// than guessing the marketing site's /careers path.\nlet careersUrl = `${homepageUrl}/careers`;\ntry {\n  const u = new URL(jdUrl);\n  const host = u.hostname.toLowerCase();\n  const parts = u.pathname.split('/').filter(Boolean);\n  if ((host === 'boards.greenhouse.io' || host === 'job-boards.greenhouse.io') && parts[0]) {\n    careersUrl = `https://${host}/${parts[0]}`;\n  } else if (host === 'jobs.lever.co' && parts[0]) {\n    careersUrl = `https://${host}/${parts[0]}`;\n  } else if (host.endsWith('.myworkdayjobs.com') && parts.length >= 2) {\n    careersUrl = `https://${host}/${parts[0]}/${parts[1]}`;\n  }\n} catch (e) {\n  // malformed JD URL \u2014 keep the homepage-based guess\n}\n\nreturn [{\n  json: {\n    ...$json,\n    domain: `${slug}.com`,\n    homepage_url: homepageUrl,\n    about_url: aboutUrl,\n    careers_url: careersUrl,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        0
+      ],
+      "id": "a1c2e3f4-1111-4a11-8a11-111111111111",
+      "name": "Derive Research URLs"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://news.google.com/rss/search?q={{ encodeURIComponent($json.company_name) }}&hl=en-US&gl=US&ceid=US:en",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        -360
+      ],
+      "id": "77ba6995-eca0-4c4a-85c9-88153c0ad855",
+      "name": "Fetch Company News",
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "mode": "xmlToJson",
+        "dataPropertyName": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        -360
+      ],
+      "id": "d4c6a397-a50b-4b8b-a241-a1bcb8953898",
+      "name": "Parse News XML"
+    },
+    {
+      "parameters": {
+        "jsCode": "const channel = $input.item.json.rss?.channel ?? {};\nlet items = channel.item ?? [];\nif (!Array.isArray(items)) items = [items];\n\nconst news_items = items.slice(0, 5).map((i) => ({\n  title: i.title ?? null,\n  link: i.link ?? null,\n  pub_date: i.pubDate ?? null,\n  source: (i.source && typeof i.source === 'object') ? (i.source._ ?? null) : (i.source ?? null),\n}));\n\nreturn [{ json: { news_items } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        -360
+      ],
+      "id": "fb8c3776-f8d2-409c-9c54-bd5e9f4e320e",
+      "name": "Extract News Items"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8002/fetch",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ url: $json.homepage_url }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        -120
+      ],
+      "id": "b2c3d4e5-2222-4b22-8b22-222222222222",
+      "name": "Fetch Company Homepage",
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const failed = !!$json.error || typeof $json.text !== 'string';\nreturn [{\n  json: {\n    homepage_text: failed ? '' : $json.text.slice(0, 3000),\n    homepage_ok: !failed,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        -120
+      ],
+      "id": "c3d4e5f6-3333-4c33-8c33-333333333333",
+      "name": "Label Homepage"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8002/fetch",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ url: $json.about_url }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        120
+      ],
+      "id": "d4e5f6a7-4444-4d44-8d44-444444444444",
+      "name": "Fetch Company About",
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const failed = !!$json.error || typeof $json.text !== 'string';\nreturn [{\n  json: {\n    about_text: failed ? '' : $json.text.slice(0, 3000),\n    about_ok: !failed,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        120
+      ],
+      "id": "e5f6a7b8-5555-4e55-8e55-555555555555",
+      "name": "Label About"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8002/fetch",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ url: $json.careers_url }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        360
+      ],
+      "id": "f6a7b8c9-6666-4f66-8f66-666666666666",
+      "name": "Fetch Careers Page",
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const failed = !!$json.error || typeof $json.text !== 'string';\nreturn [{\n  json: {\n    careers_text: failed ? '' : $json.text.slice(0, 3000),\n    careers_ok: !failed,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        360
+      ],
+      "id": "a7b8c9d0-7777-4a77-8a77-777777777777",
+      "name": "Label Careers"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 4,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1980,
+        0
+      ],
+      "id": "b8c9d0e1-8888-4b88-8b88-888888888888",
+      "name": "Merge Research"
+    },
+    {
+      "parameters": {
+        "jsCode": "const research = $json;\nconst meta = $('Derive Research URLs').item.json;\n\nconst newsItems = research.news_items ?? [];\nconst newsLines = newsItems.length\n  ? newsItems.map((n) => `- ${n.title} (${n.source || 'unknown source'}, ${n.pub_date || 'no date'})`).join('\\n')\n  : '(no news items found)';\n\nconst sourcesAvailable = [];\nif (newsItems.length) sourcesAvailable.push('news');\nif (research.homepage_ok) sourcesAvailable.push('homepage');\nif (research.about_ok) sourcesAvailable.push('about');\nif (research.careers_ok) sourcesAvailable.push('careers');\n\nlet roleLine = `Role being hired for: ${meta.role_title}`;\nif (meta.team_or_org) roleLine += ` (team: ${meta.team_or_org})`;\n\nconst prompt = [\n  `Company: ${meta.company_name}`,\n  `Domain (best guess, may be wrong): ${meta.domain}`,\n  roleLine,\n  '',\n  '## Recent news headlines',\n  newsLines,\n  '',\n  '## Homepage text' + (research.homepage_ok ? '' : ' (unavailable)'),\n  research.homepage_ok ? research.homepage_text : '(fetch failed or domain guess incorrect)',\n  '',\n  '## About page text' + (research.about_ok ? '' : ' (unavailable)'),\n  research.about_ok ? research.about_text : '(fetch failed or page does not exist)',\n  '',\n  '## Careers page text' + (research.careers_ok ? '' : ' (unavailable)'),\n  research.careers_ok ? research.careers_text : '(fetch failed or page does not exist)',\n].join('\\n');\n\nreturn [{\n  json: {\n    prompt: prompt.slice(0, 12000),\n    sources_available: sourcesAvailable,\n    news_items: newsItems,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2200,
+        0
+      ],
+      "id": "c9d0e1f2-9999-4c99-8c99-999999999999",
+      "name": "Prepare Synthesizer Input"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/complete",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ prompt: $json.prompt, system_prompt_name: \"company_synthesizer\", json_mode: true }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2420,
+        0
+      ],
+      "id": "d0e1f2a3-0000-4d00-8d00-000000000000",
+      "name": "Company Synthesizer Agent",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const synthesis = JSON.parse($input.item.json.text);\nreturn [{ json: synthesis }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2640,
+        0
+      ],
+      "id": "e1f2a3b4-1010-4e10-8e10-101010101010",
+      "name": "Parse Synthesis"
+    },
+    {
+      "parameters": {
+        "jsCode": "const synthesis = $json;\nconst meta = $('Derive Research URLs').item.json;\nconst prep = $('Prepare Synthesizer Input').item.json;\n\nreturn [{\n  json: {\n    company_name: meta.company_name,\n    domain: meta.domain,\n    role_title: meta.role_title,\n    application_id: $('Load Application').item.json.id,\n    synthesis_json: JSON.stringify({\n      ...synthesis,\n      raw_news: prep.news_items,\n      sources_available: prep.sources_available,\n    }),\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2860,
+        0
+      ],
+      "id": "f1a2b3c4-2020-4f20-8f20-202020202020",
+      "name": "Prepare Company Upsert"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO company (name, domain, synthesis, last_researched_at)\nVALUES ($1, $2, $3::jsonb, now())\nON CONFLICT (lower(name)) DO UPDATE SET\n  domain = EXCLUDED.domain,\n  synthesis = EXCLUDED.synthesis,\n  last_researched_at = now()\nRETURNING id, name",
+        "options": {
+          "queryReplacement": "={{ $json.company_name }},{{ $json.domain }},{{ $json.synthesis_json }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        3080,
+        0
+      ],
+      "id": "b72a5b90-a30e-4b28-a299-60965ba1468d",
+      "name": "Upsert Company",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "UPDATE application\nSET company_id = $1::uuid,\n    role_title = $2,\n    status = 'researched'\nWHERE id = $3::uuid\nRETURNING id, status, company_id, role_title",
+        "options": {
+          "queryReplacement": "={{ $json.id }},{{ $('Prepare Company Upsert').item.json.role_title }},{{ $('Prepare Company Upsert').item.json.application_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        3300,
+        0
+      ],
+      "id": "1d4d6b47-794e-4913-a1eb-b5e39cab3db2",
+      "name": "Update Application",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": "x189x3S4YZQTVctl",
+        "mode": "once"
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        3520,
+        0
+      ],
+      "id": "c0ffee01-3434-4d34-8d34-343434343434",
+      "name": "Execute Workflow - Match and Generate"
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Load Application",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Application": {
+      "main": [
+        [
+          {
+            "node": "Fetch JD Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch JD Page": {
+      "main": [
+        [
+          {
+            "node": "JD Parser Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JD Parser Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse JD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse JD": {
+      "main": [
+        [
+          {
+            "node": "Prepare JD Persist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare JD Persist": {
+      "main": [
+        [
+          {
+            "node": "Derive Research URLs",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Persist JD Parse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Derive Research URLs": {
+      "main": [
+        [
+          {
+            "node": "Fetch Company News",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch Company Homepage",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch Company About",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch Careers Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Company News": {
+      "main": [
+        [
+          {
+            "node": "Parse News XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse News XML": {
+      "main": [
+        [
+          {
+            "node": "Extract News Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract News Items": {
+      "main": [
+        [
+          {
+            "node": "Merge Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Company Homepage": {
+      "main": [
+        [
+          {
+            "node": "Label Homepage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Label Homepage": {
+      "main": [
+        [
+          {
+            "node": "Merge Research",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Fetch Company About": {
+      "main": [
+        [
+          {
+            "node": "Label About",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Label About": {
+      "main": [
+        [
+          {
+            "node": "Merge Research",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Fetch Careers Page": {
+      "main": [
+        [
+          {
+            "node": "Label Careers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Label Careers": {
+      "main": [
+        [
+          {
+            "node": "Merge Research",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Merge Research": {
+      "main": [
+        [
+          {
+            "node": "Prepare Synthesizer Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Synthesizer Input": {
+      "main": [
+        [
+          {
+            "node": "Company Synthesizer Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Company Synthesizer Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Synthesis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Synthesis": {
+      "main": [
+        [
+          {
+            "node": "Prepare Company Upsert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upsert Company": {
+      "main": [
+        [
+          {
+            "node": "Update Application",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Application": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow - Match and Generate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Company Upsert": {
+      "main": [
+        [
+          {
+            "node": "Upsert Company",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "hULM9d6nFUMdite1"
+  },
+  "active": true,
+  "id": "6c1GWSWFB30upbH2",
+  "meta": null
+}

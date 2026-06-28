@@ -1,0 +1,64 @@
+{
+  "id": "10_data_analyst",
+  "company_name": "Marlstone Retail",
+  "role_title": "Data Analyst Intern",
+  "baseline": {
+    "summary": "Driven computer science student with a strong foundation in quantitative analysis and backend systems. Seeking to leverage my skills in SQL and data analysis to support Marlstone Retail's business intelligence initiatives as a Data Analyst Intern this summer.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Interned at KuKClean, producing end-to-end creative assets across packaging and social-media campaigns (Jun\u2013Jul 2024)."
+          },
+          {
+            "text": "Setup 20+ product listings on the e-commerce storefront for KuKClean, optimizing descriptions and writing compelling copy (Jun\u2013Jul 2024)."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Designed Meridian, a 4-agent orchestration system producing cited due-diligence memos on NSE/BSE companies in ~75 seconds using asyncio and FastAPI (2023)."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Proficient in SQL for complex data queries, demonstrated through my work setting up product listings and building SQL-powered dashboards."
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Bachelor of Engineering in Computer Science at RV College of Engineering (2024\u20132028), pursuing a strong quantitative education with courses in Data Structures, Design and Analysis of Algorithms, Operating Systems."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Marlstone Retail,",
+      "I am excited to apply for the Data Analyst Intern position within your Business Intelligence team. As a sophomore computer science student with a strong foundation in quantitative analysis and backend systems, I am eager to contribute to Marlstone's data-driven initiatives and support the business intelligence efforts driving strategic decision-making.",
+      "My experience as an intern at KuKClean, where I produced end-to-end creative assets for packaging and social-media campaigns, and set up 20+ product listings on the e-commerce storefront, aligns closely with your role requirements. These projects required meticulous attention to detail and the ability to work with large datasets efficiently \u2014 skills that are essential in maintaining accurate sales dashboards.",
+      "Furthermore, my background in building Meridian, a 4-agent orchestration system, has given me hands-on experience with SQL for data queries and analysis. This project involved setting up complex systems to process and analyze financial data quickly, aligning well with your requirement for proficiency in SQL. I am particularly excited about the opportunity to apply this skill set in a business intelligence context at Marlstone Retail.",
+      "I look forward to leveraging my technical expertise and passion for data-driven decision-making to support the cross-functional teams at Marlstone. Thank you for considering my application, and I am eager to discuss how my background and skills can contribute to your team's success this summer.",
+      "Sincerely,",
+      "Your Name"
+    ]
+  },
+  "cover_letter_word_count": 229,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from d7d9a6f2-fb3b-40c0-bc01-1d5e74e59aa2) claims 'producing end-to-end creative assets across packaging and social-media campaigns' \u2014 no mention of social-media in this line's Source.",
+      "Line 2 (from d7d9a6f2-fb3b-40c0-bc01-1d5e74e59aa2) claims 'optimizing descriptions and writing compelling copy' \u2014 no mention of optimization or writing copy in this line's Source.",
+      "Line 3 (from d7d9a6f2-fb3b-40c0-bc01-1d5e74e59aa2) claims 'producing cited due-diligence memos on NSE/BSE companies' \u2014 no mention of producing memos in this line's Source."
+    ]
+  },
+  "elapsed_seconds": 81.7
+}

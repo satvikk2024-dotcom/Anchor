@@ -10,8 +10,9 @@ __pycache__/
 .venv/
 *.egg-info/
 
-# LLM disk cache
+# LLM disk cache + temp renders
 data/cache/
+data/tmp/
 
 # n8n local data + credentials
 n8n/.n8n-local-data/

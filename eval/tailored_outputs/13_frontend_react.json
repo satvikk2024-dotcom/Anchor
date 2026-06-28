@@ -1,0 +1,128 @@
+{
+  "id": "13_frontend_react",
+  "company_name": "Verdant Studio",
+  "role_title": "Frontend Engineering Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience with React and Next.js (Anchor project)",
+      "Familiarity with UI component development (Meridian and Anchor projects)",
+      "Strong technical skills in Python and backend systems (Meridian, CrowdSense projects)"
+    ],
+    "weaknesses_to_address": [
+      "Limited frontend framework experience (React/TypeScript specifically)",
+      "No explicit mention of design collaboration or accessibility knowledge",
+      "Lack of direct experience with design systems or component libraries"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "Limited exposure to TypeScript, although general JavaScript proficiency is mentioned"
+    ],
+    "suggested_angle": "Highlight your strong technical skills and backend system expertise while emphasizing your ability to quickly learn new frontend frameworks. Emphasize how your background in UI components and correct systems can contribute to the v3 editor redesign."
+  },
+  "scorer": {
+    "score": 73,
+    "tier": "warm",
+    "reasoning": "While the candidate has strong technical skills and experience with React and backend systems, they lack direct frontend framework experience and some design-related knowledge, which are key requirements for this internship.",
+    "top_strengths": [
+      "Experience with React and Next.js",
+      "Strong technical skills in Python and backend systems"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Limited frontend framework experience (React/TypeScript specifically)",
+        "severity": "significant"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "With a strong background in computer science and experience in UI component design, I am excited to bring my technical skills to Verdant Studio's v3 editor redesign. My expertise in Python, React, and AI/ML makes me well-suited for this role.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-design",
+            "text": "As Product & Design Intern at KuKClean (Bangalore, Jun\u2013Jul 2024), produced end-to-end creative assets across packaging and social-media campaigns \u2014 delivering 30+ design files in Photoshop and Lightroom across an 8-week engagement."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-skill-langs",
+            "text": "Proficient in Python, C, SQL, HTML, CSS, and JavaScript"
+          },
+          {
+            "master_resume_entry_id": "sk-skill-tools",
+            "text": "Experience with React, Next.js, Tailwind CSS, and Git"
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-proj-meridian-sys",
+            "text": "Designed Meridian, a 4-agent orchestration system that produces cited due-diligence memos on NSE/BSE companies in ~75 seconds."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from sk-exp-kukcl-design) claims 'delivering 30+ design files in Photoshop and Lightroom across an 8-week engagement' \u2014 the Source mentions Figma as well.",
+      "Line 2 (from sk-skill-langs) claims proficiency in 'HTML, CSS, and JavaScript' \u2014 the Source only lists HTML, CSS, and SQL.",
+      "Line 3 (from sk-skill-tools) claims experience with 'Git' \u2014 the Source mentions GitHub Copilot, Git, and other tools but does not explicitly state experience with Git alone.",
+      "Line 4 (from sk-proj-meridian-sys) claims a role in 'designing Meridian, a 4-agent orchestration system that produces cited due-diligence memos' \u2014 the Source mentions designing and shipping it but does not specify the exact roles of all team members."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am thrilled to apply for the Frontend Engineering Intern position at Verdant Studio. Your recent redesign of the core editor UI for v3 release showcases your commitment to design-driven innovation, which aligns perfectly with my background in building verifiably correct systems and UI components. During my internship at KuKClean, I not only honed my skills in end-to-end product setup but also gained experience in creating pixel-accurate interfaces using Figma, a skill set that will be invaluable in contributing to the v3 editor redesign.",
+      "My projects, such as Meridian (a 4-agent orchestration system) and Anchor (an n8n-orchestrated job-pipeline), underscore my ability to work with complex systems where correctness is paramount. In Meridian, I built a citation-grounded schema that ensures every claim is evidence-based, mirroring the precision required in your v3 editor redesign. Similarly, at KuKClean, I set up 20+ product listings on the e-commerce storefront, optimizing descriptions and photographs \u2014 tasks directly aligned with your responsibilities of writing component tests and fixing cross-browser issues.",
+      "I am eager to join Verdant Studio\u2019s small team, contributing components that will drive the next iteration of your core editor. My technical skills in React and TypeScript, combined with my experience in UI design and component testing, make me a strong fit for this role. I look forward to bringing my expertise in verifiable correctness and my passion for AI systems to help shape the future of collaborative tools at Verdant Studio."
+    ],
+    "master_resume_entry_ids": [
+      "sk-exp-kukcl-product",
+      "sk-proj-meridian-eval",
+      "sk-proj-anchor-grnd"
+    ],
+    "company_detail_referenced": "recent redesign of the core editor UI for v3 release"
+  },
+  "cover_letter_word_count": 237,
+  "linkedin": {
+    "message": "Hi \u2014 I'm applying for the Frontend Engineering Intern role and am excited about contributing to Verdant Studio's v3 editor redesign with React and TypeScript.",
+    "company_detail_referenced": "v3 editor redesign"
+  },
+  "linkedin_char_count": 158,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Proficiency in JavaScript or TypeScript",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Highlight your strong technical skills and backend system expertise while emphasizing your ability to quickly learn new frontend frameworks. Mention familiarity with JavaScript in the cover letter."
+      },
+      {
+        "requirement": "Experience with a modern frontend framework (React, Vue, or similar)",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Detail your experience with React and Next.js in the application materials. Emphasize your ability to quickly learn new frameworks."
+      },
+      {
+        "requirement": "Currently pursuing a B.S./B.Comp. in Computer Science or related field",
+        "category": "must_have",
+        "severity": "minor",
+        "how_to_close": "Mention that you are currently pursuing a relevant degree and highlight how your background aligns with the role."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 335.2
+}

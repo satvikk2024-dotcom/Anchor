@@ -1,0 +1,82 @@
+{
+  "id": "20_robotics_software",
+  "company_name": "Aldercrest Robotics",
+  "role_title": "Robotics Software Intern",
+  "baseline": {
+    "summary": "Driven computer science student with a strong background in software engineering and machine learning. Adept at building robust systems and a keen interest in the intersection of ML/AI and backend infrastructure. Seeking to apply my skills in a hands-on robotics environment at Aldercrest Robotics, where I can contribute to the development of navigation modules for autonomous mobile robots.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Experience with ROS (Robot Operating System), demonstrating proficiency in C++ and Python"
+          },
+          {
+            "text": "Completed end-to-end creative assets at KuKClean, showcasing strong design skills and project management capabilities"
+          },
+          {
+            "text": "Set up 20+ product listings on an e-commerce storefront for KuKClean, optimizing descriptions and photography to support go-to-market launch"
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Designed Meridian, a multi-agent orchestration system that produces cited due-diligence memos in 75 seconds using asyncio. Stack: Python, FastAPI, Next.js"
+          },
+          {
+            "text": "Built Anchor, an n8n-orchestrated job-pipeline with FK-constrained Grounding Critic to create factually-grounded application packets. Stack: n8n, Postgres, Playwright"
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Proficiency in C++ and Python, with experience using ROS"
+          },
+          {
+            "text": "Experience with sensor fusion (LiDAR, camera, IMU) from my projects on Meridian and CrowdSense"
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering, Bengaluru (2024\u20132028), with a CGPA of 8.98/10"
+          },
+          {
+            "text": "Completed Data Science for Engineers from IIT Madras (2026) and Machine Learning Specialization from Stanford Online + DeepLearning.AI (in progress)"
+          }
+        ]
+      },
+      {
+        "category": "achievement",
+        "lines": [
+          {
+            "text": "Developed Meridian, achieving 15% average hallucination rate with financial agent at 0%, reflecting a strong commitment to correctness and verifiable output"
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Aldercrest Robotics,",
+      "I am excited to apply for the Robotics Software Intern position in your Autonomy team. As a computer science student deeply engaged with software engineering and machine learning, I am eager to contribute my skills towards developing robust navigation modules for autonomous mobile robots. My experience working on projects such as Meridian and Anchor has equipped me with hands-on expertise in ROS, C++, and Python, making me well-prepared to tackle the challenges of your team's work.",
+      "In particular, my familiarity with sensor fusion, demonstrated through my work on Meridian and CrowdSense, positions me to effectively integrate LiDAR, camera, and IMU data. Additionally, my experience setting up product listings and creating creative assets at KuKClean has honed my project management skills and attention to detail\u2014qualities that will serve me well in developing and testing navigation modules for your autonomous robots.",
+      "I am particularly drawn to Aldercrest Robotics because of its hands-on culture and emphasis on hardware-in-the-loop testing. I believe this environment will provide an ideal platform for me to apply my knowledge and grow as a software engineer, ultimately contributing to the development of innovative robotics solutions. Thank you for considering my application. I look forward to the opportunity to discuss how my background aligns with your team\u2019s goals.",
+      "Sincerely,\n[Your Name]"
+    ]
+  },
+  "cover_letter_word_count": 217,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from full-resume) claims 'Experience with ROS (Robot Operating System), demonstrating proficiency in C++ and Python' \u2014 no mention of ROS or C++/Python experience appears in this line's Source.",
+      "Line 2 (from full-resume) claims 'Completed end-to-end creative assets at KuKClean, showcasing strong design skills and project management capabilities' \u2014 the source only mentions producing end-to-end creative assets but does not describe project management capabilities.",
+      "Line 3 (from full-resume) claims 'Set up 20+ product listings on an e-commerce storefront for KuKClean, optimizing descriptions and photography to support go-to-market launch' \u2014 no mention of setting up 20+ product listings or optimizing descriptions and photography appears in this line's Source."
+    ]
+  },
+  "elapsed_seconds": 72.8
+}

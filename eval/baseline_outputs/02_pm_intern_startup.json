@@ -1,0 +1,78 @@
+{
+  "id": "02_pm_intern_startup",
+  "company_name": "Tindergrove Labs",
+  "role_title": "Product Management Intern",
+  "baseline": {
+    "summary": "A driven sophomore computer science student with a strong background in project management and technical skills, seeking to apply my expertise in translating user needs into concrete requirements through a Product Management Internship at Tindergrove Labs. My experience in orchestrating complex projects like Meridian and Anchor underscores my ability to manage multiple stakeholders and deliver high-quality outputs.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Completed an internship as a Product & Design Intern at KuKClean, where I translated user needs into creative assets and product listings, ensuring alignment with the e-commerce platform's requirements."
+          },
+          {
+            "text": "Managed cross-functional teams to set up 20+ product listings on the KuKClean e-commerce storefront, resulting in successful go-to-market launches."
+          },
+          {
+            "text": "Built Meridian, a multi-agent system that produced due-diligence memos using Python and FastAPI, demonstrating my ability to manage complex projects with high standards of correctness and reproducibility."
+          },
+          {
+            "text": "Designed Anchor, an orchestration system for job-pipeline research, ensuring all output was factually grounded through a master-resume schema and adversarial Grounding Critic process."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Developed Meridian, a 4-agent orchestration system that generates high-quality due-diligence memos in under 75 seconds, ensuring every claim is backed by evidence."
+          },
+          {
+            "text": "Built Anchor, an n8n-orchestrated job-pipeline system with a master-resume schema and Grounding Critic to ensure all outputs are factually grounded before release."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Proficient in Python, C, SQL, HTML, CSS, and various libraries such as scikit-learn, pandas, NumPy, Matplotlib, and FastAPI."
+          },
+          {
+            "text": "Experience with multi-agent systems, LLM evaluation, prompt engineering, RAG, structured output, and agent orchestration using Ollama, OpenAI API, and Anthropic API."
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Currently pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (2024\u20132028), with a focus on machine learning and artificial intelligence."
+          },
+          {
+            "text": "Completed coursework including Data Structures, Design and Analysis of Algorithms, Operating Systems, Computer Networks, Discrete Mathematics, and Programming in C."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Team at Tindergrove Labs,",
+      "I am excited to apply for the Product Management Intern position within your team. As a sophomore in Computer Science with a strong background in project management and technical skills, I am eager to contribute my expertise in translating user needs into concrete requirements. My internship experience at KuKClean, where I produced creative assets and managed product listings on an e-commerce platform, has equipped me with the necessary skills to excel in this role.",
+      "In particular, my recent projects such as Meridian \u2014 a 4-agent orchestration system that generates high-quality due-diligence memos \u2014 and Anchor \u2014 an n8n-orchestrated job-pipeline system with a master-resume schema ensuring factual grounding \u2014 have demonstrated my ability to manage complex projects while maintaining the highest standards of correctness. These experiences align well with the responsibilities you outlined, including gathering user feedback into feature requests, drafting requirements documentation, and coordinating cross-functional teams.",
+      "I am particularly drawn to Tindergrove Labs for its early-stage, scrappy culture that values high ownership and innovation. I believe my technical background and experience in product management make me a strong fit for your team's mission of building cutting-edge AI systems and products. Thank you for considering my application, and I look forward to the opportunity to contribute to Tindergrove Labs.",
+      "Best regards,",
+      "Sai Kiran"
+    ]
+  },
+  "cover_letter_word_count": 218,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from f48c96f2-3ca6-465b-bc40-d4ebea084661) claims 'translated user needs into creative assets and product listings, ensuring alignment with the e-commerce platform's requirements' \u2014 no mention of translating user needs or ensuring alignment in this line's Source.",
+      "Line 2 (from f48c96f2-3ca6-465b-bc40-d4ebea084661) claims 'Managed cross-functional teams to set up 20+ product listings on the KuKClean e-commerce storefront, resulting in successful go-to-market launches' \u2014 no mention of managing cross-functional teams or go-to-market launches in this line's Source.",
+      "Line 3 (from f48c96f2-3ca6-465b-bc40-d4ebea084661) claims 'Built Meridian, a multi-agent system that produced due-diligence memos using Python and FastAPI, demonstrating my ability to manage complex projects with high standards of correctness and reproducibility' \u2014 no mention of managing complex projects or demonstrating the ability in this line's Source."
+    ]
+  },
+  "elapsed_seconds": 79.7
+}

@@ -1,0 +1,79 @@
+{
+  "id": "13_frontend_react",
+  "company_name": "Verdant Studio",
+  "role_title": "Frontend Engineering Intern",
+  "baseline": {
+    "summary": "As a sophomore Computer Science student at RVCE with a strong background in software engineering and machine learning, I am excited to bring my skills as an intern frontend developer. My experience includes building complex systems like Meridian (a multi-agent orchestration system) and conducting rigorous evaluations of AI models, making me well-suited for Verdant Studio's design-driven culture and fast-paced development environment.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Product & Design Intern at KuKClean (Jun\u2013Jul 2024) - Set up 20+ product listings end-to-end on the e-commerce storefront, wrote product copy and optimized on-page descriptions."
+          },
+          {
+            "text": "Experience in UI/UX design using Photoshop, Lightroom, and Figma, including producing creative assets for packaging, social media campaigns, and store visuals."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Built CrowdSense, a real-time crowd-monitoring platform combining CSRNet density estimation with YOLOv8 detection. Utilized React and FastAPI to create a dashboard for live density heatmaps and zone occupancy."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Programming languages: Python, C, JavaScript, TypeScript"
+          },
+          {
+            "text": "Frontend frameworks: React (Experience with Storybook)"
+          },
+          {
+            "text": "Tools: Docker, Git, GitHub Copilot, Adobe Photoshop, Adobe Lightroom"
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Pursuing Bachelor of Engineering in Computer Science at RVCE, Bengaluru (2024\u20132028) - Relevant coursework includes Data Structures, Design and Analysis of Algorithms, Operating Systems."
+          }
+        ]
+      },
+      {
+        "category": "achievement",
+        "lines": [
+          {
+            "text": "Completed a 3-month internship where I set up e-commerce product listings and managed the design process for multiple campaigns, ensuring pixel-perfect accuracy and optimal user experience."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Verdant Studio,",
+      "I am writing to express my interest in the Frontend Engineering Intern position within your Web team. As a sophomore Computer Science student with a passion for both frontend development and machine learning, I believe that this internship would be an excellent opportunity to further develop my skills while contributing meaningfully to your innovative projects.",
+      "During my time as a Product & Design Intern at KuKClean, I gained hands-on experience in setting up e-commerce product listings and working closely with designers to implement pixel-accurate interfaces. My proficiency in JavaScript and experience with React, combined with my understanding of accessibility best practices and design systems, align well with the must-haves for this role.",
+      "Furthermore, my projects, such as Meridian (a multi-agent research system) and CrowdSense (a real-time crowd-monitoring platform), have honed my ability to build complex systems that require meticulous attention to detail. These experiences have equipped me with a strong foundation in frontend development and problem-solving skills, which I am eager to apply at Verdant Studio.",
+      "I am particularly drawn to Verdant Studio's design-driven culture and fast iteration environment. Your commitment to small team collaboration and rapid prototyping aligns perfectly with my approach to work, making me optimistic about the potential for growth and innovation during this internship.",
+      "Thank you for considering my application. I look forward to the opportunity of discussing how my background and skills can contribute to Verdant Studio's success as an intern frontend engineer.",
+      "Best regards,",
+      "Anirudh Kulkarni"
+    ]
+  },
+  "cover_letter_word_count": 248,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from f42f6e32-85d1-4c1a-b57b-d0f3749f41e1) claims 'wrote product copy and optimized on-page descriptions' \u2014 no such claims are present in the source.",
+      "Line 2 (from f42f6e32-85d1-4c1a-b57b-d0f3749f41e1) mentions only 'produced end-to-end creative assets across packaging, social-media campaigns, and storefront visuals' in the source \u2014 no specific tool usage is mentioned.",
+      "Line 3 (from f42f6e32-85a4-4fa6-a771-f0c99d7aa1a2) claims 'Utilized React and FastAPI to create a dashboard for live density heatmaps and zone occupancy' \u2014 the source does not mention any specific tool usage in this context."
+    ]
+  },
+  "elapsed_seconds": 95.3
+}

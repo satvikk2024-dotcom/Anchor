@@ -1,0 +1,436 @@
+{
+  "name": "04 - Follow-up Scheduler",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "daysInterval": 1,
+              "triggerAtHour": 8,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "cccccccc-0000-4000-8000-000000000001",
+      "name": "Schedule Trigger - Daily 8am"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "UPDATE application\nSET status = 'ghosted'\nWHERE status = 'submitted'\n  AND responded_at IS NULL\n  AND submitted_at <= now() - interval '21 days'\nRETURNING id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        220,
+        0
+      ],
+      "id": "cccccccc-0000-4000-8000-000000000002",
+      "name": "Mark Ghosted",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "SELECT\n  a.id AS application_id,\n  a.role_title,\n  a.match_score,\n  a.submitted_at,\n  a.follow_up_window_days,\n  extract(day from now() - a.submitted_at)::int AS days_since_submitted,\n  c.name AS company_name,\n  c.synthesis AS company_synthesis,\n  coalesce((SELECT count(*) FROM generated_material gm\n            WHERE gm.application_id = a.id AND gm.type = 'follow_up_nudge'), 0)::int\n    AS follow_up_count,\n  (SELECT max(gm.generated_at) FROM generated_material gm\n   WHERE gm.application_id = a.id AND gm.type = 'follow_up_nudge') AS last_follow_up_at\nFROM application a\nLEFT JOIN company c ON a.company_id = c.id\nWHERE a.status = 'submitted'\n  AND a.responded_at IS NULL\n  AND a.submitted_at <= now() - (a.follow_up_window_days || ' days')::interval\nORDER BY a.submitted_at ASC",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        440,
+        0
+      ],
+      "id": "cccccccc-0000-4000-8000-000000000003",
+      "name": "Find Due Applications",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $json;\nconst synthesis = item.company_synthesis || {};\n\nconst synthesisLines = [\n  `What they do: ${synthesis.what_they_do || '(unavailable)'}`,\n  `Company type: ${synthesis.company_type || 'unknown'}`,\n  `Recent developments: ${(synthesis.recent_developments || []).join(', ') || '(none)'}`,\n  `Likely role context: ${synthesis.likely_role_context || '(unavailable)'}`,\n].join('\\n');\n\nconst history = item.follow_up_count > 0\n  ? `${item.follow_up_count} follow-up nudge(s) already drafted for this application. ` +\n    `Most recent: ${new Date(item.last_follow_up_at).toISOString().slice(0, 10)}.`\n  : 'No follow-up nudges have been drafted for this application yet.';\n\nconst windowReached = item.days_since_submitted >= item.follow_up_window_days;\n\nconst prompt = [\n  '## Application',\n  `Role: ${item.role_title}`,\n  `Company: ${item.company_name}`,\n  `Match score: ${item.match_score ?? 'unknown'}`,\n  `Days since submitted: ${item.days_since_submitted}`,\n  `Follow-up window for this application: ${item.follow_up_window_days} days`,\n  `Follow-up window reached: ${windowReached ? 'yes' : 'no'}`,\n  '## Follow-up history',\n  history,\n  '## Company research',\n  synthesisLines,\n].join('\\n\\n');\n\nreturn [{\n  json: {\n    ...item,\n    decision_prompt: prompt,\n  },\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "cccccccc-0000-4000-8000-000000000004",
+      "name": "Prepare Decision Input"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/complete",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ prompt: $json.decision_prompt, system_prompt_name: \"follow_up_decision\", json_mode: true }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        0
+      ],
+      "id": "cccccccc-0000-4000-8000-000000000005",
+      "name": "Follow-up Decision Agent",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "jsCode": "const decision = JSON.parse($input.item.json.text);\nconst prior = $('Prepare Decision Input').item.json;\nreturn [{\n  json: {\n    ...prior,\n    decision,\n    decision_json: JSON.stringify(decision),\n    decision_model_used: $input.item.json.model,\n  },\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        0
+      ],
+      "id": "cccccccc-0000-4000-8000-000000000006",
+      "name": "Parse Decision Output"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "decision-send-now",
+              "leftValue": "={{ $json.decision.decision }}",
+              "rightValue": "send_now",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1320,
+        0
+      ],
+      "id": "cccccccc-0000-4000-8000-000000000007",
+      "name": "IF Should Follow Up"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO generated_material (application_id, type, content_json, model_used)\nVALUES ($1::uuid, 'follow_up_nudge', $2::jsonb, $3)\nRETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.application_id }},{{ $json.decision_json }},{{ $json.decision_model_used }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1540,
+        -150
+      ],
+      "id": "cccccccc-0000-4000-8000-000000000008",
+      "name": "Persist Follow-up Nudge",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const decision = $('Parse Decision Output').item.json;\nreturn [{\n  json: {\n    application_id: decision.application_id,\n    event_payload: JSON.stringify({\n      material_id: $json.id,\n      decision: decision.decision.decision,\n      reasoning: decision.decision.reasoning,\n    }),\n  },\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        -150
+      ],
+      "id": "cccccccc-0000-4000-8000-000000000009",
+      "name": "Prepare Follow-up Event"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "executeQuery",
+        "query": "INSERT INTO application_event (application_id, event_type, payload)\nVALUES ($1::uuid, 'follow_up_drafted', $2::jsonb)\nRETURNING id",
+        "options": {
+          "queryReplacement": "={{ $json.application_id }},{{ $json.event_payload }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1980,
+        -150
+      ],
+      "id": "cccccccc-0000-4000-8000-00000000000a",
+      "name": "Insert Follow-up Event",
+      "credentials": {
+        "postgres": {
+          "id": "IE4krf2WbUXsoRyf",
+          "name": "Anchor Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "append",
+        "numberInputs": 2,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2200,
+        0
+      ],
+      "id": "cccccccc-0000-4000-8000-00000000000b",
+      "name": "Merge Decisions"
+    },
+    {
+      "parameters": {
+        "resume": "specificTime",
+        "dateTime": "={{ $now.set({ hour: 9, minute: 0, second: 0, millisecond: 0 }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2420,
+        0
+      ],
+      "id": "cccccccc-0000-4000-8000-00000000000c",
+      "name": "Wait Until 9am",
+      "webhookId": "cccccccc-1111-4000-8000-00000000000c"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const decisions = $('Parse Decision Output').all().map(item => item.json);\n\nconst sent = decisions.filter(d => d.decision.decision === 'send_now');\nconst waiting = decisions.filter(d => d.decision.decision !== 'send_now');\n\nconst lines = [`Follow-up scheduler reviewed ${decisions.length} application(s) due today.`];\n\nif (sent.length > 0) {\n  lines.push('', `Drafted ${sent.length} follow-up nudge(s):`);\n  for (const d of sent) {\n    lines.push(`- ${d.role_title} @ ${d.company_name} (day ${d.days_since_submitted}) - ${d.decision.reasoning}`);\n  }\n}\n\nif (waiting.length > 0) {\n  lines.push('', `Holding off on ${waiting.length} application(s):`);\n  for (const d of waiting) {\n    lines.push(`- ${d.role_title} @ ${d.company_name} (day ${d.days_since_submitted}) - ${d.decision.reasoning}`);\n  }\n}\n\nreturn [{ json: { slack_text: lines.join('\\n') } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2640,
+        0
+      ],
+      "id": "cccccccc-0000-4000-8000-00000000000d",
+      "name": "Build Digest"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8001/notify-slack",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: $json.slack_text }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2860,
+        0
+      ],
+      "id": "cccccccc-0000-4000-8000-00000000000e",
+      "name": "Post Follow-up Digest",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    }
+  ],
+  "connections": {
+    "Schedule Trigger - Daily 8am": {
+      "main": [
+        [
+          {
+            "node": "Mark Ghosted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Ghosted": {
+      "main": [
+        [
+          {
+            "node": "Find Due Applications",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Due Applications": {
+      "main": [
+        [
+          {
+            "node": "Prepare Decision Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Decision Input": {
+      "main": [
+        [
+          {
+            "node": "Follow-up Decision Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Follow-up Decision Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Decision Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Decision Output": {
+      "main": [
+        [
+          {
+            "node": "IF Should Follow Up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Should Follow Up": {
+      "main": [
+        [
+          {
+            "node": "Persist Follow-up Nudge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Decisions",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Persist Follow-up Nudge": {
+      "main": [
+        [
+          {
+            "node": "Prepare Follow-up Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Follow-up Event": {
+      "main": [
+        [
+          {
+            "node": "Insert Follow-up Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Follow-up Event": {
+      "main": [
+        [
+          {
+            "node": "Merge Decisions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Decisions": {
+      "main": [
+        [
+          {
+            "node": "Wait Until 9am",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Until 9am": {
+      "main": [
+        [
+          {
+            "node": "Build Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Digest": {
+      "main": [
+        [
+          {
+            "node": "Post Follow-up Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "hULM9d6nFUMdite1"
+  },
+  "active": false,
+  "meta": {}
+}

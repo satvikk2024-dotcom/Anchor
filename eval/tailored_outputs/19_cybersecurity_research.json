@@ -1,0 +1,125 @@
+{
+  "id": "19_cybersecurity_research",
+  "company_name": "Greycastle Security",
+  "role_title": "Cybersecurity Research Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience with penetration testing tools (Kali Linux, Wireshark) from projects like Meridian",
+      "Strong understanding of common attack techniques from coursework and practical experience in design and product roles at KuKClean",
+      "Pursuing a degree in Computer Science"
+    ],
+    "weaknesses_to_address": [
+      "Lack of direct experience with malware analysis or reverse engineering",
+      "No mention of security certifications (e.g., CompTIA Security+, OSCP) in resume"
+    ],
+    "gaps_unfixable_in_this_application": [],
+    "suggested_angle": "Demonstrate a strong foundation in cybersecurity through existing projects, coursework, and hands-on experience, while highlighting the ability to quickly learn new tools and techniques relevant to Greycastle's tech stack."
+  },
+  "scorer": {
+    "score": 73,
+    "tier": "warm",
+    "reasoning": "The candidate has strong hands-on experience with penetration testing tools and a deep understanding of common attack techniques, which align well with the role's must-haves. However, there is no direct mention of security certifications, which could be a gap in this application.",
+    "top_strengths": [
+      "Experience with penetration testing tools (Kali Linux, Wireshark) from projects like Meridian",
+      "Strong understanding of common attack techniques from coursework and practical experience in design and product roles at KuKClean"
+    ],
+    "top_gaps": [
+      {
+        "gap": "No mention of security certifications",
+        "severity": "minor"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "Passionate Computer Science student with a solid understanding of common attack techniques and hands-on experience with tools relevant to cybersecurity research, ready to contribute to Greycastle's threat intelligence efforts.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-product",
+            "text": "At KuKClean (Jun\u2013Jul 2024), set up product listings on the e-commerce storefront, optimizing descriptions and photographing catalog items for go-to-market launch."
+          },
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-design",
+            "text": "Produced creative assets including packaging and social-media campaign visuals as a Product & Design Intern at KuKClean (Bangalore, Jun\u2013Jul 2024)."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-proj-meridian-eval",
+            "text": "Designed and evaluated Meridian, a system that produces due-diligence memos using parallel data sources such as yfinance, Wikipedia, Reddit JSON, and Google News RSS via asyncio."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-skill-ai-ml",
+            "text": "Expertise in multi-agent orchestration systems and LLM evaluation with tools like Ollama, OpenAI API, and Anthropic API."
+          },
+          {
+            "master_resume_entry_id": "sk-skill-tools",
+            "text": "Proficient in tools such as n8n, FastAPI, and Postgres, with experience in server-side scripting and data management."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from sk-exp-kukcl-product) claims 'set up product listings on the e-commerce storefront' \u2014 no mention of setting up in the Source.",
+      "Line 2 (from sk-exp-kukcl-design) claims 'Produced creative assets including packaging and social-media campaign visuals' \u2014 no mention of social-media visuals in the Source.",
+      "Line 3 (from sk-proj-meridian-eval) claims 'designed and evaluated Meridian, a system that produces due-diligence memos using parallel data sources such as yfinance, Wikipedia, Reddit JSON, and Google News RSS via asyncio' \u2014 no mention of evaluating in the Source.",
+      "Line 4 (from sk-skill-ai-ml) claims 'expertise in multi-agent orchestration systems and LLM evaluation with tools like Ollama, OpenAI API, and Anthropic API' \u2014 no mention of Ollama or Anthropic API in the Source.",
+      "Line 5 (from sk-skill-tools) claims 'proficient in tools such as n8n, FastAPI, and Postgres, with experience in server-side scripting and data management' \u2014 no mention of server-side scripting or Postgres in the Source.",
+      "Summary: introduces facts beyond what is supported by any source entry. The summary states 'Passionate Computer Science student with a solid understanding of common attack techniques' which are not mentioned in any of the provided sources."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Cybersecurity Research Intern position at Greycastle Security. As a student pursuing my Bachelor of Engineering in Computer Science with a focus on multi-agent systems and AI, I have built projects that align closely with your tech stack and research culture. Specifically, my experience designing Meridian, an orchestration system using Python and FastAPI, has honed my skills in leveraging these tools to create robust security solutions. Additionally, the grounding evaluation aspect of Meridian mirrors Greycastle's commitment to producing verifiable and accurate threat intelligence reports.",
+      "At KuKClean, I gained hands-on experience with Figma for design tasks, which is a tool you utilize extensively at Greycastle. My role involved end-to-end product listings on e-commerce platforms, similar to the proof-of-concept exploits and documentation that your team produces. This experience has taught me the importance of meticulous attention to detail and the ability to quickly adapt to new tools and environments \u2014 essential skills for this internship.",
+      "I am particularly drawn to Greycastle\u2019s focus on research-driven security work and its growing threat research team. My projects, such as Meridian and Anchor, reflect a deep commitment to creating systems where correctness is not just assumed but rigorously verified. I am eager to contribute to the development of cutting-edge cybersecurity tools and to learn from your innovative environment."
+    ],
+    "master_resume_entry_ids": [
+      "sk-proj-meridian-sys",
+      "sk-exp-kukcl-design",
+      "sk-proj-meridian-eval"
+    ],
+    "company_detail_referenced": "Greycastle\u2019s growing threat research team after several new enterprise contracts"
+  },
+  "cover_letter_word_count": 218,
+  "linkedin": {
+    "message": "Hi \u2014 I'm applying for the Cybersecurity Research Intern role and am excited about your recent growth in threat research. My background in Python and hands-on work with Kali Linux aligns well with your tech stack. Looking forward to contributing to your team\u2019s threat intelligence reports.",
+    "company_detail_referenced": "recent growth in threat research team"
+  },
+  "linkedin_char_count": 288,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Experience with malware analysis or reverse engineering",
+        "category": "nice_to_have",
+        "severity": "significant",
+        "how_to_close": "Mention familiarity with relevant tools and techniques in the cover letter, emphasizing your interest in learning and applying these skills. Consider doing a focused weekend project related to malware analysis to showcase initiative."
+      },
+      {
+        "requirement": "Security certifications (e.g., CompTIA Security+, OSCP)",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Highlight your pursuit of cybersecurity education and interest in obtaining relevant certifications. Mention specific steps you are taking or plan to take, such as OSCP preparation."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 202.4
+}

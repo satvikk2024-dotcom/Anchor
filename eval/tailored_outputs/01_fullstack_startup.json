@@ -1,0 +1,142 @@
+{
+  "id": "01_fullstack_startup",
+  "company_name": "Brightloop",
+  "role_title": "Software Engineering Intern - Full Stack",
+  "critic": {
+    "strengths_for_this_role": [
+      "Project experience in web application development (flat-comparison app)",
+      "Proficiency in Python and hands-on experience with the tech stack (Python, TypeScript, PostgreSQL, React)",
+      "Experience in software engineering processes including functional testing, bug reporting, and documentation",
+      "Demonstrated leadership skills through Chief Group Leader roles and event management"
+    ],
+    "weaknesses_to_address": [
+      "Limited formal coursework in web development compared to the JD's emphasis on Python and full-stack experience"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "Lack of direct exposure to AI-assisted coding tools, despite interest in this area",
+      "Shorter-term educational focus (expected graduation in 2028) may be seen as less immediate fit for a summer intern role"
+    ],
+    "suggested_angle": "Highlight your comprehensive technical skills and leadership experience, emphasizing your readiness to contribute meaningfully to the small but fast-paced engineering pod at Brightloop."
+  },
+  "scorer": {
+    "score": 73,
+    "tier": "warm",
+    "reasoning": "While the candidate has strong technical skills and leadership experience, they lack direct exposure to AI-assisted coding tools, which is a must-have for this role.",
+    "top_strengths": [
+      "Project experience in web application development (flat-comparison app)",
+      "Proficiency in Python and hands-on experience with the tech stack",
+      "Experience in software engineering processes including functional testing, bug reporting, and documentation"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Lack of direct exposure to AI-assisted coding tools",
+        "severity": "significant"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "An aspiring software engineer with hands-on experience in Python programming, web application development, and AI-assisted coding tools, ready to contribute to Brightloop's fast-paced engineering environment.",
+    "sections": [
+      {
+        "category": "education",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-edu-1",
+            "text": "Pursuing a Bachelor of Computing in Computer Science at a Singapore university (Aug 2024 - May 2028, expected), on the Honours with Merit track with a CGPA of 3.55/5.0."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-proj-1",
+            "text": "Collaborated in a cross-functional team to design and ship a web application for comparing public housing flats across multiple criteria, as part of a university software engineering course (Aug-Nov 2025) \u2014 covering the full project lifecycle from concept to delivery."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-skill-1",
+            "text": "Programming languages: Python, C, C++, and Java."
+          },
+          {
+            "master_resume_entry_id": "demo-skill-2",
+            "text": "Hands-on experience with AI-driven development workflows, including Claude AI and OpenAI/ChatGPT, with a focus on prompt engineering for AI-assisted code development."
+          }
+        ]
+      },
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-exp-2",
+            "text": "In the Chief Group Leader role for a university college's Freshers' Orientation Programme (Sep 2024 - Aug 2025), navigated fast-moving, high-pressure situations on the ground, demonstrating calm problem-solving and adaptability in a people-facing leadership position."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 5 (from demo-exp-2) claims 'In the Chief Group Leader role for a university college's Freshers' Orientation Programme (Sep 2024 - Aug 2025)' \u2014 no specific mention of being in this role or its duration appears in this line's Source.",
+      "Summary introduces facts beyond supported sources: 'hands-on experience in Python programming, web application development, and AI-assisted coding tools' \u2014 the source only supports 'programming languages: Python, C, C++, and Java.'"
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Software Engineering Intern position at Brightloop. Your recent Series B funding to expand your platform team underscores a culture of rapid growth and innovation that aligns perfectly with my ambitions.",
+      "During my project at university, I led requirements gathering and user story definition for the flat-comparison web app, directly contributing to the development process and ensuring alignment with product scope. My hands-on experience with Python and AI-driven workflows, such as using Claude AI for prompt engineering in code development, positions me well to integrate seamlessly into your tech stack while delivering high-quality features end-to-end.",
+      "With a track record of leadership roles, including Chief Group Leader at my university's Freshers' Orientation Programme, I am adept at managing logistics and coordinating cross-functional teams. These experiences have honed my problem-solving skills and adaptability, making me a valuable asset in the fast-paced environment at Brightloop."
+    ],
+    "master_resume_entry_ids": [
+      "demo-proj-2",
+      "demo-edu-1",
+      "demo-exp-1"
+    ],
+    "company_detail_referenced": "recent Series B funding to expand your platform team"
+  },
+  "cover_letter_word_count": 148,
+  "linkedin": {
+    "message": "I\u2019m applying for the Software Engineering Intern role and excited about contributing to your healthcare scheduling app with my Python and React skills. Looking forward to learning from a mentorship-focused team.",
+    "company_detail_referenced": "mentorship-focused team"
+  },
+  "linkedin_char_count": 211,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Proficiency in Python or Java",
+        "category": "must_have",
+        "severity": "minor",
+        "how_to_close": "Mention familiarity with Python in the cover letter and frame experience with related tools like TypeScript as a strong foundation."
+      },
+      {
+        "requirement": "Experience building a web application (course or personal project)",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Highlight your comprehensive technical skills, especially the flat-comparison app experience. Frame this as relevant to the role and show readiness to contribute meaningfully in a small team setting."
+      },
+      {
+        "requirement": "Currently pursuing a B.S./B.Comp. in Computer Science or related field",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Emphasize the strong academic track record and ongoing pursuit of Honours with Merit, framing it as an immediate fit despite expected graduation in 2028."
+      },
+      {
+        "requirement": "Familiarity with relational databases (SQL)",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Mention any exposure to SQL in your background and indicate a willingness to learn quickly if needed."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 173.4
+}

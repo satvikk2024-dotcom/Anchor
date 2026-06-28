@@ -1,0 +1,67 @@
+{
+  "id": "04_program_coordinator",
+  "company_name": "Civora Education",
+  "role_title": "Technical Program Coordinator Intern",
+  "baseline": {
+    "summary": "A computer science student with a passion for building systems that ensure correctness through rigorous verification. With experience in project management, event coordination, and software development, I am well-prepared to assist Civora Education's programs team as an intern this summer.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "As Product & Design Intern at KuKClean (Bangalore, Jun\u2013Jul 2024), managed end-to-end creative assets and product listings for a D2C e-commerce brand, showcasing strong organizational and communication skills."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Built Meridian, a multi-agent orchestration system that generates cited due-diligence memos using parallel data sources \u2014 a testament to my ability to plan complex systems with multiple components."
+          },
+          {
+            "text": "Designed CrowdSense, a real-time crowd-monitoring platform combining CSRNet and YOLOv8 for dynamic model switching \u2014 demonstrating experience in managing complex projects with diverse technical requirements."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Proficient in Python, SQL, and web development (Next.js, React), with a strong foundation in data structures and algorithms."
+          },
+          {
+            "text": "Skilled in multi-agent systems, LLM evaluation, and structured output generation \u2014 relevant for coordinating complex logistics within Civora's programs team."
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Currently pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (2024\u20132028), with a focus on machine learning and AI systems."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Civora Education,",
+      "I am excited to apply for the Technical Program Coordinator Intern position in your esteemed organization. As a sophomore computer science student with a robust background in project management and software development, I believe my skills align well with the requirements of this role.",
+      "In my previous internship experience, I gained valuable insights into event coordination and program logistics. For instance, during my time at KuKClean as an intern, I produced end-to-end creative assets and set up product listings, which honed my organizational and communication skills. These experiences have prepared me well for the responsibilities of coordinating logistics for your summer coding bootcamp cohort.",
+      "Additionally, my projects such as Meridian and CrowdSense demonstrate my ability to manage complex systems with multiple components. In particular, Meridian's multi-agent orchestration system and CrowdSense\u2019s dynamic model switching showcase my proficiency in planning and executing intricate programs. I am eager to bring this hands-on experience to Civora Education, contributing to your mission-driven, education-focused culture.",
+      "Thank you for considering my application. I look forward to the opportunity to discuss how my background and skills can contribute to the success of your team.",
+      "Sincerely,",
+      "Karthik Ramaswamy"
+    ]
+  },
+  "cover_letter_word_count": 195,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from <uuid>) claims 'managed end-to-end creative assets and product listings for a D2C e-commerce brand, showcasing strong organizational and communication skills.' \u2014 no such claim appears in the source. The source mentions setting up 20+ product listings but not managing creative assets or showcasing skills.",
+      "Line 2 (from <uuid>) claims 'Built Meridian, a multi-agent orchestration system that generates cited due-diligence memos using parallel data sources \u2014 a testament to my ability to plan complex systems with multiple components.' \u2014 the source mentions designing and shipping Meridian but does not claim it was built by the candidate. The role is more accurately described as contributing to its design and implementation.",
+      "Line 3 (from <uuid>) claims 'Designed CrowdSense, a real-time crowd-monitoring platform combining CSRNet and YOLOv8 for dynamic model switching \u2014 demonstrating experience in managing complex projects with diverse technical requirements.' \u2014 the source mentions building CrowdSense but does not include the claim about designing it or mentioning dynamic model switching. The source states that the candidate implemented zone-wise risk detection using OpenCV optical flow."
+    ]
+  },
+  "elapsed_seconds": 34.4
+}

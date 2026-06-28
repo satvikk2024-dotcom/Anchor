@@ -1,0 +1,118 @@
+{
+  "id": "14_technical_writing",
+  "company_name": "Quillmark Systems",
+  "role_title": "Technical Writing Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience with Markdown and static-site doc tools",
+      "Comfort reading and explaining code or API documentation",
+      "Pursuing an undergraduate degree in a technical field"
+    ],
+    "weaknesses_to_address": [
+      "Lack of experience writing API reference documentation or tutorials",
+      "Limited exposure to Docusaurus, the specific tech stack used by Quillmark Systems"
+    ],
+    "gaps_unfixable_in_this_application": [],
+    "suggested_angle": "Highlighting your strong background in technical communication and academic rigor while emphasizing your passion for clear, accessible documentation that bridges technical gaps."
+  },
+  "scorer": {
+    "score": 78,
+    "tier": "hot",
+    "reasoning": "The candidate's strong academic rigor and comfort with technical communication are key strengths that align well with the role. However, their lack of experience with Docusaurus is a minor gap but one they can likely address through on-the-job learning.",
+    "top_strengths": [
+      "Experience with Markdown and static-site doc tools",
+      "Comfort reading and explaining code or API documentation"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Limited exposure to Docusaurus, the specific tech stack used by Quillmark Systems",
+        "severity": "minor"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "Passionate about clear and accessible documentation, I bring a strong background in technical communication from both academic and practical experiences.",
+    "sections": [
+      {
+        "category": "education",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-edu-rvce",
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (RVCE), Bengaluru (2024\u20132028). Relevant coursework includes Data Structures, Design and Analysis of Algorithms, and Operating Systems."
+          }
+        ]
+      },
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-product",
+            "text": "At KuKClean (Jun\u2013Jul 2024), set up product listings end-to-end on the e-commerce storefront, writing and optimising descriptions to ensure clarity for users."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-skill-ai-ml",
+            "text": "Proficient in Python libraries such as scikit-learn and pandas. Experienced in explaining technical concepts clearly, ensuring documentation is accessible to non-technical audiences."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-skill-tools",
+            "text": "Familiar with tools like Figma for design and Git for version control, enhancing the ability to communicate technical details effectively."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from sk-edu-rvce) claims 'Relevant coursework includes Data Structures, Design and Analysis of Algorithms, and Operating Systems.' \u2014 the Source mentions these courses but also includes additional ones: Computer Networks, Discrete Mathematics, Data Science for Engineers, Programming in C.",
+      "Line 2 (from sk-exp-kukcl-product) claims 'set up product listings end-to-end on the e-commerce storefront, writing and optimising descriptions to ensure clarity for users.' \u2014 the Source mentions setting up 20+ product listings, building Figma wireframes, and high-fidelity mockups.",
+      "Line 3 (from sk-skill-ai-ml) claims 'Proficient in Python libraries such as scikit-learn and pandas. Experienced in explaining technical concepts clearly, ensuring documentation is accessible to non-technical audiences.' \u2014 the Source does not mention proficiency in these specific Python libraries or experience with clear technical communication.",
+      "Line 4 (from sk-skill-tools) claims 'Familiar with tools like Figma for design and Git for version control, enhancing the ability to communicate technical details effectively.' \u2014 the Source includes additional tools not mentioned: n8n, Make.com, Next.js, React, Tailwind CSS, Postgres, SQLite, Docker, GitHub Copilot, Claude Code, Google Cloud, Google Looker Studio.",
+      "Summary claims 'Passionate about clear and accessible documentation, I bring a strong background in technical communication from both academic and practical experiences.' \u2014 the Source does not support experience in technical communication or clear documentation."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Technical Writing Intern position at Quillmark Systems, particularly in light of your upcoming v2 API launch and focus on developer-focused documentation. My background in creating clear and accessible technical documents aligns well with this role. For instance, during my internship at KuKClean, I designed and shipped creative assets that enhanced user understanding and engagement \u2014 a skill set crucial for effective API reference documentation.",
+      "My project Meridian, an orchestration system that ensures citation-grounded output, has honed my ability to produce verifiably accurate information. This experience with ground-truth accuracy aligns perfectly with your need for precise and dependable documentation. Additionally, the grounding schema I developed in Meridian can be leveraged to create robust, evidence-based tutorials, ensuring both technical correctness and user accessibility.",
+      "I am eager to contribute my academic rigor and passion for clear communication to Quillmark Systems during this critical phase of your v2 API development. Thank you for considering my application."
+    ],
+    "master_resume_entry_ids": [
+      "sk-proj-meridian-eval",
+      "sk-exp-kukcl-design"
+    ],
+    "company_detail_referenced": "your upcoming v2 API launch and focus on developer-focused documentation"
+  },
+  "cover_letter_word_count": 159,
+  "linkedin": {
+    "message": "I'm applying for the Technical Writing Intern role and am excited about Quillmark's focus on developer-friendly APIs. Your Docusaurus site overhaul for v2 sounds like an engaging project. Looking forward to contributing clear, accessible docs.",
+    "company_detail_referenced": "Docusaurus site overhaul for v2"
+  },
+  "linkedin_char_count": 243,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Currently pursuing an undergraduate degree in a technical field",
+        "category": "must_have",
+        "severity": "dealbreaker",
+        "how_to_close": "not closeable before this application \u2014 tailoring should lean on [specific strength] instead."
+      }
+    ],
+    "verdict": "not_recommended"
+  },
+  "elapsed_seconds": 268.4
+}

@@ -1,0 +1,50 @@
+{
+  "id": "14_technical_writing",
+  "company_name": "Quillmark Systems",
+  "role_title": "Technical Writing Intern",
+  "baseline": {
+    "summary": "A computer science student with a strong background in technical projects, aiming to join Quillmark Systems as a Technical Writing Intern. With a focus on detailed and accurate documentation and a knack for clear communication, I bring a unique blend of technical understanding and narrative skills to the team.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Product & Design Intern at KuKClean, Bangalore (Jun\u2013Jul 2024) \u2014 Managed end-to-end creative assets for e-commerce packaging and social media campaigns, contributing to the go-to-market launch of new products."
+          },
+          {
+            "text": "Technical Documentation Intern at CrowdSense (project), Bangalore (Jun\u2013Sep 2023) \u2014 Developed detailed documentation for a real-time crowd-monitoring platform using Markdown and static-site doc tools, ensuring accuracy and clarity for non-technical users."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Programming languages: Python, C, SQL, HTML, CSS"
+          },
+          {
+            "text": "Tools and platforms: Markdown, Docusaurus, GitHub Copilot, Git"
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Quillmark Systems,",
+      "I am writing to express my strong interest in the Technical Writing Intern position within your Developer Relations team. With a robust background in technical projects and a keen eye for clear, accurate documentation, I am excited about the opportunity to contribute to your developer-focused environment.",
+      "My experience as a Product & Design Intern at KuKClean has equipped me with practical skills in managing end-to-end creative assets, including packaging design and social media campaigns. This role required detailed attention to detail and an ability to explain technical concepts in a manner accessible to diverse audiences, which aligns well with the responsibilities of this internship.",
+      "Moreover, my involvement as a Technical Documentation Intern at CrowdSense has honed my skills in writing comprehensive documentation using Markdown and static-site doc tools such as Docusaurus. I am particularly adept at ensuring accuracy and clarity, essential qualities for maintaining high-quality technical documentation that serves both developers and non-technical users.",
+      "I am eager to apply these skills at Quillmark Systems, where the focus on developer-friendly documentation will allow me to contribute effectively and learn from a team committed to clear communication. Thank you for considering my application; I look forward to the opportunity to discuss how my background and experience can support your team's goals.",
+      "Sincerely,",
+      "Your Name"
+    ]
+  },
+  "cover_letter_word_count": 218,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from 4d6f8b2e-5c3a-412d-b879-e0b750a3df10) claims 'Managed end-to-end creative assets for e-commerce packaging and social media campaigns' \u2014 no mention of this role in the Source.",
+      "Line 2 (from d7a8f6ca-fa5e-4442-bb9d-c7b0f7133c32) claims 'Developed detailed documentation for a real-time crowd-monitoring platform' \u2014 no mention of this role in the Source."
+    ]
+  },
+  "elapsed_seconds": 75.0
+}

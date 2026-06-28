@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Resume</title>
+<style>
+  @page { size: Letter; margin: 0.65in; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 10.5pt;
+    color: #1a1a1a;
+    line-height: 1.35;
+    margin: 0;
+  }
+  header { text-align: center; margin-bottom: 12px; }
+  header h1 {
+    font-size: 19pt;
+    margin: 0 0 4px 0;
+    letter-spacing: 0.5px;
+  }
+  header .contact {
+    font-size: 9pt;
+    color: #444;
+  }
+  .summary {
+    margin: 0 0 14px 0;
+    font-style: italic;
+  }
+  section.entry-section {
+    margin-bottom: 10px;
+  }
+  section.entry-section h2 {
+    font-size: 11pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #999;
+    padding-bottom: 2px;
+    margin: 0 0 6px 0;
+  }
+  ul {
+    margin: 0;
+    padding-left: 1.2em;
+  }
+  li {
+    margin-bottom: 3px;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>{{ candidate_name | default('[Your Name]') }}</h1>
+    <div class="contact">
+      {{ candidate_email | default('[your.email@example.com]') }}
+      &nbsp;&middot;&nbsp;{{ candidate_phone | default('[Phone]') }}
+      &nbsp;&middot;&nbsp;{{ candidate_location | default('[City, State]') }}
+      {% if candidate_links %}
+        {% for link in candidate_links %}
+          &nbsp;&middot;&nbsp;{{ link }}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </header>
+
+  {% if summary %}
+  <p class="summary">{{ summary }}</p>
+  {% endif %}
+
+  {% set category_labels = {
+    "experience": "Experience",
+    "project": "Projects",
+    "skill": "Skills",
+    "education": "Education",
+    "achievement": "Achievements"
+  } %}
+
+  {% for section in sections %}
+  <section class="entry-section">
+    <h2>{{ category_labels.get(section.category, section.category) }}</h2>
+    <ul>
+      {% for line in section.lines %}
+      <li>{{ line.text }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</body>
+</html>

@@ -843,4 +843,4 @@ This is a living artifact. Update it as decisions evolve. Each significant chang
 
 ---
 
-*Author: Satvik · Inspired by the Meridian Phase 0 architecture · June 2026*
+*Author: Satvik · so

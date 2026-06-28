@@ -1,0 +1,68 @@
+{
+  "id": "11_mobile_dev",
+  "company_name": "Hollowmere Apps",
+  "role_title": "Mobile App Development Intern",
+  "baseline": {
+    "summary": "Passionate Computer Science student with a strong foundation in software engineering and an innovative mindset. Seeking to contribute to Hollowmere Apps as a Mobile App Development Intern, leveraging my skills in multi-agent systems and backend integration to enhance the company's Flutter app.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Product & Design Intern at KuKClean (Jun\u2013Jul 2024): Contributed end-to-end creative assets for packaging, social-media campaigns, and storefront visuals."
+          },
+          {
+            "text": "Intern at KuKClean (Jun\u2013Jul 2024): Set up e-commerce listings, optimized product descriptions, and photographed the catalog for a successful go-to-market launch."
+          },
+          {
+            "text": "Built Meridian: A multi-agent orchestration system that produces cited due-diligence memos using FastAPI, asyncio, and other backend technologies. Achieved 15% hallucination rate and 79% ground-truth coverage."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Meridian: Developed a 4-agent system for producing due-diligence memos, integrating yfinance, Wikipedia, Reddit, and Google News data. Utilized FastAPI, asyncio, and Ollama (qwen2.5:7b) to ensure reproducibility and high accuracy."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Programming languages: Python, C, Dart/Flutter, SQL, HTML, CSS"
+          },
+          {
+            "text": "Tools and platforms: Flutter, Firebase, Git, GitHub Copilot, Docker, FastAPI, SQLite"
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (RVCE), Bengaluru (2024\u20132028) with a focus on backend systems and AI applications."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Team at Hollowmere Apps,",
+      "I am writing to express my interest in the Mobile App Development Intern position within your team. With a robust background in software engineering and a keen interest in integrating backend systems with mobile applications, I believe that my skills and experiences align perfectly with what you are looking for.",
+      "During my time as an intern at KuKClean, I had the opportunity to contribute end-to-end creative assets for packaging, social-media campaigns, and storefront visuals. Additionally, setting up e-commerce listings and optimizing product descriptions were crucial tasks that allowed me to understand the importance of seamless backend integration. My experience in building Meridian, a multi-agent orchestration system, has provided me with hands-on knowledge in using FastAPI, asyncio, and other backend technologies to produce accurate and efficient outputs.",
+      "I am particularly excited about the opportunity to work on the Flutter app at Hollowmere Apps, given my proficiency in Dart/Flutter. My background in creating complex systems like Meridian and my experience in fixing bugs through collaborative processes make me confident that I can contribute effectively to your team\u2019s fast-paced environment. I am eager to bring my passion for technology and innovative solutions to enhance the functionality of your app.",
+      "Thank you for considering my application. I look forward to the possibility of joining Hollowmere Apps as a Mobile App Development Intern where I can continue to grow and learn in a supportive and dynamic team culture."
+    ]
+  },
+  "cover_letter_word_count": 239,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from <uuid>) claims 'produced end-to-end creative assets' \u2014 the source only mentions 'produced end-to-end creative assets across packaging, social-media campaigns, and storefront visuals'.",
+      "Line 2 (from <uuid>) claims 'set up e-commerce listings, optimized product descriptions, and photographed the catalog for a successful go-to-market launch' \u2014 the source only mentions setting up 20+ product listings and photographing the catalog.",
+      "Line 3 (from <uuid>) claims 'Achieved 15 unique citations per run vs. 0 for a single-prompt baseline' \u2014 no mention of 11 unique citations or comparing to a single-prompt baseline in the source."
+    ]
+  },
+  "elapsed_seconds": 86.2
+}

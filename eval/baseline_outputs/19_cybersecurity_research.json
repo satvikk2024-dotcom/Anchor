@@ -1,0 +1,63 @@
+{
+  "id": "19_cybersecurity_research",
+  "company_name": "Greycastle Security",
+  "role_title": "Cybersecurity Research Intern",
+  "baseline": {
+    "summary": "A Computer Science student with a strong foundation in cybersecurity and a passion for researching emerging attack techniques. With coursework in network attacks, penetration testing tools, and experience using Kali Linux and Wireshark, I am eager to contribute my skills to Greycastle Security's Threat Research team as a Cybersecurity Research Intern.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (RVCE), Bengaluru (2024\u20132028)."
+          },
+          {
+            "text": "As Product & Design Intern at KuKClean, produced end-to-end creative assets and set up product listings on the e-commerce storefront, gaining hands-on experience with Kali Linux and Metasploit."
+          },
+          {
+            "text": "Completed Data Science for Engineers from IIT Madras (2026)."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Designed Meridian, a multi-agent system that documents attack techniques and produces cited due-diligence memos."
+          },
+          {
+            "text": "Built CrowdSense, a real-time crowd-monitoring platform using CSRNet and YOLOv8 for detecting emerging risks in dense environments."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Proficient in Python and familiar with Kali Linux, Wireshark, and Metasploit, aligning well with the tech stack at Greycastle Security."
+          },
+          {
+            "text": "Experience with network attacks and penetration testing tools, reflecting a strong understanding of common attack techniques (OWASP Top 10)."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Greycastle Security,",
+      "I am writing to express my enthusiasm for the Cybersecurity Research Intern position on your Threat Research team. As a Computer Science sophomore with a robust background in cybersecurity and network attacks, I am eager to contribute my skills and knowledge towards researching emerging attack techniques and documenting them for the benefit of your team\u2019s threat intelligence reports.",
+      "During my time as an intern at KuKClean, I gained hands-on experience using Kali Linux and Metasploit, aligning perfectly with the tech stack required for this role. My project work in Meridian, a multi-agent system that documents attack techniques, has equipped me with valuable skills in analyzing and documenting threats. Additionally, my involvement in CrowdSense, which leverages CSRNet and YOLOv8 for real-time risk detection, further demonstrates my proficiency in handling complex cybersecurity challenges.",
+      "I am particularly drawn to Greycastle Security\u2019s culture of security-focused research and small-team collaboration. I am excited about the opportunity to work with a dedicated team committed to staying ahead of cyber threats through rigorous and innovative research methods. Thank you for considering my application; I look forward to the possibility of contributing to your Threat Research team.",
+      "Sincerely,",
+      "Ankur Agarwal"
+    ]
+  },
+  "cover_letter_word_count": 198,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from full-resume) claims 'Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (RVCE), Bengaluru (2024\u20132028).' \u2014 no mention of Kali Linux or Metasploit in this line's Source.",
+      "Line 3 (from full-resume) claims 'Completed Data Science for Engineers from IIT Madras (2026).' \u2014 no 2026 date appears in the Source, and it mentions pursuing the course rather than completing it."
+    ]
+  },
+  "elapsed_seconds": 79.6
+}

@@ -24,10 +24,17 @@ class Settings(BaseSettings):
     # Ollama
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "qwen2.5:7b"
+    ollama_timeout_seconds: float = 240.0
 
     # Caching
     cache_llm_calls: bool = True
     cache_dir: str = str(_PROJECT_ROOT / "data" / "cache")
+
+    # Prompts
+    prompts_dir: str = str(_PROJECT_ROOT / "prompts")
+
+    # Slack
+    slack_webhook_url: str | None = None
 
 
 settings = Settings()

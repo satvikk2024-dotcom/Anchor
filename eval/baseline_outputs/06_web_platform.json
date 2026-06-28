@@ -1,0 +1,85 @@
+{
+  "id": "06_web_platform",
+  "company_name": "Reedmark",
+  "role_title": "Software Engineering Intern - Web Platform",
+  "baseline": {
+    "summary": "Passionate Computer Science student specializing in machine learning and AI systems, with a strong foundation in backend development. Seeking an internship at Reedmark to contribute to the platform's web infrastructure and internal-facing features.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Completed an end-to-end product & design internship at KuKClean, producing creative assets for e-commerce campaigns and managing product listings."
+          },
+          {
+            "text": "Designed Meridian, a multi-agent system for financial due diligence that integrates multiple data sources to generate accurate reports in under 75 seconds."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Developed Meridian, a Python-based, multi-agent orchestration system using FastAPI and asyncio, demonstrating expertise in backend systems with verifiable correctness."
+          },
+          {
+            "text": "Built Anchor, an n8n-orchestrated workflow for job-pipeline creation that ensures factually-grounded application materials through structured data schemas and a Grounding Critic."
+          },
+          {
+            "text": "Created CrowdSense, a real-time crowd-monitoring platform using CSRNet and YOLOv8 for dynamic model switching based on scene density."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Proficient in Python, SQL, and web technologies like React and FastAPI."
+          },
+          {
+            "text": "Experienced with database management systems such as PostgreSQL and SQLite, and version control tools like Git and GitHub Copilot."
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering, focusing on machine learning specializations from Stanford Online and DeepLearning.AI."
+          },
+          {
+            "text": "Completed coursework in Data Structures, Design and Analysis of Algorithms, Operating Systems, Computer Networks, Discrete Mathematics, and more."
+          }
+        ]
+      },
+      {
+        "category": "achievement",
+        "lines": [
+          {
+            "text": "Completed a project with Meridian that achieved 15% average hallucination rate (financial agent: 0%), showcasing robust verification mechanisms in AI systems."
+          },
+          {
+            "text": "Developed Anchor, an n8n-orchestrated workflow system with FK-constrained Grounding Critic to ensure factual accuracy and integrity of generated materials."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Reedmark,",
+      "I am excited to apply for the Software Engineering Intern - Web Platform role within your esteemed team. With a strong foundation in computer science and hands-on experience in both web development and backend systems, I am eager to contribute to your platform's internal-facing features while gaining valuable industry insights.",
+      "My projects have honed my skills in building and shipping end-to-end web applications. For instance, during my internship at KuKClean, I produced creative assets for e-commerce campaigns and managed product listings, which aligns closely with the responsibilities of this role. Additionally, my experience developing Meridian, a multi-agent system that integrates multiple data sources to generate accurate reports, exemplifies my ability to work on complex backend projects with verifiable correctness.",
+      "I am particularly drawn to Reedmark\u2019s collaborative culture and established team environment. The opportunity to collaborate with design and content teams on feature requirements is especially appealing, as I believe in the importance of clear communication and teamwork in delivering quality solutions. Furthermore, I am eager to present my completed work during weekly demo sessions, which will provide an excellent platform for showcasing my technical prowess.",
+      "Thank you for considering my application. I look forward to the opportunity to bring my skills and enthusiasm to Reedmark and contribute to the development of your web platform."
+    ]
+  },
+  "cover_letter_word_count": 219,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from 86f39e2c-c972-4bda-a2d5-fec423b20d5a) claims 'produced creative assets for e-commerce campaigns and managing product listings' \u2014 the Source only mentions setting up 20+ product listings on the e-commerce storefront.",
+      "Line 2 (from 86f39e2c-c972-4bda-a2d5-fec423b20d5a) claims 'designed Meridian, a multi-agent system for financial due diligence that integrates multiple data sources to generate accurate reports in under 75 seconds' \u2014 the Source only mentions producing cited due-diligence memos on NSE/BSE companies within ~75 seconds.",
+      "Line 3 (from b4202f3e-8f3a-4d6b-a915-4d758c9d79ef) claims 'developed Meridian, a Python-based, multi-agent orchestration system using FastAPI and asyncio, demonstrating expertise in backend systems with verifiable correctness' \u2014 the Source only mentions designing and shipping Meridian but does not specify that it was developed or written in Python. Additionally, it does not mention FastAPI or asyncio."
+    ]
+  },
+  "elapsed_seconds": 91.0
+}

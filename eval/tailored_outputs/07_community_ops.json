@@ -1,0 +1,126 @@
+{
+  "id": "07_community_ops",
+  "company_name": "Fernbridge Foundation",
+  "role_title": "Community & Operations Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Volunteering experience with a charitable trust's community feeding drives",
+      "Leadership in organizing university Freshers' Orientation Programme and managing logistics"
+    ],
+    "weaknesses_to_address": [
+      "Limited direct experience with community organizing or volunteering, though has relevant leadership experience",
+      "No explicit mention of basic data entry or social media skills, which are nice-to-haves but not critical for the role"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "Lack of formal educational background in community organizing, outreach programs, or nonprofit operations"
+    ],
+    "suggested_angle": "Highlight leadership and organizational skills while emphasizing a strong commitment to community service and a willingness to contribute meaningfully to Fernbridge Foundation's mission."
+  },
+  "scorer": {
+    "score": 58,
+    "tier": "cold",
+    "reasoning": "The candidate lacks the formal educational background in community organizing or nonprofit operations, making it difficult to bridge this gap through the suggested angle.",
+    "top_strengths": [
+      "Leadership in organizing university Freshers' Orientation Programme",
+      "Volunteering experience with a charitable trust's community feeding drives"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Lack of formal educational background in community organizing or nonprofit operations",
+        "severity": "significant"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "A driven student pursuing a Bachelor of Computing in Computer Science, committed to community service and logistics management. With experience leading team projects and managing events, I am excited to contribute meaningful work at Fernbridge Foundation.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-exp-1",
+            "text": "As Chief Group Leader for a university college's Freshers' Orientation Programme (Sep 2024 - Aug 2025), I headed a team of orientation leaders to plan and run large-scale welcome programmes, managing logistics, coordinating schedules, and ensuring an engaging and inclusive experience."
+          },
+          {
+            "master_resume_entry_id": "demo-exp-3",
+            "text": "As a Logistics Member of a university college committee (2024-present), I contribute to the planning and smooth execution of college-level events, working closely with committees to coordinate operations and support a vibrant campus community."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-proj-1",
+            "text": "Collaborated in a cross-functional team to design and ship a web application for comparing public housing flats across multiple criteria, covering the full project lifecycle from concept to delivery."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-skill-3",
+            "text": "Comfortable with MySQL for relational database work and Canva for design tasks, contributing to logistics management and data entry tasks."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from demo-exp-1) claims 'headed a team of orientation leaders to plan and run large-scale welcome programmes, managing logistics, coordinating schedules, and ensuring an engaging and inclusive experience.' \u2014 the Source only mentions managing logistics, coordinating schedules, and keeping the experience engaging and inclusive.",
+      "Line 2 (from demo-exp-3) claims 'contribute[s]' \u2014 the Source uses the weaker verb 'contributes'.",
+      "Line 3 (from demo-proj-1) claims 'as part of a university software engineering course (Aug-Nov 2025)' \u2014 this specific detail is not present in the Source.",
+      "Summary introduces facts beyond its sources, including 'committed to community service and logistics management' which are not directly supported by any of the paired source entries."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Community & Operations Intern position at Fernbridge Foundation. I was drawn to this opportunity by your recent expansion of weekly distribution capacity by 30%, showcasing a clear commitment to scaling community impact. My role as Chief Group Leader in organizing university orientation programmes has honed my leadership and logistical skills, preparing me well to support the day-to-day operations for your community distribution events.",
+      "During my tenure at the Freshers' Orientation Programme, I led a team of orientation leaders, managing logistics and coordinating schedules to ensure an engaging and inclusive experience for incoming students. Similarly, in my role as Chief Group Leader, I demonstrated calm problem-solving and adaptability under high-pressure situations. These experiences will be invaluable as I contribute to Fernbridge Foundation's mission-driven work.",
+      "In addition to my organizational skills, I am committed to community service. As a volunteer with a family-run charitable trust, I have been involved in food distribution drives that have reached over 500 beneficiaries during festive occasions. This hands-on experience aligns closely with your focus on community-focused operations and strengthens my resolve to make meaningful contributions as an intern."
+    ],
+    "master_resume_entry_ids": [
+      "id=demo-exp-1",
+      "id=demo-exp-2",
+      "id=demo-ach-1"
+    ],
+    "company_detail_referenced": "expanded weekly distribution capacity by 30%"
+  },
+  "cover_letter_word_count": 189,
+  "linkedin": {
+    "message": "I'm applying for the Community & Operations Intern role and excited about supporting Fernbridge Foundation\u2019s weekly distribution events. Your expansion of capacity by 30% aligns with my passion for community-focused initiatives.",
+    "company_detail_referenced": "expanded weekly distribution capacity by 30%"
+  },
+  "linkedin_char_count": 228,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Experience with community organizing, volunteering, or outreach programs",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Highlight leadership experience in organizing university Freshers' Orientation Programme and managing logistics, emphasizing the skills gained from these roles that are transferable to community organizing."
+      },
+      {
+        "requirement": "Currently pursuing an undergraduate degree",
+        "category": "must_have",
+        "severity": "minor",
+        "how_to_close": "Mention active pursuit of a Computer Science degree with a strong academic record, focusing on relevant skills and experiences that align with the role's needs."
+      },
+      {
+        "requirement": "Comfortable coordinating logistics across multiple stakeholders",
+        "category": "must_have",
+        "severity": "minor",
+        "how_to_close": "Emphasize experience in managing logistics for university events and Freshers' Orientation Programme, framing these as relevant transferable skills."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 288.7
+}

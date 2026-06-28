@@ -1,0 +1,61 @@
+{
+  "id": "03_devex_ai_tools",
+  "company_name": "Pathwright",
+  "role_title": "Developer Experience Intern",
+  "baseline": {
+    "summary": "Passionate Computer Science student with a strong foundation in ML systems and backend engineering. Seeking to leverage my skills in Python and experience with AI coding assistants like Claude to contribute to Pathwright's Developer Experience team as an intern.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Product & Design Intern at KuKClean (Bangalore, Jun\u2013Jul 2024) \u2014 Designed and shipped creative assets across packaging, social-media campaigns, and storefront visuals, using Photoshop, Lightroom, and Figma."
+          },
+          {
+            "text": "Experience with setting up e-commerce listings on KuKClean\u2019s platform, including writing product copy, optimizing descriptions, and photographing products for go-to-market launch."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Developed Meridian, a 4-agent orchestration system that produces due-diligence memos on NSE/BSE companies using Python, FastAPI, and asyncio. Achieved an average hallucination rate of 15% across 9 companies with a 79% ground-truth coverage."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Proficient in Python, scikit-learn, pandas, NumPy, FastAPI, and Pydantic. Skilled in AI/ML systems, multi-agent orchestration, LLM evaluation, prompt engineering, and RAG."
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Bachelor of Engineering in Computer Science at RV College of Engineering (2024\u20132028), with a focus on ML systems and backend development."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Pathwright,",
+      "As an ambitious sophomore pursuing my B.E. in Computer Science with a strong emphasis on Machine Learning (ML) and AI systems, I am excited to apply for the Developer Experience Intern role within your team. With hands-on experience in Python, AI coding assistants like Claude, and a deep understanding of backend engineering, I am eager to contribute innovative solutions that enhance developer workflows.",
+      "My project work, particularly my development of Meridian \u2014 an advanced multi-agent system that generates due-diligence memos with unprecedented accuracy \u2014 aligns closely with the tech stack and goals of your Developer Tools team. This experience has honed my skills in AI/ML systems, prompt engineering, and LLM evaluation, making me a strong candidate for internal tool development using Python and OpenAI APIs.",
+      "At KuKClean, I gained valuable experience in setting up e-commerce listings and creating creative assets, which are crucial for the documentation and example writing responsibilities of this role. My passion for AI-forward solutions and my commitment to experimentation align with Pathwright\u2019s culture, making me an enthusiastic fit for your small yet dynamic team.",
+      "Thank you for considering my application. I look forward to the opportunity to discuss how my background and skills can contribute to the success of your Developer Experience team."
+    ]
+  },
+  "cover_letter_word_count": 212,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from <uuid>) claims 'Produced end-to-end creative assets' \u2014 no mention of this in the Source.",
+      "Line 2 (from <uuid>) claims 'Writing product copy, optimizing descriptions, and photographing products for go-to-market launch.' \u2014 the Source only mentions setting up e-commerce listings and does not include writing or optimizing."
+    ]
+  },
+  "elapsed_seconds": 61.7
+}

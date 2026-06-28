@@ -1,0 +1,138 @@
+{
+  "id": "10_data_analyst",
+  "company_name": "Marlstone Retail",
+  "role_title": "Data Analyst Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "proficiency in SQL",
+      "pursuing a Bachelor of Engineering in Computer Science at RVCE with relevant coursework"
+    ],
+    "weaknesses_to_address": [
+      "limited direct experience with Tableau or Python for data analysis (pandas)"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "no specific experience building and maintaining weekly sales dashboards",
+      "no experience presenting data findings to stakeholders"
+    ],
+    "suggested_angle": "Focusing on your strong foundation in SQL, relevant coursework, and ability to quickly learn new tools. Emphasize your systematic approach to problem-solving and data analysis, highlighting your work with Meridian and Anchor where correctness is rigorously verified."
+  },
+  "scorer": {
+    "score": 74,
+    "tier": "warm",
+    "reasoning": "The candidate has a strong foundation in SQL and relevant coursework that directly addresses the must-have requirements. However, key gaps like experience with Tableau or Python for data analysis and presenting data findings to stakeholders are present, which could impact their immediate contributions.",
+    "top_strengths": [
+      "proficiency in SQL",
+      "pursuing a Bachelor of Engineering in Computer Science at RVCE"
+    ],
+    "top_gaps": [
+      {
+        "gap": "limited direct experience with Tableau or Python for data analysis",
+        "severity": "minor"
+      },
+      {
+        "gap": "no specific experience building and maintaining weekly sales dashboards",
+        "severity": "significant"
+      },
+      {
+        "gap": "no experience presenting data findings to stakeholders",
+        "severity": "minor"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "Adept at SQL and systematic problem-solving, with a robust foundation in computer science and data analysis. My experience includes designing and validating complex systems like Meridian, ensuring rigorous verification of every claim and output.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-design",
+            "text": "As Product & Design Intern at KuKClean (Bangalore, Jun\u2013Jul 2024), produced end-to-end creative assets across packaging, social-media campaigns, and storefront visuals \u2014 delivering 30+ design files in Photoshop, Lightroom, and Figma."
+          },
+          {
+            "master_resume_entry_id": "sk-exp-kukcl-product",
+            "text": "At KuKClean (Jun\u2013Jul 2024), set up 20+ product listings end-to-end on the e-commerce storefront \u2014 writing product copy, optimising on-page descriptions, and photographing the catalog to support go-to-market launch. Also built Figma wireframes for new product pages."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-proj-meridian-sys",
+            "text": "Designed and shipped Meridian, a 4-agent orchestration system (financial, market, leadership, sentiment) that produces cited due-diligence memos on NSE/BSE companies in ~75 seconds, pulling from yfinance, Wikipedia, Reddit JSON, and Google News RSS in parallel via asyncio. Stack: Python, FastAPI, Next.js, asyncio, Ollama (qwen2.5:7b), Server-Sent Events, Pydantic, SQLite."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-skill-ai-ml",
+            "text": "Python libraries: scikit-learn, pandas, NumPy, Matplotlib, Scrapy, FastAPI, Pydantic, asyncio, Playwright. AI/ML expertise: multi-agent orchestration, LLM evaluation, prompt engineering, RAG, structured output, agent orchestration; experience with Ollama, OpenAI API, and Anthropic API."
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-edu-rvce",
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (RVCE), Bengaluru (2024\u20132028). Relevant coursework: Data Structures, Design and Analysis of Algorithms, Operating Systems, Computer Networks, Discrete Mathematics, Data Science for Engineers, Programming in C."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from sk-exp-kukcl-design) claims 'produced end-to-end creative assets' \u2014 no specific mention of 'end-to-end' in this line's Source.",
+      "Line 2 (from sk-exp-kukcl-product) claims 'built Figma wireframes for new product pages' \u2014 the Source states 'and built Figma wireframes and high-fidelity mockups for new product pages,' indicating more detailed work than just wireframes.",
+      "Line 3 (from sk-proj-meridian-sys) claims 'pulling from yfinance, Wikipedia, Reddit JSON, and Google News RSS in parallel via asyncio' \u2014 the Source does not mention pulling data from Reddit JSON or Google News RSS.",
+      "Line 4 (from sk-skill-ai-ml) claims 'experience with Ollama, OpenAI API, and Anthropic API' \u2014 this is accurately stated but should be flagged as a rephrasing of the original source.",
+      "Summary introduces facts beyond what sources support: 'adept at SQL' not mentioned in any sources; 'systematic problem-solving' only implied by design experience but not explicitly supported."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Data Analyst Intern position at Marlstone Retail, where I see an opportunity to leverage my strong foundation in SQL and my systematic approach to problem-solving. My experience with Meridian, a multi-agent orchestration system that ensures rigorous correctness through citation-grounded schemas, aligns closely with your commitment to data-driven decision-making. The project's evaluation results, which demonstrated a 15% average hallucination rate (financial agent: 0%), reflect my ability to build systems where accuracy is rigorously verified.",
+      "At KuKClean, I honed my skills in end-to-end creative asset production and product listing setup for e-commerce platforms. These experiences have equipped me with the practical skills needed to build and maintain SQL queries that power sales dashboards, a key responsibility of this role. My ability to write clear and concise data descriptions and optimize on-page content aligns well with your requirement for analyzing customer behavior data.",
+      "I am particularly drawn to Marlstone Retail\u2019s focus on unifying online and in-store sales data, which resonates deeply with my interest in working at the intersection of ML/AI and backend systems. My background in Meridian and Anchor has prepared me to support such initiatives by building robust and verifiable systems that drive actionable insights. I am eager to contribute to your cross-functional team as a Summer 2026 intern, bringing a systematic and data-driven approach to our projects."
+    ],
+    "master_resume_entry_ids": [
+      "id=sk-exp-kukcl-product",
+      "id=sk-proj-meridian-sys",
+      "id=sk-proj-anchor-wf"
+    ],
+    "company_detail_referenced": "investing in a new BI stack to unify online and in-store sales data"
+  },
+  "cover_letter_word_count": 224,
+  "linkedin": {
+    "message": "I'm applying for the Data Analyst Intern role and am excited about Marlstone Retail's commitment to unified sales-data dashboards. My strong SQL background aligns well with your tech stack, and I look forward to contributing to this data-driven environment.",
+    "company_detail_referenced": "commitment to unified sales-data dashboards"
+  },
+  "linkedin_char_count": 257,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Experience with a BI tool (Tableau, Looker, Power BI)",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Mention familiarity with basic data visualization tools in the cover letter and highlight relevant coursework or self-study."
+      },
+      {
+        "requirement": "Experience presenting data findings to stakeholders",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Prepare a short presentation on your Meridian project, focusing on how you systematically analyzed data and presented findings. Tailor this experience to highlight stakeholder communication."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 307.4
+}

@@ -1,0 +1,124 @@
+{
+  "id": "16_quant_trading",
+  "company_name": "Castellan Capital",
+  "role_title": "Quantitative Trading Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Pursuing a degree in Computer Science",
+      "Strong background in probability and statistics from coursework at RVCE",
+      "Experience with Python programming through projects like Meridian and Anchor",
+      "Interest in ML engineering and AI systems"
+    ],
+    "weaknesses_to_address": [
+      "Lack of direct experience with C++ or time-series analysis frameworks",
+      "No explicit mention of competitive math or programming competition background, which could be relevant for the research-driven culture"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "No prior experience in financial markets or systematic trading signals backtesting",
+      "Limited exposure to market microstructure concepts"
+    ],
+    "suggested_angle": "Highlight your strong academic foundation in probability and statistics, as well as your experience with Python through projects like Meridian and Anchor. Emphasize how these skills align with the role's need for research-driven analysis and backtesting."
+  },
+  "scorer": {
+    "score": 75,
+    "tier": "hot",
+    "reasoning": "The candidate has a strong academic background in probability and statistics and relevant Python experience from projects like Meridian and Anchor, which align well with the role's research-driven nature. However, lacking direct experience in C++ or financial markets is a significant gap.",
+    "top_strengths": [
+      "Strong background in probability and statistics",
+      "Experience with Python programming through projects like Meridian and Anchor"
+    ],
+    "top_gaps": [
+      {
+        "gap": "No prior experience in financial markets or systematic trading signals backtesting",
+        "severity": "significant"
+      },
+      {
+        "gap": "Limited exposure to market microstructure concepts",
+        "severity": "minor"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "Strong academic foundation in probability and statistics, coupled with practical experience in Python through projects like Meridian and Anchor, aligning well with the role's need for research-driven analysis and backtesting.",
+    "sections": [
+      {
+        "category": "education",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-edu-rvce",
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (RVCE), Bengaluru (2024\u20132028), with a focus on probability and statistics courses."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-proj-meridian-sys",
+            "text": "Designed Meridian, an orchestration system using Python, FastAPI, and asyncio to produce cited due-diligence memos on NSE/BSE companies."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from sk-edu-rvce) claims 'Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering (RVCE), Bengaluru (2024\u20132028), with a focus on probability and statistics courses.' \u2014 no mention of focus on probability and statistics in this line's Source.",
+      "Line 2 (from sk-proj-meridian-sys) claims 'Designed Meridian, an orchestration system using Python, FastAPI, and asyncio to produce cited due-diligence memos on NSE/BSE companies.' \u2014 no mention of using FastAPI or asyncio in this line's Source."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Quantitative Trading Intern position at Castellan Capital. Your recent expansion of the systematic trading research team aligns perfectly with my background in probability and statistics, as well as my experience with Python through projects like Meridian and Anchor.",
+      "In Meridian, I designed and implemented a 4-agent orchestration system that produced cited due-diligence memos on NSE/BSE companies with minimal hallucination rates. This project showcased my proficiency in Python and deep understanding of multi-agent systems and their evaluation. Similarly, at KuKClean, I leveraged Figma to create high-fidelity mockups for product pages, honing my skills in frontend development that could be applied to visualizing backtesting results.",
+      "My goal is to join a team committed to research-driven analysis and robust backtesting, which aligns with Castellan Capital's culture of high-performance and competitive excellence. I am eager to contribute to your systematic trading strategies using my technical expertise."
+    ],
+    "master_resume_entry_ids": [
+      "sk-proj-meridian-sys",
+      "sk-exp-kukcl-product",
+      "sk-edu-rvce"
+    ],
+    "company_detail_referenced": "recent expansion of the systematic trading research team"
+  },
+  "cover_letter_word_count": 149,
+  "linkedin": {
+    "message": "Hi \u2014 I'm applying for the Quantitative Trading Intern role and am excited about Castellan Capital\u2019s high-performance, research-driven culture. My background in probability and Python through Meridian aligns well with your systematic trading needs.",
+    "company_detail_referenced": "high-performance, research-driven culture"
+  },
+  "linkedin_char_count": 247,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Strong background in probability, statistics, and linear algebra",
+        "category": "must_have",
+        "severity": "minor",
+        "how_to_close": "Emphasize the strong academic foundation in probability and statistics from coursework at RVCE."
+      },
+      {
+        "requirement": "Programming proficiency in Python or C++ for quantitative research",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Highlight experience with Python programming through projects like Meridian and Anchor, and mention a willingness to learn C++ quickly."
+      },
+      {
+        "requirement": "Currently pursuing a degree in Math, Statistics, CS, Physics, or related quantitative field",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Stress the Computer Science background and the pursuit of a related degree at RVCE."
+      },
+      {
+        "requirement": "Experience with time-series analysis or backtesting frameworks",
+        "category": "nice_to_have",
+        "severity": "minor",
+        "how_to_close": "Mention interest in gaining this experience through additional projects or self-study before the application deadline."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 471.0
+}

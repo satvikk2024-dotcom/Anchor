@@ -1,0 +1,74 @@
+{
+  "id": "09_backend_fastapi",
+  "company_name": "Coalwright Health",
+  "role_title": "Backend Engineering Intern",
+  "baseline": {
+    "summary": "Passionate Computer Science student with a strong foundation in ML systems and backend engineering. Seeking to contribute to Coalwright Health's platform services team as an intern, leveraging my expertise in Python and FastAPI to develop robust APIs and enhance service observability.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Product & Design Intern at KuKClean (Bangalore, Jun\u2013Jul 2024): Managed end-to-end creative asset production for e-commerce, ensuring fast turnaround and high-quality deliverables."
+          },
+          {
+            "text": "Set up 20+ product listings on the e-commerce storefront at KuKClean, optimizing descriptions and photographs to support successful go-to-market launches."
+          },
+          {
+            "text": "Intern at Meridian (Project): Designed and shipped a multi-agent orchestration system for producing financial due-diligence memos using Python, FastAPI, and asyncio. Ensured claims were evidence-grounded, reducing hallucination rates by 15% on average."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "CrowdSense: Real-time crowd monitoring platform combining CSRNet density estimation with YOLOv8 detection. Implemented zone-wise risk detection and published safety thresholds for public alerts."
+          },
+          {
+            "text": "Anchor: n8n-orchestrated job-pipeline system designed to produce factually-grounded application packets, featuring a master-resume schema and an adversarial Grounding Critic."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Python proficiency with experience in FastAPI and web framework development."
+          },
+          {
+            "text": "Experience with Docker for containerized deployments and CI/CD pipelines."
+          },
+          {
+            "text": "Background in machine learning systems, including agent orchestration and prompt engineering."
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Bachelor of Engineering in Computer Science at RV College of Engineering (2024-2028), with a focus on ML systems and backend engineering."
+          },
+          {
+            "text": "Completed Data Science for Engineers from IIT Madras (2026)."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager at Coalwright Health,",
+      "I am writing to express my interest in the Backend Engineering Intern position on your platform services team. With a solid foundation in computer science and hands-on experience with Python and FastAPI, I am eager to contribute to your healthcare-adjacent initiatives. My project experiences, particularly in multi-agent systems like Meridian, have equipped me with the skills necessary to build robust APIs and enhance service observability.",
+      "At KuKClean, my role involved setting up product listings on the e-commerce platform, which closely aligns with the responsibilities of developing REST APIs for internal patient-scheduling services. Additionally, my experience in designing and deploying complex systems like Meridian has prepared me well to handle tasks such as integration testing and improving service observability.",
+      "I am particularly drawn to Coalwright Health's mentorship-focused culture, which mirrors my own passion for growth and learning. I am excited about the opportunity to work on challenging projects within a process-oriented environment where innovation and attention to detail are highly valued."
+    ]
+  },
+  "cover_letter_word_count": 166,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from d7c8432f-64a9-4bdf-bd80-4575c5e211ef) claims 'Managed end-to-end creative asset production for e-commerce, ensuring fast turnaround and high-quality deliverables' \u2014 the Source entry only mentions producing design files across packaging, social-media campaigns, and storefront visuals."
+    ]
+  },
+  "elapsed_seconds": 76.6
+}

@@ -1,0 +1,61 @@
+{
+  "id": "01_fullstack_startup",
+  "company_name": "Brightloop",
+  "role_title": "Software Engineering Intern - Full Stack",
+  "baseline": {
+    "summary": "Driven Computer Science sophomore at RVCE with a passion for building robust backend systems. Experienced in multi-agent orchestration, AI systems development, and full-stack web application creation. Seeking an internship at Brightloop to contribute innovative solutions and gain hands-on experience in a fast-paced team environment.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "- Designed and shipped Meridian, a multi-agent system for financial due diligence, demonstrating proficiency with Python, FastAPI, and asyncio."
+          },
+          {
+            "text": "- Developed Anchor, an n8n-orchestrated job-pipeline system that integrates multiple data sources to create factually-grounded application packets."
+          },
+          {
+            "text": "- Built CrowdSense, a real-time crowd-monitoring platform combining CSRNet and YOLOv8 for dynamic density estimation, showcasing experience with React, FastAPI, and OpenCV."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "- Proficient in Python and familiar with TypeScript, aligning well with the tech stack at Brightloop."
+          },
+          {
+            "text": "- Strong background in full-stack web application development, having built end-to-end projects such as Meridian and Anchor."
+          },
+          {
+            "text": "- Experienced in AI/ML systems, including multi-agent orchestration, LLM evaluation, and RAG-based approaches."
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "- Pursuing a Bachelor of Engineering in Computer Science at RVCE with a focus on ML engineering and backend systems."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Manager,",
+      "I am writing to express my enthusiasm for the Software Engineering Intern - Full Stack position at Brightloop. With a strong foundation in computer science and a passion for building robust backend systems, I am eager to contribute innovative solutions while gaining hands-on experience in your fast-paced team environment.",
+      "My projects, such as Meridian, have equipped me with extensive experience in multi-agent orchestration and AI-assisted coding tools. This aligns well with the nice-to-have requirements of your role, particularly my exposure to Python and FastAPI. Additionally, my work on Anchor highlights my ability to develop full-stack web applications, providing a seamless integration between frontend and backend.",
+      "I am particularly drawn to Brightloop\u2019s culture of small team collaboration and fast iteration, which I believe will provide an ideal setting for me to grow both technically and professionally. My commitment to delivering high-quality code and my willingness to collaborate closely with the product engineering team make me a strong fit for this internship role.",
+      "Thank you for considering my application. I am excited about the opportunity to bring my skills and experience to Brightloop, and I look forward to the possibility of contributing to your mission-driven projects. Best regards,"
+    ]
+  },
+  "cover_letter_word_count": 199,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from <uuid>) claims 'Designed and shipped Meridian, a multi-agent system for financial due diligence, demonstrating proficiency with Python, FastAPI, and asyncio.' \u2014 the Source entry only mentions Meridian being an orchestration system that produces cited due-diligence memos using asyncio, but does not specify Python or FastAPI."
+    ]
+  },
+  "elapsed_seconds": 204.4
+}

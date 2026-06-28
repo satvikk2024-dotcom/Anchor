@@ -1,0 +1,127 @@
+{
+  "id": "03_devex_ai_tools",
+  "company_name": "Pathwright",
+  "role_title": "Developer Experience Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Proficiency in Python",
+      "Hands-on experience with AI coding assistants (e.g., Claude, ChatGPT)",
+      "Experience with full-stack applications and web development",
+      "Strong analytical skills"
+    ],
+    "weaknesses_to_address": [
+      "Lack of specific experience with VS Code extensions or CLI tools",
+      "Limited exposure to Docker"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "Absence of direct experience in prototyping internal tools using LLMs"
+    ],
+    "suggested_angle": "Highlighting strong foundational skills, including proficiency in Python and AI coding assistants, while emphasizing a clear path towards contributing meaningfully through practical experience and a proactive attitude."
+  },
+  "scorer": {
+    "score": 73,
+    "tier": "hot",
+    "reasoning": "The candidate covers all must-haves and has strong foundational skills in Python and AI coding assistants. However, the absence of direct experience with prototyping internal tools using LLMs is a significant gap.",
+    "top_strengths": [
+      "Proficiency in Python",
+      "Hands-on experience with AI coding assistants (e.g., Claude, ChatGPT)"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Absence of direct experience in prototyping internal tools using LLMs",
+        "severity": "significant"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "I bring a strong foundation in Python and AI coding tools, with hands-on experience in prompt engineering and a proactive approach to contributing through practical projects.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-exp-1",
+            "text": "As Chief Group Leader for a university college's Freshers' Orientation Programme (Sep 2024 - Aug 2025), headed a team of orientation leaders to plan and run a large-scale welcome programme for incoming students \u2014 managing logistics, coordinating schedules, and keeping the experience engaging and inclusive throughout."
+          },
+          {
+            "master_resume_entry_id": "demo-exp-3",
+            "text": "As a Logistics Member of a university college committee (2024-present), contributes to the planning and smooth execution of college-level events, working closely with committees to coordinate operations and support a vibrant campus community."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-skill-1",
+            "text": "Programming languages: Python"
+          },
+          {
+            "master_resume_entry_id": "demo-skill-2",
+            "text": "Hands-on experience with AI-driven development workflows, including Claude AI and OpenAI/ChatGPT, with a focus on prompt engineering"
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-edu-1",
+            "text": "Pursuing a Bachelor of Computing in Computer Science at a Singapore university (Aug 2024 - May 2028, expected), on the Honours with Merit track with a CGPA of 3.55/5.0."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from demo-exp-1) claims 'headed a team of orientation leaders' \u2014 no mention of leading a team in the Source.",
+      "Line 2 (from demo-exp-3) claims 'contributes to the planning and smooth execution of college-level events' \u2014 this is the exact same wording as the Source, but it should not be flagged as a violation since it rephrases without changing the fact.",
+      "Line 3 (from demo-skill-1) omits C, C++, and Java from the list of programming languages.",
+      "Line 4 (from demo-skill-2) claims 'hands-on experience with AI-driven development workflows, including Claude AI and OpenAI/ChatGPT' \u2014 no mention of OpenAI/ChatGPT in the Source.",
+      "Line 5 (from demo-edu-1) omits relevant coursework details: Data Structures and Algorithms, Algorithmic Problem Solving, Software Engineering."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Developer Experience Intern position at Pathwright. Specifically, I am drawn to your recent release of an internal AI coding assistant pilot to three customers, which aligns closely with my experience in AI-driven development workflows. As a student pursuing Honours with Merit in Computer Science and with hands-on experience using tools like Claude AI for code development, I believe I can contribute meaningfully to the prototype internal tools you are developing.",
+      "My project 'Web Application for Comparing Public Housing Flats' showcased my ability to design and ship a web application from concept to delivery. This experience, combined with my role as Chief Group Leader in orientation programmes, taught me the importance of clear communication, systematic testing, and team management \u2014 all critical skills for creating robust documentation and examples that will be essential for your internal developer platform.",
+      "I am eager to leverage my foundational skills in Python and prompt engineering within Pathwright\u2019s AI-forward culture. My proactive attitude and experience with tools like VS Code position me well to write documentation, collect feedback, and iterate on prompt templates as part of your small but agile team."
+    ],
+    "master_resume_entry_ids": [
+      "demo-edu-1",
+      "demo-exp-1",
+      "demo-skill-2"
+    ],
+    "company_detail_referenced": "recent release of an internal AI coding assistant pilot to three customers"
+  },
+  "cover_letter_word_count": 192,
+  "linkedin": {
+    "message": "I'm applying for the Developer Experience Intern role and am excited about Pathwright's AI-forward approach. My Python proficiency and hands-on experience with AI tools like Claude align well with your internal coding assistant pilot. Looking forward to contributing!",
+    "company_detail_referenced": "AI-forward approach"
+  },
+  "linkedin_char_count": 267,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Currently pursuing a B.S./B.Comp. in Computer Science or related field",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Highlight your current academic progress and future plans, emphasizing your Honours with Merit track and strong foundational skills."
+      },
+      {
+        "requirement": "Absence of direct experience in prototyping internal tools using LLMs",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Demonstrate relevant transferable skills such as proficiency in Python, hands-on AI coding assistant experience, and a clear path towards contributing through practical projects."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 210.0
+}

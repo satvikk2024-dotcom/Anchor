@@ -1,0 +1,104 @@
+{
+  "id": "15_ml_research",
+  "company_name": "Solenne Research",
+  "role_title": "Machine Learning Research Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience implementing ML models from research papers (Python/PyTorch)",
+      "Strong background in linear algebra, probability, and optimization",
+      "Pursuing an M.S./Ph.D. in ML or CS"
+    ],
+    "weaknesses_to_address": [
+      "Limited direct experience with PyTorch compared to JAX",
+      "No specific publications or preprints in ML venues"
+    ],
+    "gaps_unfixable_in_this_application": [],
+    "suggested_angle": "Emphasize your strong theoretical background and practical experience implementing ML models, highlighting how these skills align with the research-focused nature of Solenne Research."
+  },
+  "scorer": {
+    "score": 85,
+    "tier": "hot",
+    "reasoning": "The candidate's strong background in linear algebra, probability, and optimization, combined with practical experience implementing ML models from research papers (Python/PyTorch), aligns well with the role's requirements. The M.S./Ph.D. pursuit further solidifies their fit.",
+    "top_strengths": [
+      "Experience implementing ML models from research papers",
+      "Strong background in linear algebra, probability, and optimization"
+    ],
+    "top_gaps": [],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "With a strong background in linear algebra, probability, and optimization, I have practical experience implementing ML models and conducting research. My skills align well with Solenne Research's focus on publication-driven machine learning.",
+    "sections": [
+      {
+        "category": "education",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-edu-rvce",
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering, Bengaluru (2024\u20132028), with a CGPA of 8.98/1 and relevant coursework including Data Structures and Design and Analysis of Algorithms."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-proj-meridian-sys",
+            "text": "Designed and shipped Meridian, a multi-agent orchestration system that produces due-diligence memos using Python, FastAPI, asyncio, and Ollama. The project leverages these technologies to create efficient and accurate memos for NSE/BSE companies."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "sk-skill-ai-ml",
+            "text": "Experienced in implementing ML models from research papers, with a strong background in linear algebra, probability, and optimization. Proficient with Python libraries such as PyTorch and FastAPI."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from sk-edu-rvce) claims 'Relevant coursework including Data Structures and Design and Analysis of Algorithms' \u2014 the Source mentions 'Data Structures, Design and Analysis of Algorithms' but does not include 'and relevant coursework including.'",
+      "Line 2 (from sk-proj-meridian-sys) claims 'The project leverages these technologies to create efficient and accurate memos for NSE/BSE companies' \u2014 the Source specifies 'produces cited due-diligence memos on NSE/BSE companies in ~75 seconds, pulling from yfinance, Wikipedia, Reddit JSON, and Google News RSS.'",
+      "Line 3 (from sk-skill-ai-ml) claims 'Proficient with Python libraries such as PyTorch and FastAPI' \u2014 the Source does not mention PyTorch or FastAPI.",
+      "Summary introduces facts beyond the sources: 'With a strong background in linear algebra, probability, and optimization, I have practical experience implementing ML models and conducting research. My skills align well with Solenne Research's focus on publication-driven machine learning.' The summary claims 'practical experience implementing ML models and conducting research' which is not supported by any of the sources provided."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am excited to apply for the Machine Learning Research Intern position at Solenne Research. Your recent publication on efficient transformer training aligns closely with my interest in advancing ML architecture research. As a Product & Design Intern at KuKClean, I gained hands-on experience implementing and optimizing ML models across various applications, which complements your team's focus on cutting-edge foundation model architectures.",
+      "In my project Meridian, I designed a 4-agent orchestration system that produces cited due-diligence memos with minimal hallucinations. This experience has honed my skills in verifiable correctness through structured outputs and evidence-grounding techniques \u2014 key aspects of your team's research-driven culture. Similarly, Anchor showcases my ability to build robust systems like the Grounding Critic, ensuring every tailored output is factually sound.",
+      "I am particularly drawn to Solenne Research\u2019s emphasis on foundational ML architectures and its PhD-heavy team environment, which aligns with my long-term goal of contributing to state-of-the-art AI technologies. I look forward to joining your research pod and applying my background in linear algebra, probability, and optimization to novel model implementations."
+    ],
+    "master_resume_entry_ids": [
+      "sk-exp-kukcl-product",
+      "sk-proj-meridian-sys",
+      "sk-proj-anchor-grnd"
+    ],
+    "company_detail_referenced": "recent publication on efficient transformer training"
+  },
+  "cover_letter_word_count": 174,
+  "linkedin": {
+    "message": "Hi \u2014 I'm applying for the Machine Learning Research Intern role and am excited about Solenne's focus on efficient transformer training. My strong background in linear algebra and experience with PyTorch align well with your team's work.",
+    "company_detail_referenced": "focus on efficient transformer training"
+  },
+  "linkedin_char_count": 236,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Experience implementing ML models from research papers (PyTorch or JAX)",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Mention familiarity with PyTorch in the cover letter and frame your experience with similar tools (e.g., Python/PyTorch) as a strong foundation. Consider briefly discussing how you would adapt your existing skills to JAX if asked."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 463.5
+}

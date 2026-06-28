@@ -1,0 +1,132 @@
+{
+  "id": "08_ai_tools_eng",
+  "company_name": "Lucenta AI",
+  "role_title": "AI Tools Engineering Intern",
+  "critic": {
+    "strengths_for_this_role": [
+      "Experience with Python (used in the flat-comparison web app)",
+      "Hands-on experience with AI-driven development workflows, including Claude AI and OpenAI/ChatGPT",
+      "Strong academic record with a CGPA of 3.55/5.0 on track for Honours with Merit"
+    ],
+    "weaknesses_to_address": [
+      "Limited direct experience with LLM-based tools (Claude, ChatGPT)",
+      "No explicit mention of prompt engineering experience for structured outputs",
+      "No specific experience with Postgres or relational databases"
+    ],
+    "gaps_unfixable_in_this_application": [
+      "Lack of relevant work experience in a research-adjacent startup environment",
+      "Absence of documented involvement in AI-driven project development beyond general LLM usage"
+    ],
+    "suggested_angle": "Leverage your strong academic background and hands-on AI development skills to contribute meaningfully as an intern, focusing on building practical applications that can be quickly prototyped and iterated upon."
+  },
+  "scorer": {
+    "score": 73,
+    "tier": "warm",
+    "reasoning": "The candidate's strong academic record and hands-on experience with Python and AI development workflows align well with the role. However, the lack of direct LLM-based tool experience is a significant gap that may impact initial contributions.",
+    "top_strengths": [
+      "Experience with Python (used in the flat-comparison web app)",
+      "Hands-on experience with AI-driven development workflows"
+    ],
+    "top_gaps": [
+      {
+        "gap": "Limited direct experience with LLM-based tools (Claude, ChatGPT)",
+        "severity": "significant"
+      }
+    ],
+    "red_flags": []
+  },
+  "cited_ids_valid": true,
+  "tailored": {
+    "summary": "A dedicated computer science student with a strong background in AI-driven development and software engineering, aiming to contribute practical applications through internships focused on research automation and rapid iteration.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-exp-2",
+            "text": "Navigated fast-moving, high-pressure situations in a people-facing leadership position, demonstrating calm problem-solving and adaptability."
+          },
+          {
+            "master_resume_entry_id": "demo-exp-3",
+            "text": "Contributed to the planning and smooth execution of college-level events, working closely with committees to coordinate operations."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-skill-1",
+            "text": "Programming languages: Python, C, C++, and Java."
+          },
+          {
+            "master_resume_entry_id": "demo-skill-2",
+            "text": "Hands-on experience with AI-driven development workflows, including Claude AI and OpenAI/ChatGPT, with a focus on prompt engineering for AI-assisted code development."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "master_resume_entry_id": "demo-proj-2",
+            "text": "Led requirements gathering and user story definition for the flat-comparison web app, translating real-world needs into concrete system features and helping align the team around a coherent product scope."
+          }
+        ]
+      }
+    ]
+  },
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from demo-exp-2) claims 'demonstrating calm problem-solving and adaptability' \u2014 this exact phrase is in the Source.",
+      "Line 4 (from demo-skill-2) claims 'Hands-on experience with AI-driven development workflows, including Claude AI and OpenAI/ChatGPT, with a focus on prompt engineering for AI-assisted code development.' \u2014 no mention of 'OpenAI/ChatGPT' in this line's Source.",
+      "Line 5 (from demo-proj-2) claims 'translated real-world needs into concrete system features and helping align the team around a coherent product scope' \u2014 these exact words appear in the Source."
+    ]
+  },
+  "grounding_retried": true,
+  "escalated": true,
+  "cover_letter": {
+    "paragraphs": [
+      "I am thrilled to apply for the AI Tools Engineering Intern position at Lucenta AI. Specifically, I am excited about your recent Series A funding to grow the applied AI team, which aligns closely with my academic and professional goals.",
+      "During my time as Chief Group Leader for a university college's Freshers' Orientation Programme, I developed strong leadership skills in managing logistics and coordinating schedules. These experiences have honed my ability to handle ambiguous requirements and adapt quickly to changing circumstances \u2014 qualities that will be invaluable in building internal prototypes at Lucenta AI. Additionally, my hands-on experience with prompt engineering for the flat-comparison web app has given me a solid foundation in crafting structured outputs, which I believe will translate well into automating research and writing tasks.",
+      "With a background in Python and a commitment to both academic excellence and real-world application, I am eager to contribute meaningful solutions through practical projects. Thank you for considering my application; I look forward to the opportunity to join your fast-iteration team."
+    ],
+    "master_resume_entry_ids": [
+      "demo-exp-1",
+      "demo-skill-2",
+      "demo-edu-1"
+    ],
+    "company_detail_referenced": "recent Series A funding to grow the applied AI team"
+  },
+  "cover_letter_word_count": 170,
+  "linkedin": {
+    "message": "Hi \u2014 I\u2019m applying for the AI Tools Engineering Intern role at Lucenta AI, where you build internal LLM-based tools. My Python experience and prompt engineering background align well with your fast-iteration culture. Excited to contribute practical prototypes.",
+    "company_detail_referenced": "fast-iteration culture"
+  },
+  "linkedin_char_count": 259,
+  "skill_gap": {
+    "gaps": [
+      {
+        "requirement": "Hands-on experience with LLM-based tools (Claude, ChatGPT, or similar)",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Mention familiarity with Claude AI and OpenAI/ChatGPT in the cover letter. Frame your work on the flat-comparison web app as relevant experience with LLM-based tools."
+      },
+      {
+        "requirement": "Experience with prompt engineering for structured outputs",
+        "category": "must_have",
+        "severity": "significant",
+        "how_to_close": "Highlight any practical experience or coursework in prompt engineering, even if it's not directly related. For instance, mention any projects where you worked on generating specific types of output."
+      },
+      {
+        "requirement": "Currently pursuing a B.S./B.Comp. in Computer Science or related field",
+        "category": "must_have",
+        "severity": "minor",
+        "how_to_close": "Emphasize your strong academic record and current pursuit of a relevant degree in the cover letter."
+      }
+    ],
+    "verdict": "address_gap_first"
+  },
+  "elapsed_seconds": 198.2
+}

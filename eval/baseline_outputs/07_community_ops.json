@@ -1,0 +1,65 @@
+{
+  "id": "07_community_ops",
+  "company_name": "Fernbridge Foundation",
+  "role_title": "Community & Operations Intern",
+  "baseline": {
+    "summary": "With a strong foundation in computer science and hands-on experience in project management and technical systems, I am eager to contribute my skills to Fernbridge Foundation\u2019s Community Programs team as a Community & Operations Intern. My background includes managing complex projects such as Meridian and Anchor, demonstrating my ability to coordinate multiple stakeholders and drive impactful outcomes.",
+    "sections": [
+      {
+        "category": "experience",
+        "lines": [
+          {
+            "text": "Managed end-to-end logistics for community outreach and food distribution events at KuKClean, ensuring smooth execution of programs."
+          },
+          {
+            "text": "Coordinated volunteer schedules and tracked program impact metrics to optimize community engagement efforts."
+          }
+        ]
+      },
+      {
+        "category": "project",
+        "lines": [
+          {
+            "text": "Designed Meridian, a 4-agent orchestration system for producing cited due-diligence memos on NSE/BSE companies in ~75 seconds using asyncio and FastAPI. Ensured every memo claim is evidence-backed through a content-addressed cache."
+          }
+        ]
+      },
+      {
+        "category": "skill",
+        "lines": [
+          {
+            "text": "Proficient in managing multiple stakeholders, with experience coordinating complex logistics and tracking metrics."
+          },
+          {
+            "text": "Skilled in project management tools such as Figma and Google Workspace, ensuring efficient communication and coordination."
+          }
+        ]
+      },
+      {
+        "category": "education",
+        "lines": [
+          {
+            "text": "Pursuing a Bachelor of Engineering in Computer Science at RV College of Engineering with a focus on backend systems, data pipelines, and ML infrastructure."
+          },
+          {
+            "text": "Completed Data Science for Engineers from IIT Madras, enhancing my skills in structured output and multi-agent systems."
+          }
+        ]
+      }
+    ],
+    "cover_letter_paragraphs": [
+      "Dear Hiring Team at Fernbridge Foundation,\n\nI am excited to apply for the Community & Operations Intern position within your Community Programs team. With a strong background in project management and technical systems, I believe my skills align well with your mission-driven approach and small, focused team environment.\n\nAt KuKClean, I gained valuable experience in managing end-to-end logistics for community outreach and food distribution events. This role required me to coordinate volunteer schedules, track program impact metrics, and ensure smooth event execution\u2014experiences that have equipped me with the organizational skills necessary to support your community engagement initiatives. Additionally, my project management experience includes leading Meridian, a 4-agent orchestration system designed for producing cited due-diligence memos on NSE/BSE companies, which honed my ability to manage multiple stakeholders and ensure evidence-backed outputs.\n\nI am particularly drawn to Fernbridge Foundation\u2019s commitment to community-focused initiatives. Your use of Google Workspace and Mailchimp aligns with my expertise in project management tools, making me confident in my ability to contribute effectively to your team. I am eager to bring my background in project coordination and technical systems to support the logistics for community outreach events and maintain volunteer schedules.\n\nThank you for considering my application. I look forward to the opportunity to discuss how my skills can further support Fernbridge Foundation\u2019s mission.",
+      "Sincerely,\n[Your Name]"
+    ]
+  },
+  "cover_letter_word_count": 219,
+  "grounding": {
+    "passes": false,
+    "violations": [
+      "Line 1 (from d9e58a2b-c4f6-473a-aebc-1d07380e79df) claims 'Managed end-to-end logistics for community outreach and food distribution events at KuKClean, ensuring smooth execution of programs.' \u2014 no mention of managing logistics or community outreach in this line's Source.",
+      "Line 2 (from d9e58a2b-c4f6-473a-aebc-1d07380e79df) claims 'Coordinated volunteer schedules and tracked program impact metrics to optimize community engagement efforts.' \u2014 no mention of coordinating volunteer schedules or tracking program impact metrics in this line's Source.",
+      "Line 3 (from d9e58a2b-c4f6-473a-aebc-1d07380e79df) claims 'Designed Meridian, a 4-agent orchestration system for producing cited due-diligence memos on NSE/BSE companies in ~75 seconds using asyncio and FastAPI. Ensured every memo claim is evidence-backed through a content-addressed cache.' \u2014 no mention of designing the entire system or ensuring every memo claim is evidence-backed as described."
+    ]
+  },
+  "elapsed_seconds": 82.5
+}
